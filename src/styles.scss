@@ -1,8 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Theme used is deep purple-amber */
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import 'variables';
 @import '../node_modules/font-awesome/scss/font-awesome';
-// some basic resets 
+
+//some basic resets
+
+
 $lt-gray: #ddd;
 $background-dark: #512DA8;
 $background-light: #9575CD;
@@ -20,28 +26,34 @@ $divider-color:        #BDBDBD;
     margin: 0px auto;
     padding: $pad-up-down $pad-left-right;
 }
-body { 
-  padding: 0; 
-  margin: 0; 
-  font-family: Roboto, sans-serif; 
-  
+
+body{
+	padding: 0;
+	margin: 0;
+	font-family: Roboto, sans-serif;
 }
 
-.container {
-  margin: 20px;
-  display:flex;
+.container{
+	margin: 20px;
+	display: flex;
 }
-
 .background-primary {
-  background-color: $background-dark!important;
-}
+    background-color: $background-dark!important;
+  }
 .background-accent {
-  background-color: $accent-color!important;
-}
+    background-color: $accent-color!important;
+  }
 .text-floral-white {
-  color: floralwhite!important;
+    color: floralwhite!important;
 }
 
 .flex-spacer {
-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.highlight {
+	background-color: $background-pale;
+	border: 1px solid $primary-color-dark;
+	z-index: 1;
+	transform: scale(1.01);
 }

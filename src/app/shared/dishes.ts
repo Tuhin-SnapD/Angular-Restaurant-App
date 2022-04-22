@@ -86,8 +86,7 @@ export const DISHES: Dish[] = [
             }
         ]
     },
-    {
-        id: '2',
+    { id: '2',
         name: 'Vadonut',
         image: '/assets/images/vadonut.png',
         category: 'appetizer',
