@@ -22,13 +22,21 @@ export class AboutComponent implements OnInit {
 	leaders: Leader[];
 	errMess: string;
 	
-  	constructor(private leaderService: LeaderService,
-				@Inject('BaseURL') private BaseURL) { }
+  	  constructor(private leaderService: LeaderService,
+			  @Inject('BaseURL') private BaseURL) { }
 
   	ngOnInit() {
+		console.log('About component initializing...');
 		this.leaderService.getLeaders()
-			.subscribe(leaders => this.leaders = leaders,
-					  errmess => this.errMess = <any>errmess );
+			.subscribe(leaders => {
+				console.log('Leaders received in about:', leaders);
+				console.log('First leader image URL:', leaders[0] ? leaders[0].image : 'No leaders');
+				this.leaders = leaders;
+			},
+					  errmess => {
+				console.error('Error loading leaders:', errmess);
+				this.errMess = <any>errmess;
+			});
 	}
 
 }

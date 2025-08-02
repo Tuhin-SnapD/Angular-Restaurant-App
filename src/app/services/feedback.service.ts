@@ -17,11 +17,11 @@ export class FeedbackService {
 	
    putFeedback(feedback: Feedback): Observable<Feedback> {
 	  const httpOptions = {
-		headers: new HttpHeaders({
-			'Content-Type': 'application/json'
-		})  
-	  };
-	  return this.http.post<Feedback>(baseURL + 'feedback/', feedback, httpOptions)
-	  .pipe(catchError(this.processHTTPMsgService.handleError));
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post<Feedback>(baseURL + 'feedback', feedback, httpOptions)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 }

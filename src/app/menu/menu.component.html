@@ -1,74 +1,161 @@
-<div class="container" 
-	 fxLayout="column"
-	 fxLayoutGap="10px">
+<div class="container menu-container" 
+     fxLayout="column"
+     fxLayoutGap="60px">
 
-	<div fxFlex>
-		<div>
-			<h3>Menu</h3>
-			<hr>
-		</div>
-	</div>
-	
-	
-	<div fxFlex *ngIf="dishes" [@expand]>
-	
-		<mat-grid-list cols="2" rowHeight="200px">
+  <!-- Menu Header Section -->
+  <section class="menu-header-section" [@expand]>
+    <div class="section-header">
+      <div class="luxury-divider"></div>
+      <h2 class="section-title">Our Culinary Masterpieces</h2>
+      <p class="section-description">
+        Each dish is a testament to our commitment to culinary excellence, crafted with passion 
+        and the finest ingredients to create unforgettable dining experiences.
+      </p>
+      <div class="luxury-divider"></div>
+    </div>
+  </section>
 
-			<mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail',dish.id]" appHighlight>
+  <!-- Menu Stats Section -->
+  <section class="menu-stats-section" [@expand]>
+    <div class="stats-content">
+      <div class="stats-grid" fxLayout="row wrap" fxLayoutGap="30px">
+        <div fxFlex="calc(25% - 22.5px)" class="stat-item" [@fadeInUp]>
+          <div class="stat-icon">
+            <i class="fa fa-cutlery"></i>
+          </div>
+          <div class="stat-number">{{dishes?.length || 0}}</div>
+          <div class="stat-label">Artisanal Creations</div>
+        </div>
+        <div fxFlex="calc(25% - 22.5px)" class="stat-item" [@fadeInUp]>
+          <div class="stat-icon">
+            <i class="fa fa-star"></i>
+          </div>
+          <div class="stat-number">5</div>
+          <div class="stat-label">Chef's Specials</div>
+        </div>
+        <div fxFlex="calc(25% - 22.5px)" class="stat-item" [@fadeInUp]>
+          <div class="stat-icon">
+            <i class="fa fa-leaf"></i>
+          </div>
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Fresh Ingredients</div>
+        </div>
+        <div fxFlex="calc(25% - 22.5px)" class="stat-item" [@fadeInUp]>
+          <div class="stat-icon">
+            <i class="fa fa-heart"></i>
+          </div>
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Love & Care</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-				<img height="200px" src="{{ BaseURL + dish.image }}" alt={{dish.name}}>
-				<mat-grid-tile-footer>
-					<h1>{{dish.name | uppercase}}</h1>
-<!--
-					<p matLine>
-						<span>{{dish.description}}</span>
-					</p>
--->
-				</mat-grid-tile-footer>
+  <!-- Menu Content Section -->
+  <section class="menu-content-section" [@expand]>
+    <div fxFlex *ngIf="dishes" class="menu-content">
+      <div class="menu-grid" 
+           fxLayout="row wrap" 
+           fxLayoutGap="40px" 
+           fxLayoutAlign="start start">
+        
+        <div fxFlex="calc(50% - 20px)" 
+             *ngFor="let dish of dishes; let i = index" 
+             class="menu-item"
+             [routerLink]="['/dishdetail',dish.id]" 
+             [@fadeInScale]
+             [style.animation-delay]="(i * 0.1) + 's'">
+          
+          <mat-card class="menu-card">
+            <div class="image-container">
+              <img mat-card-image src="{{ dish.image }}" alt={{dish.name}}>
+              <div class="image-overlay">
+                <i class="fa fa-cutlery"></i>
+              </div>
+              <div class="dish-badge">
+                <span class="luxury-badge small">
+                  <i class="fa fa-star"></i>
+                  Chef's Selection
+                </span>
+              </div>
+            </div>
+            
+            <mat-card-content class="menu-card-content">
+              <h3 class="dish-name">{{dish.name | uppercase}}</h3>
+              <p class="dish-description">{{dish.description}}</p>
+              
+              <div class="dish-meta">
+                <div class="dish-category">
+                  <i class="fa fa-tag"></i>
+                  <span>{{dish.category}}</span>
+                </div>
+                <div class="dish-price">
+                  <i class="fa fa-dollar"></i>
+                  <span>{{dish.price}}</span>
+                </div>
+              </div>
+              
+              <div class="dish-actions">
+                <button mat-stroked-button class="view-details-btn">
+                  <i class="fa fa-eye"></i>
+                  View Details
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </section>
 
-			</mat-grid-tile>
+  <!-- Loading Section -->
+  <section fxFlex *ngIf="!dishes && !errMess" 
+           fxLayout="column" 
+           fxLayoutAlign="center center" 
+           class="loading-section">
+    <div class="loading-content">
+      <mat-spinner></mat-spinner>
+      <h4>Crafting your dining experience...</h4>
+      <p>Loading our finest culinary creations</p>
+    </div>
+  </section>
 
-		</mat-grid-list>
-	</div>
-	
-	<div fxFlex [hidden]="dishes || errMess">
-		
-		<mat-spinner></mat-spinner> <h4>Loading . . . Please Wait!</h4>
-		
-	</div>
-	
-	<div fxFlex *ngIf="errMess">
-	
-		<h2>Error</h2>
-		<h4>{{errMess}}</h4>
-	</div>
-	
-<!--
-	<div fxFlex *ngIf="selectedDish">
-		
-		<mat-card>
-		
-			<mat-card-header>
-				<mat-card-title>
-					<h3>{{selectedDish.name | uppercase}}</h3>
-				</mat-card-title>
-			</mat-card-header>
-			
-			<img mat-card-image src={{selectedDish.image}} alt={{selectedDish.name}}>
-			
-			<mat-card-content>
-				<p>{{selectedDish.description}}</p>
-			</mat-card-content>
-			
-			<mat-card-actions>
-				<button mat-button>LIKE</button>
-				<button mat-button>SHARE</button>
-			</mat-card-actions>
-		
-		</mat-card>
-	
-	</div>
--->
-	
-	
+  <!-- Error Section -->
+  <section fxFlex *ngIf="errMess" 
+           fxLayout="column" 
+           fxLayoutAlign="center center" 
+           class="error-section">
+    <div class="error-content">
+      <div class="error-icon">
+        <i class="fa fa-exclamation-triangle"></i>
+      </div>
+      <h2>Menu Temporarily Unavailable</h2>
+      <h4>{{errMess}}</h4>
+      <button mat-raised-button color="accent" class="retry-button">
+        <i class="fa fa-refresh"></i>
+        Try Again
+      </button>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="menu-cta-section" [@expand]>
+    <div class="cta-content">
+      <h3 class="cta-title">Ready to Experience Our Menu?</h3>
+      <p class="cta-description">
+        Book your table today and embark on a culinary journey that will delight your senses.
+      </p>
+      <div class="cta-actions">
+        <button mat-raised-button color="accent" class="cta-button">
+          <i class="fa fa-calendar"></i>
+          Make Reservation
+        </button>
+        <button mat-stroked-button class="secondary-cta-button">
+          <i class="fa fa-phone"></i>
+          Call for Special Requests
+        </button>
+      </div>
+    </div>
+  </section>
+
 </div>

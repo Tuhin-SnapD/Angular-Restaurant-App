@@ -1,32 +1,97 @@
-<mat-toolbar color="primary">
-  <span><img src="/assets/images/logo.png" height=30 width=41></span>
-  <a mat-button routerLink='/home' routerLinkActive='active'><span class="fa fa-home fa-lg"></span> Home</a>
-  <a mat-button routerLink='/about' routerLinkActive='active'><span class="fa fa-info fa-lg"></span> About</a>
-  <a mat-button routerLink='/menu' routerLinkActive='active'><span class="fa fa-list fa-lg"></span> Menu</a>
-  <a mat-button routerLink='/contactus' routerLinkActive='active'><span class="fa fa-address-card fa-lg"></span> Contact</a>
-	
-  <span class="flex-spacer"></span>
-	
-  <a mat-button (click)="openLoginForm()"><span class="fa fa-sign-in fa-lg"></span> Login</a>
-	
+<mat-toolbar color="primary" class="main-toolbar">
+  <div class="toolbar-content">
+    <div class="brand-section">
+      <span class="restaurant-name">
+        <i class="fa fa-cutlery brand-icon"></i>
+        <strong>L'Artisan Culinaire</strong>
+      </span>
+    </div>
+    
+    <nav class="navigation-section">
+      <a mat-button routerLink='/home' routerLinkActive='active' class="nav-link">
+        <i class="fa fa-home"></i>
+        <span class="nav-text">Home</span>
+      </a>
+      <a mat-button routerLink='/about' routerLinkActive='active' class="nav-link">
+        <i class="fa fa-info-circle"></i>
+        <span class="nav-text">About</span>
+      </a>
+      <a mat-button routerLink='/menu' routerLinkActive='active' class="nav-link">
+        <i class="fa fa-cutlery"></i>
+        <span class="nav-text">Menu</span>
+      </a>
+      <a mat-button routerLink='/contactus' routerLinkActive='active' class="nav-link">
+        <i class="fa fa-address-card"></i>
+        <span class="nav-text">Contact</span>
+      </a>
+    </nav>
+    
+    <div class="toolbar-actions">
+      <button mat-icon-button class="action-button" aria-label="Reservations">
+        <i class="fa fa-calendar"></i>
+      </button>
+      <button mat-icon-button class="action-button" aria-label="Phone">
+        <i class="fa fa-phone"></i>
+      </button>
+    </div>
+  </div>
 </mat-toolbar>
 
-<div class="container jumbotron"
-    fxLayout="row"
-    fxLayout.sm="column" 
-    fxLayout.xs="column" 
-    fxLayoutAlign.xs="start center"
-    fxLayoutAlign.sm="start center" 
-    fxLayoutAlign.gt-sm="center center" 
-    fxLayoutGap="10px">
+<div class="hero-section">
+  <div class="container hero-content"
+       fxLayout="row"
+       fxLayout.sm="column" 
+       fxLayout.xs="column" 
+       fxLayoutAlign.xs="start center"
+       fxLayoutAlign.sm="start center" 
+       fxLayoutAlign.gt-sm="center center" 
+       fxLayoutGap="40px">
 
-  <div fxFlex fxFlex.gt-sm="50%">
-    <h1>Ristorante Con Fusion</h1>
-    <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations
-      will tickle your culinary senses!</p>
+    <div fxFlex fxFlex.gt-sm="50%" class="hero-text">
+      <h1 class="hero-title">L'Artisan Culinaire</h1>
+      <p class="hero-description">
+        Where culinary artistry meets timeless elegance. Our master chefs craft each dish with passion, 
+        using the finest seasonal ingredients to create an unforgettable dining experience that transcends the ordinary.
+      </p>
+      <div class="hero-badges">
+        <span class="luxury-badge large">
+          <i class="fa fa-star"></i>
+          Michelin Starred
+        </span>
+        <span class="luxury-badge large">
+          <i class="fa fa-leaf"></i>
+          Farm to Table
+        </span>
+        <span class="luxury-badge large">
+          <i class="fa fa-heart"></i>
+          Artisanal
+        </span>
+      </div>
+      <div class="hero-actions">
+        <button mat-raised-button color="accent" class="cta-button">
+          <i class="fa fa-calendar"></i>
+          Make Reservation
+        </button>
+        <button mat-stroked-button class="secondary-button">
+          <i class="fa fa-book"></i>
+          View Menu
+        </button>
+      </div>
+    </div>
+    
+    <div fxFlex fxFlex.gt-sm="30%" class="hero-visual">
+      <div class="logo-container">
+        <div class="logo-placeholder">
+          <i class="fa fa-cutlery fa-3x"></i>
+        </div>
+        <div class="logo-decoration">
+          <div class="decoration-line"></div>
+          <div class="decoration-dot"></div>
+          <div class="decoration-line"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div fxFlex fxFlex.gt-sm="20%"></div>
   </div>
-  <div fxFlex fxFlex.gt-sm="20%">
-    <img src="/assets/images/logo.png" alt="Logo">
-  </div>
-  <div fxFlex></div>
 </div>

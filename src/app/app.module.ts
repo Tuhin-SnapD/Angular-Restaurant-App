@@ -14,11 +14,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 
 
 import { AppComponent } from './app.component';
@@ -39,10 +39,10 @@ import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 import { FeedbackService } from './services/feedback.service';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
-import { LoginComponent } from './login/login.component';
 
 import { baseURL } from './shared/baseurl';
 import { HighlightDirective } from './directives/highlight.directive';
+import { ImageUrlService } from './services/image-url.service';
 
 
 @NgModule({
@@ -55,7 +55,6 @@ import { HighlightDirective } from './directives/highlight.directive';
     AboutComponent,
     HomeComponent,
     ContactComponent,
-    LoginComponent,
     HighlightDirective
   ],
   imports: [
@@ -66,7 +65,6 @@ import { HighlightDirective } from './directives/highlight.directive';
 	ReactiveFormsModule,
 	AppRoutingModule,
 	HttpClientModule,
-	HttpModule,
 	MatToolbarModule,
 	MatListModule,
 	MatGridListModule,
@@ -79,7 +77,8 @@ import { HighlightDirective } from './directives/highlight.directive';
 	MatSelectModule,
 	MatSlideToggleModule,
 	MatProgressSpinnerModule,
-	MatSliderModule
+	MatSliderModule,
+	MatIconModule
   ],
   providers: [
 	  DishService,
@@ -87,11 +86,9 @@ import { HighlightDirective } from './directives/highlight.directive';
 	  LeaderService,
 	  ProcessHTTPMsgService,
 	  FeedbackService,
+	  ImageUrlService,
 	  { provide: 'BaseURL', useValue: baseURL }
   ],
-	entryComponents: [
-		LoginComponent	
-	],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

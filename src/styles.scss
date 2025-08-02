@@ -1,59 +1,1102 @@
 /* You can add global styles to this file, and also import other style files */
 
-/* Theme used is deep purple-amber */
-
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+/* Elegant Artisanal Restaurant Theme */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import 'variables';
-@import '../node_modules/font-awesome/scss/font-awesome';
+@import '~font-awesome/css/font-awesome.css';
 
-//some basic resets
+/* Import elegant fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
+// Enhanced luxury color palette
+$gold: #D4AF37;
+$gold-light: #F4E4BC;
+$gold-dark: #B8860B;
+$gold-accent: #FFD700;
+$cream: #FDF6E3;
+$cream-dark: #F5E6D3;
+$cream-light: #FFFBF0;
+$charcoal: #2C2C2C;
+$charcoal-light: #4A4A4A;
+$charcoal-lighter: #6A6A6A;
+$burgundy: #8B2635;
+$burgundy-light: #A0522D;
+$burgundy-dark: #6B1F2A;
+$sage: #9CAF88;
+$sage-light: #C8D5B9;
+$ivory: #FFFFF0;
+$ivory-dark: #F5F5DC;
+$white: #FFFFFF;
+$black: #000000;
 
-$lt-gray: #ddd;
-$background-dark: #512DA8;
-$background-light: #9575CD;
-$background-pale: #D1C4E9;
-$primary-color-dark:   #512DA8;
-$primary-color:        #673AB7;
-$primary-color-light:  #D1C4E9;
-$primary-color-text:   #FFFFFF;
-$accent-color:         #FFC107;
-$primary-text-color:   #212121;
-$secondary-text-color: #757575;
-$divider-color:        #BDBDBD;
+// Enhanced typography
+$font-heading: 'Playfair Display', serif;
+$font-body: 'Cormorant Garamond', serif;
+$font-ui: 'Montserrat', sans-serif;
+
+// Spacing system
+$spacing-xs: 8px;
+$spacing-sm: 16px;
+$spacing-md: 24px;
+$spacing-lg: 32px;
+$spacing-xl: 48px;
+$spacing-xxl: 64px;
+
+// Border radius system
+$border-radius-sm: 8px;
+$border-radius-md: 12px;
+$border-radius-lg: 16px;
+$border-radius-xl: 24px;
+
+// Shadow system
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.15);
+$shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.2);
+
+// Transition system
+$transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
 @mixin zero-margin($pad-up-down, $pad-left-right) {
     margin: 0px auto;
     padding: $pad-up-down $pad-left-right;
 }
 
-body{
-	padding: 0;
-	margin: 0;
-	font-family: Roboto, sans-serif;
+// Global reset and base styles
+* {
+  box-sizing: border-box;
 }
 
-.container{
-	margin: 20px;
-	display: flex;
+html {
+  scroll-behavior: smooth;
 }
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: $font-body;
+  line-height: 1.8;
+  color: $charcoal;
+  background: linear-gradient(135deg, $cream 0%, $ivory 100%);
+  min-height: 100vh;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Enhanced container system
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+  
+  @media (max-width: 768px) {
+    padding: 0 $spacing-sm;
+  }
+}
+
+// Enhanced background utilities
 .background-primary {
-    background-color: $background-dark!important;
-  }
+  background: linear-gradient(135deg, $charcoal 0%, $charcoal-light 100%)!important;
+}
+
 .background-accent {
-    background-color: $accent-color!important;
-  }
+  background: linear-gradient(135deg, $gold 0%, $gold-light 100%)!important;
+}
+
+.background-cream {
+  background: linear-gradient(135deg, $cream 0%, $ivory 100%)!important;
+}
+
+// Enhanced text utilities
 .text-floral-white {
-    color: floralwhite!important;
+  color: $ivory!important;
+}
+
+.text-gold {
+  color: $gold!important;
+}
+
+.text-burgundy {
+  color: $burgundy!important;
+}
+
+.text-charcoal {
+  color: $charcoal!important;
+}
+
+.text-center {
+  text-align: center!important;
 }
 
 .flex-spacer {
   flex: 1 1 auto;
 }
 
+// Enhanced highlight effect
 .highlight {
-	background-color: $background-pale;
-	border: 1px solid $primary-color-dark;
-	z-index: 1;
-	transform: scale(1.01);
+  background: linear-gradient(135deg, $gold-light 0%, $cream 100%);
+  border: 2px solid $gold;
+  z-index: 1;
+  transform: scale(1.02);
+  transition: all $transition-slow;
+  box-shadow: $shadow-lg;
+}
+
+/* Enhanced Luxury Card Styling */
+mat-card {
+  margin: $spacing-md;
+  background: $ivory;
+  border: 1px solid $gold-light;
+  border-radius: $border-radius-md;
+  transition: all $transition-slow;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+  position: relative;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-lg;
+    border-color: $gold;
+  }
+
+  mat-card-header {
+    background: linear-gradient(135deg, $charcoal 0%, $charcoal-light 100%);
+    color: $ivory;
+    padding: $spacing-lg;
+    margin: -16px -16px 16px -16px;
+    
+    mat-card-title {
+      font-family: $font-heading;
+      font-weight: 600;
+      font-size: 1.4rem;
+      letter-spacing: 0.5px;
+      margin-bottom: $spacing-xs;
+    }
+    
+    mat-card-subtitle {
+      font-family: $font-ui;
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+    }
+  }
+
+  mat-card-content {
+    padding: $spacing-lg;
+    
+    p {
+      font-family: $font-body;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: $charcoal-light;
+      margin-bottom: $spacing-md;
+    }
+  }
+}
+
+/* Enhanced Featured Card Styling */
+.featured-card {
+  position: relative;
+  overflow: hidden;
+  
+  .featured-avatar {
+    background: linear-gradient(135deg, $gold 0%, $gold-light 100%);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $charcoal;
+    font-size: 1.2rem;
+    box-shadow: $shadow-sm;
+  }
+  
+  .luxury-subtitle {
+    color: $gold-light!important;
+    font-family: $font-ui;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+}
+
+/* Enhanced Image Container with Overlay */
+.image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: $border-radius-sm;
+  
+  img {
+    transition: all $transition-slow;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(139, 38, 53, 0.8) 0%, rgba(212, 175, 55, 0.8) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all $transition-slow;
+    
+    span {
+      color: $ivory;
+      font-size: 2rem;
+      transform: scale(0.8);
+      transition: all $transition-slow;
+    }
+  }
+  
+  &:hover {
+    .image-overlay {
+      opacity: 1;
+      
+      span {
+        transform: scale(1);
+      }
+    }
+    
+    img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* Enhanced Menu Card Specific Styling */
+.menu-card {
+  .menu-card-content {
+    padding: $spacing-lg;
+    
+    .dish-name {
+      font-family: $font-heading;
+      font-size: 1.3rem;
+      color: $charcoal;
+      margin-bottom: $spacing-sm;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    
+    .dish-description {
+      font-family: $font-body;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: $charcoal-light;
+      margin-bottom: $spacing-md;
+    }
+    
+    .dish-badges {
+      display: flex;
+      gap: $spacing-xs;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+/* Enhanced About Page Specific Styling */
+.about-header {
+  text-align: center;
+  padding: $spacing-xl 0;
+}
+
+.history-section {
+  .history-content {
+    .history-title {
+      font-family: $font-heading;
+      font-size: 2rem;
+      color: $burgundy;
+      margin-bottom: $spacing-lg;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    
+    .history-text {
+      font-family: $font-body;
+      font-size: 1.2rem;
+      line-height: 1.9;
+      color: $charcoal-light;
+      margin-bottom: $spacing-md;
+      
+      em {
+        color: $burgundy;
+        font-style: italic;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.luxury-facts-card {
+  background: linear-gradient(135deg, $ivory 0%, $cream 100%);
+  border: 2px solid $gold-light;
+  
+  .facts-list {
+    dt {
+      font-family: $font-ui;
+      font-weight: 600;
+      color: $charcoal;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: $spacing-md;
+      margin-bottom: $spacing-xs;
+    }
+    
+    dd {
+      font-family: $font-body;
+      font-size: 1.1rem;
+      color: $burgundy;
+      font-weight: 500;
+      margin-bottom: $spacing-sm;
+      margin-left: 0;
+    }
+  }
+}
+
+.quote-section {
+  .quote-card {
+    background: linear-gradient(135deg, $charcoal 0%, $charcoal-light 100%);
+    color: $ivory;
+    text-align: center;
+    padding: $spacing-xl;
+    border-radius: $border-radius-lg;
+    
+    .luxury-quote {
+      border: none;
+      margin: 0;
+      padding: 0;
+      
+      h3 {
+        font-family: $font-heading;
+        font-size: 1.8rem;
+        font-weight: 500;
+        font-style: italic;
+        color: $gold-light;
+        margin-bottom: $spacing-lg;
+        line-height: 1.6;
+        letter-spacing: 0.3px;
+      }
+      
+      .quote-footer {
+        font-family: $font-body;
+        font-size: 1.1rem;
+        color: $ivory;
+        
+        cite {
+          font-style: italic;
+          color: $gold-light;
+        }
+      }
+    }
+  }
+}
+
+.leadership-section {
+  text-align: center;
+  padding: $spacing-xl 0;
+  
+  .leadership-stats {
+    text-align: center;
+    margin-bottom: $spacing-lg;
+  }
+  
+  .leadership-list {
+    .leader-item {
+      margin-bottom: $spacing-lg;
+      padding: $spacing-lg;
+      background: $ivory;
+      border-radius: $border-radius-md;
+      border: 1px solid $gold-light;
+      transition: all $transition-normal;
+      box-shadow: $shadow-sm;
+      
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: $shadow-md;
+        border-color: $gold;
+      }
+      
+      .leader-content {
+        display: flex;
+        align-items: flex-start;
+        gap: $spacing-lg;
+        width: 100%;
+        
+        .leader-avatar {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          border: 3px solid $gold;
+          object-fit: cover;
+          box-shadow: $shadow-sm;
+        }
+        
+        .leader-info {
+          flex: 1;
+          text-align: left;
+          
+          .leader-name {
+            font-family: $font-heading;
+            font-size: 1.5rem;
+            color: $charcoal;
+            margin-bottom: $spacing-sm;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+          }
+          
+          .leader-title {
+            margin-bottom: $spacing-md;
+            font-family: $font-ui;
+            font-weight: 500;
+            color: $burgundy;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+          }
+          
+          .leader-description {
+            font-family: $font-body;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: $charcoal-light;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Enhanced Section Styling */
+.section-title {
+  font-family: $font-heading;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: $charcoal;
+  margin-bottom: $spacing-md;
+  background: linear-gradient(135deg, $gold 0%, $burgundy 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -$spacing-sm;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, $gold 0%, $burgundy 100%);
+    border-radius: 2px;
+  }
+}
+
+.section-description {
+  font-family: $font-body;
+  font-size: 1.2rem;
+  text-align: center;
+  color: $charcoal-light;
+  max-width: 800px;
+  margin: 0 auto $spacing-lg auto;
+  line-height: 1.8;
+  letter-spacing: 0.2px;
+}
+
+/* Enhanced Philosophy Section */
+.philosophy-section {
+  padding: $spacing-xl 0;
+  
+  .philosophy-item {
+    text-align: center;
+    padding: $spacing-lg $spacing-md;
+    transition: all $transition-normal;
+    
+    &:hover {
+      transform: translateY(-5px);
+    }
+    
+    .philosophy-icon {
+      background: linear-gradient(135deg, $gold 0%, $gold-light 100%);
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto $spacing-md auto;
+      color: $charcoal;
+      font-size: 2rem;
+      box-shadow: $shadow-md;
+      transition: all $transition-normal;
+      
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: $shadow-lg;
+      }
+    }
+    
+    h4 {
+      font-family: $font-heading;
+      font-size: 1.4rem;
+      color: $burgundy;
+      margin-bottom: $spacing-md;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    
+    p {
+      font-family: $font-body;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: $charcoal-light;
+      letter-spacing: 0.2px;
+    }
+  }
+}
+
+/* Enhanced Menu Header */
+.menu-header {
+  text-align: center;
+  padding: $spacing-xl 0;
+}
+
+.menu-stats {
+  text-align: center;
+  margin-bottom: $spacing-lg;
+}
+
+.menu-grid {
+  .menu-item {
+    transition: all $transition-slow;
+    
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+}
+
+/* Enhanced Loading and Error Sections */
+.loading-section, .error-section {
+  padding: $spacing-xxl $spacing-md;
+  text-align: center;
+  
+  h4 {
+    font-family: $font-body;
+    color: $charcoal-light;
+    margin-top: $spacing-md;
+    font-size: 1.1rem;
+    letter-spacing: 0.2px;
+  }
+}
+
+.error-section {
+  h2 {
+    color: $burgundy;
+    margin-bottom: $spacing-md;
+    font-family: $font-heading;
+  }
+  
+  h4 {
+    color: $charcoal-light;
+  }
+}
+
+/* Enhanced Luxury Badge Variations */
+.luxury-badge {
+  background: linear-gradient(135deg, $gold 0%, $gold-light 100%);
+  color: $charcoal;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: 20px;
+  font-family: $font-ui;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  margin: $spacing-xs;
+  box-shadow: $shadow-sm;
+  transition: all $transition-normal;
+  text-transform: uppercase;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+  
+  &.small {
+    font-size: 0.8rem;
+    padding: 6px $spacing-sm;
+  }
+  
+  &.large {
+    font-size: 1rem;
+    padding: $spacing-sm $spacing-md;
+  }
+}
+
+.luxury-badges {
+  display: flex;
+  gap: $spacing-sm;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: $spacing-md;
+}
+
+/* Enhanced Luxury Button Styling */
+.mat-button, .mat-raised-button {
+  font-family: $font-ui;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border-radius: $border-radius-sm;
+  transition: all $transition-normal;
+  text-transform: uppercase;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}
+
+/* Enhanced Toolbar Styling */
+mat-toolbar {
+  background: linear-gradient(135deg, $charcoal 0%, $charcoal-light 100%)!important;
+  color: $ivory!important;
+  font-family: $font-ui;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  box-shadow: $shadow-md;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  
+  .restaurant-name {
+    font-family: $font-heading;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  
+  a {
+    color: $ivory!important;
+    transition: all $transition-normal;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 500;
+    
+    &:hover {
+      color: $gold!important;
+      transform: translateY(-1px);
+    }
+    
+    &.active {
+      color: $gold!important;
+      border-bottom: 2px solid $gold;
+    }
+  }
+}
+
+/* Enhanced Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  font-weight: 600;
+  color: $charcoal;
+  margin-bottom: $spacing-md;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, $gold 0%, $burgundy 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+  color: $charcoal;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: $burgundy;
+  font-weight: 600;
+}
+
+/* Enhanced Jumbotron Styling */
+.jumbotron {
+  background: linear-gradient(135deg, rgba(44, 44, 44, 0.9) 0%, rgba(74, 74, 74, 0.9) 100%);
+  color: $ivory;
+  border-radius: $border-radius-lg;
+  padding: $spacing-xxl $spacing-xl;
+  margin: $spacing-lg 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: $shadow-lg;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(212,175,55,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(212,175,55,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(212,175,55,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+  }
+  
+  h1 {
+    font-family: $font-heading;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: $ivory;
+    margin-bottom: $spacing-md;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 1;
+    letter-spacing: 1px;
+  }
+  
+  p {
+    font-family: $font-body;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: $gold-light;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.3px;
+  }
+}
+
+/* Enhanced Logo Placeholder */
+.logo-placeholder {
+  background: linear-gradient(135deg, $gold 0%, $gold-light 100%);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: $shadow-lg;
+  transition: all $transition-normal;
+  
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: $shadow-xl;
+  }
+  
+  .fa {
+    color: $charcoal;
+    font-size: 2.5rem;
+  }
+}
+
+/* Enhanced Loading Spinner */
+mat-spinner {
+  margin: $spacing-xl auto;
+  display: block;
+  
+  ::ng-deep circle {
+    stroke: $gold!important;
+  }
+}
+
+/* Enhanced Grid Improvements */
+mat-grid-list {
+  margin: $spacing-lg 0;
+}
+
+mat-grid-tile {
+  cursor: pointer;
+  transition: all $transition-slow;
+  
+  &:hover {
+    transform: scale(1.03);
+    z-index: 10;
+  }
+}
+
+/* Enhanced Form Styling */
+.mat-form-field {
+  font-family: $font-body;
+  margin-bottom: $spacing-md;
+  
+  .mat-form-field-label {
+    color: $charcoal-light;
+    font-family: $font-ui;
+  }
+  
+  .mat-form-field-outline {
+    color: $gold-light;
+  }
+  
+  &.mat-focused .mat-form-field-outline-thick {
+    color: $gold;
+  }
+  
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+}
+
+/* Enhanced Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 $spacing-sm;
+  }
+  
+  .jumbotron {
+    padding: $spacing-xl $spacing-md;
+    
+    h1 {
+      font-size: 2.5rem;
+    }
+    
+    p {
+      font-size: 1.1rem;
+    }
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.6rem;
+  }
+  
+  h3 {
+    font-size: 1.3rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .philosophy-section {
+    .philosophy-item {
+      padding: $spacing-md $spacing-sm;
+      
+      .philosophy-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+    }
+  }
+  
+  .luxury-badges {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .leadership-section {
+    .leadership-list {
+      .leader-item {
+        .leader-content {
+          flex-direction: column;
+          text-align: center;
+          
+          .leader-avatar {
+            margin: 0 auto $spacing-md auto;
+          }
+          
+          .leader-info {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+  
+  .history-section {
+    .history-content {
+      .history-title {
+        font-size: 1.6rem;
+      }
+      
+      .history-text {
+        font-size: 1.1rem;
+      }
+    }
+  }
+  
+  mat-card {
+    margin: $spacing-sm;
+  }
+}
+
+@media (max-width: 480px) {
+  .jumbotron {
+    padding: $spacing-lg $spacing-sm;
+    
+    h1 {
+      font-size: 2rem;
+    }
+    
+    p {
+      font-size: 1rem;
+    }
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .luxury-badge {
+    font-size: 0.8rem;
+    padding: 6px $spacing-sm;
+  }
+}
+
+/* Enhanced Luxury Elements */
+.luxury-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, $gold 50%, transparent 100%);
+  margin: $spacing-lg 0;
+  border: none;
+  border-radius: 1px;
+}
+
+/* Enhanced Image Enhancements */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: $border-radius-sm;
+  transition: all $transition-normal;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* Enhanced Navigation Active State */
+.active {
+  color: $gold!important;
+  border-bottom: 2px solid $gold;
+  font-weight: 600;
+}
+
+/* Enhanced Footer Styling */
+app-footer {
+  background: linear-gradient(135deg, $charcoal 0%, $charcoal-light 100%);
+  color: $ivory;
+  padding: $spacing-xl 0;
+  margin-top: $spacing-xxl;
+  box-shadow: $shadow-md;
+}
+
+/* Enhanced Animation Enhancements */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.fade-in-scale {
+  animation: fadeInScale 0.5s ease-out;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.5s ease-out;
+}
+
+/* Enhanced Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $cream;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, $gold 0%, $gold-dark 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, $gold-dark 0%, $gold 100%);
+}
+
+/* Enhanced Focus States */
+*:focus {
+  outline: 2px solid $gold;
+  outline-offset: 2px;
+}
+
+/* Enhanced Selection Styling */
+::selection {
+  background: $gold-light;
+  color: $charcoal;
+}
+
+/* Enhanced Print Styles */
+@media print {
+  .jumbotron,
+  mat-toolbar,
+  app-footer {
+    display: none;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+  
+  mat-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
 }

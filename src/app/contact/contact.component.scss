@@ -1,11 +1,359 @@
-.full-width {
-	width: 95%;
+/* Import global variables */
+@import '../../styles.scss';
+
+$lt-gray: #ddd;
+$background-dark: #512DA8;
+$background-light: #9575CD;
+$background-pale: #D1C4E9;
+$primary-color-dark: #512DA8;
+$primary-color: #673AB7;
+$primary-color-light: #D1C4E9;
+$primary-color-text: #FFFFFF;
+$accent-color: #FFC107;
+$primary-text-color: #212121;
+$secondary-text-color: #757575;
+$divider-color: #BDBDBD;
+
+@mixin zero-margin($pad-up-down, $pad-left-right) {
+    margin: 0px auto;
+    padding: $pad-up-down $pad-left-right;
 }
 
-.half-width {
-	width: 45%
+/* Container improvements */
+.container {
+    padding: 20px;
+    gap: 30px;
+    
+    @media (max-width: 768px) {
+        padding: 15px;
+        gap: 20px;
+    }
 }
 
+/* Page header styling */
+h3 {
+    color: $primary-color-dark;
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    text-align: center;
+    
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
+}
+
+hr {
+    border: none;
+    height: 4px;
+    background: linear-gradient(90deg, $background-light, $accent-color, $background-light);
+    margin: 20px auto 30px;
+    width: 120px;
+    border-radius: 2px;
+}
+
+/* Section styling */
+h4 {
+    color: $primary-color-dark;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+    
+    @media (max-width: 768px) {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+}
+
+p {
+    color: $secondary-text-color;
+    line-height: 1.6;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+/* Address styling */
+address {
+    font-style: normal;
+    line-height: 1.8;
+    color: $secondary-text-color;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    
+    a {
+        color: $primary-color;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        
+        &:hover {
+            color: $accent-color;
+        }
+    }
+    
+    i {
+        margin-right: 10px;
+        color: $primary-color;
+        width: 20px;
+    }
+}
+
+/* Button styling */
+a[mat-raised-button] {
+    margin-right: 15px;
+    margin-bottom: 10px;
+    border-radius: 25px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    
+    i {
+        margin-right: 8px;
+    }
+    
+    @media (max-width: 768px) {
+        display: block;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+}
+
+/* Form styling */
 .form-size {
-	width: 75%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    
+    &:hover {
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    
+    @media (max-width: 768px) {
+        padding: 20px;
+    }
+}
+
+/* Form field styling */
+mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+    
+    &.half-width {
+        width: calc(50% - 10px);
+        
+        @media (max-width: 768px) {
+            width: 100%;
+        }
+    }
+    
+    &.full-width {
+        width: 100%;
+    }
+    
+    .mat-form-field-wrapper {
+        padding-bottom: 0;
+    }
+    
+    .mat-form-field-outline {
+        border-radius: 8px;
+    }
+    
+    .mat-form-field-outline-thick {
+        color: $primary-color;
+    }
+    
+    input, textarea {
+        font-size: 1rem;
+        padding: 12px 0;
+    }
+    
+    textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+}
+
+/* Form field focus states */
+mat-form-field.mat-focused {
+    .mat-form-field-outline-thick {
+        color: $accent-color;
+    }
+}
+
+/* Table styling for form elements */
+table {
+    width: 100%;
+    margin: 20px 0;
+    
+    td {
+        padding: 10px;
+        vertical-align: middle;
+        
+        @media (max-width: 768px) {
+            display: block;
+            padding: 5px 0;
+        }
+    }
+}
+
+/* Slide toggle styling */
+mat-slide-toggle {
+    margin-right: 20px;
+    
+    .mat-slide-toggle-bar {
+        background-color: rgba($primary-color, 0.3);
+    }
+    
+    .mat-slide-toggle-thumb {
+        background-color: $primary-color;
+    }
+    
+    &.mat-checked {
+        .mat-slide-toggle-bar {
+            background-color: rgba($accent-color, 0.3);
+        }
+        
+        .mat-slide-toggle-thumb {
+            background-color: $accent-color;
+        }
+    }
+}
+
+/* Select styling */
+mat-select {
+    width: 200px;
+    
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+/* Submit button styling */
+button[type="submit"] {
+    background: linear-gradient(135deg, $background-dark 0%, $background-light 100%);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(81, 45, 168, 0.3);
+    
+    &:hover:not(:disabled) {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(81, 45, 168, 0.4);
+    }
+    
+    &:disabled {
+        background: $lt-gray;
+        color: $secondary-text-color;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+}
+
+/* Loading state styling */
+mat-list {
+    text-align: center;
+    padding: 40px;
+    
+    mat-progress-spinner {
+        margin: 0 auto;
+    }
+}
+
+/* Response display styling */
+div[ngIf*="isShowingResponse"] {
+    background: linear-gradient(135deg, $background-pale 0%, $background-light 100%);
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 20px;
+    
+    h4 {
+        color: $primary-color-dark;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    p {
+        color: $secondary-text-color;
+        line-height: 1.8;
+        font-size: 1rem;
+        
+        br {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    form {
+        margin-top: 20px;
+    }
+    
+    p {
+        flex-direction: column;
+        
+        mat-form-field {
+            margin-bottom: 15px;
+        }
+    }
+}
+
+/* Animation improvements */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+form, div[ngIf*="isShowingResponse"] {
+    animation: slideInUp 0.6s ease-out;
+}
+
+/* Flex layout improvements */
+[fxFlex] {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Content spacing */
+.container > div {
+    margin-bottom: 30px;
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* Error styling */
+mat-error {
+    color: #f44336;
+    font-size: 0.85rem;
+    margin-top: 5px;
 }

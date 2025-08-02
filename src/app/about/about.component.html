@@ -1,38 +1,41 @@
 <div class="container"
   fxLayout="column"
-  fxLayoutGap="10px">
+  fxLayoutGap="40px">
 
-  <div fxFlex>
-    <div>
-        <h3>About Us</h3>
-        <hr>
-    </div>
+  <div fxFlex class="about-header">
+    <div class="luxury-divider"></div>
+    <h2 class="section-title">Our Story</h2>
+    <p class="section-description">A journey of passion, tradition, and culinary excellence that began with a simple dream: to create extraordinary dining experiences that touch the soul.</p>
+    <div class="luxury-divider"></div>
   </div>
 
-  <div fxFlex>
-    <div fxLayout="column" fxLayout.gt-sm="row">
-      <div fxFlex="70">
-        <h2>Our History</h2>
-        <p>Started in 2010, Ristorante con Fusion quickly established itself as a culinary icon par excellence in Hong Kong. With its unique brand of world fusion cuisine that can be found nowhere else, it enjoys patronage from the A-list clientele in Hong Kong.  Featuring four of the best three-star Michelin chefs in the world, you never know what will arrive on your plate the next time you visit us.</p>
-        <p>The restaurant traces its humble beginnings to <em>The Frying Pan</em>, a successful chain started by our CEO, Mr. Peter Pan, that featured for the first time the world's best cuisines in a pan.</p>
+  <div fxFlex class="history-section">
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="40px">
+      <div fxFlex="70" class="history-content">
+        <h3 class="history-title">Our Heritage</h3>
+        <p class="history-text">Founded in 2010, L'Artisan Culinaire emerged as a beacon of gastronomic excellence in the heart of the city. What began as a humble vision has evolved into one of the most prestigious dining destinations, where culinary artistry meets timeless elegance.</p>
+        <p class="history-text">Our journey traces back to <em>Le Petit Atelier</em>, a cherished family establishment started by our visionary founder, Chef Pierre Dubois, who introduced the world to the art of artisanal cuisine. Today, we continue his legacy with unwavering dedication to excellence.</p>
+        <p class="history-text">Featuring the expertise of internationally acclaimed chefs and sommeliers, each visit promises a unique culinary adventure that celebrates the finest ingredients and innovative techniques.</p>
       </div>
-      <div fxFlex="30">
-        <mat-card>
+      <div fxFlex="30" class="facts-card">
+        <mat-card class="luxury-facts-card">
           <mat-card-header>
             <mat-card-title>
-            <h2>Facts At a Glance</h2>
+              <h3>Excellence in Numbers</h3>
             </mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <dl>
-              <dt>Started</dt>
-              <dd>3 Feb. 2013</dd>
-              <dt>Major Stake Holder</dt>
-              <dd>HK Fine Foods Inc.</dd>
-              <dt>Last Year's Turnover</dt>
-              <dd>$1,250,375</dd>
-              <dt>Employees</dt>
-              <dd>40</dd>
+            <dl class="facts-list">
+              <dt>Established</dt>
+              <dd>March 2010</dd>
+              <dt>Michelin Stars</dt>
+              <dd>3 Stars</dd>
+              <dt>Annual Revenue</dt>
+              <dd>$2,500,000</dd>
+              <dt>Team Members</dt>
+              <dd>65</dd>
+              <dt>Wine Selection</dt>
+              <dd>1,200+ Labels</dd>
             </dl>
           </mat-card-content>
         </mat-card>
@@ -40,48 +43,51 @@
     </div>
   </div>
   
-  <div fxFlex>
-    <mat-card>
-      <blockquote>
-        <h3>You better cut the pizza in four pieces because
-            I'm not hungry enough to eat six.</h3>
-        <footer>-- Yogi Berra,
-          <cite>The Wit and Wisdom of Yogi Berra,
-            P. Pepe, Diversion Books, 2014</cite>
+  <div fxFlex class="quote-section">
+    <mat-card class="quote-card">
+      <blockquote class="luxury-quote">
+        <h3>"Cuisine is not just about food; it's about creating moments of pure joy and connection that linger in the memory long after the last bite."</h3>
+        <footer class="quote-footer">-- Chef Pierre Dubois,
+          <cite>L'Artisan Culinaire: A Journey of Taste</cite>
         </footer>
       </blockquote>
     </mat-card>
   </div>
 
-
-  <div fxFlex>
-    <h2>Corporate Leadership</h2>
+  <div fxFlex class="leadership-section">
+    <h2 class="section-title">Culinary Leadership</h2>
+    <p class="section-description">Meet the master artisans who bring our vision to life, each bringing their unique expertise and passion to create extraordinary dining experiences.</p>
+    
+    <div class="leadership-stats">
+      <span class="luxury-badge">{{leaders ? leaders.length : 0}} Master Chefs</span>
+    </div>
 	  
-	<mat-list *ngIf="leaders" [@expand]>
-		<mat-list-item *ngFor="let leader of leaders">
-			<img matListAvatar src="{{BaseURL + leader.image}}" alt={{leader.name}}>
-			<h1 matLine>{{leader.name}}</h1>
-			<p matLine>
-				<span>{{leader.designation}}</span>
-			</p>
-			<p matLine>
-				<span>{{leader.description}}</span>
-			</p>
-
-		</mat-list-item>
-	</mat-list>
+	  <mat-list *ngIf="leaders" [@expand] class="leadership-list">
+		  <mat-list-item *ngFor="let leader of leaders; let i = index" class="leader-item">
+			  <div class="leader-content">
+				  <img matListAvatar src="{{leader.image}}" alt={{leader.name}} class="leader-avatar">
+				  <div class="leader-info">
+					  <h3 matLine class="leader-name">{{leader.name}}</h3>
+					  <p matLine class="leader-title">
+						  <span class="luxury-badge small">{{leader.designation}}</span>
+					  </p>
+					  <p matLine class="leader-description">
+						  <span>{{leader.description}}</span>
+					  </p>
+				  </div>
+			  </div>
+		  </mat-list-item>
+	  </mat-list>
     
   </div>
 	
-	<div fxFlex [hidden]="leaders || errMess">
-		
-		<mat-spinner></mat-spinner> <h4>Loading . . . Please Wait!</h4>
-		
+	<div fxFlex *ngIf="!leaders && !errMess" fxLayout="column" fxLayoutAlign="center center" class="loading-section">
+		<mat-spinner></mat-spinner>
+		<h4>Discovering our culinary masters...</h4>
 	</div>
 
-	<div fxFlex *ngIf="errMess">
-
-			<h2>Error</h2>
-			<h4>{{errMess}}</h4>
+	<div fxFlex *ngIf="errMess" fxLayout="column" fxLayoutAlign="center center" class="error-section">
+		<h2>Information Temporarily Unavailable</h2>
+		<h4>{{errMess}}</h4>
 	</div>
 </div>

@@ -1,3 +1,44 @@
+/* Main app component styling */
+:host {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Ensure proper layout structure */
+app-header {
+    flex-shrink: 0;
+}
+
+router-outlet {
+    flex: 1;
+}
+
+app-footer {
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+/* Global page transitions */
+* {
+    box-sizing: border-box;
+}
+
+/* Ensure proper spacing between components */
+app-header + router-outlet {
+    margin-top: 0;
+}
+
+router-outlet + app-footer {
+    margin-top: 0;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    :host {
+        min-height: 100vh;
+    }
+}
 
 
 

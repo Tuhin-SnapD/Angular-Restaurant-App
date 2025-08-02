@@ -1,20 +1,469 @@
-$lt-gray: #ddd;
-$background-dark: #512DA8;
-$background-light: #9575CD;
-$background-pale: #D1C4E9;
-$background-moredark: #4527A0;
+/* Import global variables */
+@import '../../styles.scss';
 
-@mixin zero-margin($pad-up-down, $pad-left-right) {
-    margin: 0px auto;
-    padding: $pad-up-down $pad-left-right;
+/* Enhanced Header Component Styles */
+
+/* Main Toolbar */
+.main-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, $charcoal 0%, $charcoal-light 100%)!important;
+  box-shadow: $shadow-md;
+  padding: 0;
+  height: 70px;
+  
+  .toolbar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 $spacing-md;
+    
+    @media (max-width: 768px) {
+      padding: 0 $spacing-sm;
+    }
+  }
+  
+  .brand-section {
+    .restaurant-name {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      font-family: $font-heading;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: $ivory;
+      letter-spacing: 0.5px;
+      
+      .brand-icon {
+        color: $gold;
+        font-size: 1.2rem;
+        transition: all $transition-normal;
+      }
+      
+      &:hover .brand-icon {
+        transform: rotate(15deg);
+        color: $gold-accent;
+      }
+    }
+  }
+  
+  .navigation-section {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: $spacing-xs;
+      color: $ivory!important;
+      font-family: $font-ui;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: $spacing-sm $spacing-md;
+      border-radius: $border-radius-sm;
+      transition: all $transition-normal;
+      position: relative;
+      
+      i {
+        font-size: 1rem;
+        transition: all $transition-normal;
+      }
+      
+      .nav-text {
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
+      
+      &:hover {
+        color: $gold!important;
+        background: rgba(212, 175, 55, 0.1);
+        transform: translateY(-1px);
+        
+        i {
+          transform: scale(1.1);
+        }
+      }
+      
+      &.active {
+        color: $gold!important;
+        background: rgba(212, 175, 55, 0.15);
+        border-bottom: 2px solid $gold;
+        font-weight: 600;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0;
+          height: 0;
+          border-left: 4px solid transparent;
+          border-right: 4px solid transparent;
+          border-top: 4px solid $gold;
+        }
+      }
+    }
+  }
+  
+  .toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    
+    .action-button {
+      color: $ivory!important;
+      transition: all $transition-normal;
+      
+      &:hover {
+        color: $gold!important;
+        transform: scale(1.1);
+        background: rgba(212, 175, 55, 0.1);
+      }
+      
+      i {
+        font-size: 1.1rem;
+      }
+    }
+  }
 }
 
-.jumbotron {
-    @include zero-margin(70px,30px);
-    background: $background-light ;
-    color:floralwhite;
-    min-height: 150px;
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, rgba(44, 44, 44, 0.95) 0%, rgba(74, 74, 74, 0.95) 100%);
+  color: $ivory;
+  padding: $spacing-xxl 0;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(212,175,55,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(212,175,55,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(212,175,55,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .hero-text {
+    .hero-title {
+      font-family: $font-heading;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: $ivory;
+      margin-bottom: $spacing-lg;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      letter-spacing: 1px;
+      line-height: 1.2;
+      
+      @media (max-width: 768px) {
+        font-size: 2.5rem;
+      }
+      
+      @media (max-width: 480px) {
+        font-size: 2rem;
+      }
+    }
+    
+    .hero-description {
+      font-family: $font-body;
+      font-size: 1.3rem;
+      line-height: 1.8;
+      color: $gold-light;
+      margin-bottom: $spacing-xl;
+      letter-spacing: 0.3px;
+      max-width: 600px;
+      
+      @media (max-width: 768px) {
+        font-size: 1.1rem;
+      }
+      
+      @media (max-width: 480px) {
+        font-size: 1rem;
+      }
+    }
+    
+    .hero-badges {
+      display: flex;
+      gap: $spacing-sm;
+      flex-wrap: wrap;
+      margin-bottom: $spacing-xl;
+      
+      .luxury-badge {
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs;
+        background: linear-gradient(135deg, $gold 0%, $gold-light 100%);
+        color: $charcoal;
+        padding: $spacing-sm $spacing-md;
+        border-radius: 25px;
+        font-family: $font-ui;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        box-shadow: $shadow-md;
+        transition: all $transition-normal;
+        
+        i {
+          font-size: 0.8rem;
+        }
+        
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: $shadow-lg;
+          background: linear-gradient(135deg, $gold-accent 0%, $gold 100%);
+        }
+        
+        @media (max-width: 768px) {
+          font-size: 0.8rem;
+          padding: $spacing-xs $spacing-sm;
+        }
+      }
+    }
+    
+    .hero-actions {
+      display: flex;
+      gap: $spacing-md;
+      flex-wrap: wrap;
+      
+      .cta-button {
+        background: linear-gradient(135deg, $gold 0%, $gold-accent 100%);
+        color: $charcoal;
+        font-family: $font-ui;
+        font-weight: 600;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: $spacing-md $spacing-lg;
+        border-radius: $border-radius-md;
+        border: none;
+        box-shadow: $shadow-md;
+        transition: all $transition-normal;
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        
+        i {
+          font-size: 1rem;
+        }
+        
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: $shadow-lg;
+          background: linear-gradient(135deg, $gold-accent 0%, $gold 100%);
+        }
+      }
+      
+      .secondary-button {
+        color: $ivory;
+        border: 2px solid $gold;
+        font-family: $font-ui;
+        font-weight: 600;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: $spacing-md $spacing-lg;
+        border-radius: $border-radius-md;
+        background: transparent;
+        transition: all $transition-normal;
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        
+        i {
+          font-size: 1rem;
+        }
+        
+        &:hover {
+          background: $gold;
+          color: $charcoal;
+          transform: translateY(-3px);
+          box-shadow: $shadow-md;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+        
+        .cta-button,
+        .secondary-button {
+          width: 100%;
+          max-width: 300px;
+          justify-content: center;
+        }
+      }
+    }
+  }
+  
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .logo-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .logo-placeholder {
+        background: linear-gradient(135deg, $gold 0%, $gold-light 100%);
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: $shadow-xl;
+        transition: all $transition-slow;
+        position: relative;
+        z-index: 2;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: -10px;
+          left: -10px;
+          right: -10px;
+          bottom: -10px;
+          border: 2px solid $gold;
+          border-radius: 50%;
+          opacity: 0.3;
+          animation: pulse 2s infinite;
+        }
+        
+        &:hover {
+          transform: scale(1.1) rotate(5deg);
+          box-shadow: $shadow-xl, 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+        
+        .fa {
+          color: $charcoal;
+          font-size: 3rem;
+          transition: all $transition-normal;
+        }
+        
+        &:hover .fa {
+          transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+          width: 100px;
+          height: 100px;
+          
+          .fa {
+            font-size: 2.5rem;
+          }
+        }
+      }
+      
+      .logo-decoration {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        margin-top: $spacing-lg;
+        
+        .decoration-line {
+          width: 40px;
+          height: 2px;
+          background: linear-gradient(90deg, transparent 0%, $gold 50%, transparent 100%);
+          border-radius: 1px;
+        }
+        
+        .decoration-dot {
+          width: 8px;
+          height: 8px;
+          background: $gold;
+          border-radius: 50%;
+          box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+      }
+    }
+  }
 }
-.active {
-	background: $background-moredark;
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+}
+
+/* Mobile Responsive Enhancements */
+@media (max-width: 768px) {
+  .main-toolbar {
+    height: 60px;
+    
+    .toolbar-content {
+      .brand-section .restaurant-name {
+        font-size: 1.2rem;
+      }
+      
+      .navigation-section {
+        gap: 0;
+        
+        .nav-link {
+          padding: $spacing-xs;
+          min-width: 44px;
+          justify-content: center;
+        }
+      }
+    }
+  }
+  
+  .hero-section {
+    padding: $spacing-xl 0;
+    
+    .hero-content {
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .main-toolbar {
+    .toolbar-content {
+      .brand-section .restaurant-name {
+        font-size: 1rem;
+        
+        .brand-icon {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+  
+  .hero-section {
+    .hero-text {
+      .hero-badges {
+        justify-content: center;
+      }
+    }
+  }
 }

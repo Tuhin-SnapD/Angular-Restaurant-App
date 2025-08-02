@@ -1,86 +1,225 @@
-<div class="container"
-     fxLayout="row"
-     fxLayout.sm="column"
-     fxLayout.xs="column"
-     fxLayoutAlign.gt-md="space-around center"
-     fxLayoutGap="10px">
+<div class="container home-container"
+     fxLayout="column"
+     fxLayoutGap="60px">
 
-<mat-card *ngIf="dish" fxFlex [@expand]>
-  <mat-card-header>
-    <div mat-card-avatar></div>
-    <mat-card-title>
-      <h3>{{dish.name | uppercase}}</h3>
-    </mat-card-title>
-  </mat-card-header>
-  <img mat-card-image src="{{BaseURL + dish.image}}" alt={{dish.name}}>
-  <mat-card-content>
-    <p>{{dish.description}}
-    </p>
-  </mat-card-content>
-</mat-card>
-<div fxFlex [hidden]="dish || dishErrMess">
-		
-		<mat-spinner></mat-spinner> <h4>Loading . . . Please Wait!</h4>
-		
-</div>
-	
-<div fxFlex *ngIf="dishErrMess">
-	
-		<h2>Error</h2>
-		<h4>{{dishErrMess}}</h4>
-</div>
+  <!-- Welcome Section -->
+  <section class="welcome-section" [@expand]>
+    <div class="section-header">
+      <div class="luxury-divider"></div>
+      <h2 class="section-title">Welcome to Culinary Excellence</h2>
+      <p class="section-description">
+        Experience the pinnacle of gastronomic artistry where every dish tells a story of passion, 
+        tradition, and innovation. Our master chefs create unforgettable moments through the art of fine dining.
+      </p>
+      <div class="luxury-divider"></div>
+    </div>
+  </section>
 
-<mat-card *ngIf="promotion" fxFlex [@expand]>
-  <mat-card-header>
-    <div mat-card-avatar></div>
-    <mat-card-title>
-      <h3>{{promotion.name | uppercase}}</h3>
-    </mat-card-title>
-  </mat-card-header>
-  <img mat-card-image src="{{BaseURL + promotion.image}}" alt={{promotion.name}}>
-  <mat-card-content>
-    <p>{{promotion.description}}
-    </p>
-  </mat-card-content>
-</mat-card>
-<div fxFlex [hidden]="promotion || promoErrMess">
-		
-		<mat-spinner></mat-spinner> <h4>Loading . . . Please Wait!</h4>
-		
-</div>
-	
-<div fxFlex *ngIf="promoErrMess">
-	
-		<h2>Error</h2>
-		<h4>{{promoErrMess}}</h4>
-</div>
-	
-<mat-card *ngIf="leader" fxFlex [@expand]>
-  <mat-card-header>
-    <div mat-card-avatar></div>
-    <mat-card-title>
-      <h3>{{leader.name | uppercase}}</h3>
-    </mat-card-title>
-  </mat-card-header>
-  <img mat-card-image src="{{BaseURL + leader.image}}" alt={{leader.name}}>
-  <mat-card-content>
-    <p>{{leader.description}}
-    </p>
-  </mat-card-content>
-</mat-card>
-	
-<div fxFlex [hidden]="leader || leadErrMess">
-		
-		<mat-spinner></mat-spinner> <h4>Loading . . . Please Wait!</h4>
-		
-</div>
-	
-<div fxFlex *ngIf="leadErrMess">
-	
-		<h2>Error</h2>
-		<h4>{{leadErrMess}}</h4>
-</div>
-	
+  <!-- Featured Content Grid -->
+  <section class="featured-section" [@expand]>
+    <div class="section-header">
+      <h3 class="subsection-title">Featured Highlights</h3>
+      <p class="subsection-description">Discover our signature offerings and culinary masterpieces</p>
+    </div>
+    
+    <div fxLayout="row wrap"
+         fxLayout.sm="column"
+         fxLayout.xs="column"
+         fxLayoutAlign.gt-md="space-around center"
+         fxLayoutGap="40px"
+         class="featured-grid">
 
+      <!-- Featured Dish -->
+      <div fxFlex="calc(33.33% - 27px)" class="featured-item" [@fadeInUp]>
+        <mat-card *ngIf="dish" class="featured-card">
+          <mat-card-header>
+            <div mat-card-avatar class="featured-avatar">
+              <i class="fa fa-star"></i>
+            </div>
+            <mat-card-title>
+              <h4>{{dish.name | uppercase}}</h4>
+            </mat-card-title>
+            <mat-card-subtitle class="luxury-subtitle">Chef's Signature Dish</mat-card-subtitle>
+          </mat-card-header>
+          <div class="image-container">
+            <img mat-card-image src="{{dish.image}}" alt={{dish.name}}>
+            <div class="image-overlay">
+              <i class="fa fa-heart"></i>
+            </div>
+          </div>
+          <mat-card-content>
+            <p>{{dish.description}}</p>
+            <div class="card-actions">
+              <span class="luxury-badge">
+                <i class="fa fa-leaf"></i>
+                Seasonal Special
+              </span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Featured Promotion -->
+      <div fxFlex="calc(33.33% - 27px)" class="featured-item" [@fadeInUp]>
+        <mat-card *ngIf="promotion" class="featured-card">
+          <mat-card-header>
+            <div mat-card-avatar class="featured-avatar">
+              <i class="fa fa-gift"></i>
+            </div>
+            <mat-card-title>
+              <h4>{{promotion.name | uppercase}}</h4>
+            </mat-card-title>
+            <mat-card-subtitle class="luxury-subtitle">Exclusive Experience</mat-card-subtitle>
+          </mat-card-header>
+          <div class="image-container">
+            <img mat-card-image src="{{promotion.image}}" alt={{promotion.name}}>
+            <div class="image-overlay">
+              <i class="fa fa-star"></i>
+            </div>
+          </div>
+          <mat-card-content>
+            <p>{{promotion.description}}</p>
+            <div class="card-actions">
+              <span class="luxury-badge">
+                <i class="fa fa-clock-o"></i>
+                Limited Time
+              </span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      
+      <!-- Featured Leader -->
+      <div fxFlex="calc(33.33% - 27px)" class="featured-item" [@fadeInUp]>
+        <mat-card *ngIf="leader" class="featured-card">
+          <mat-card-header>
+            <div mat-card-avatar class="featured-avatar">
+              <i class="fa fa-user"></i>
+            </div>
+            <mat-card-title>
+              <h4>{{leader.name | uppercase}}</h4>
+            </mat-card-title>
+            <mat-card-subtitle class="luxury-subtitle">Executive Chef</mat-card-subtitle>
+          </mat-card-header>
+          <div class="image-container">
+            <img mat-card-image src="{{leader.image}}" alt={{leader.name}}>
+            <div class="image-overlay">
+              <i class="fa fa-award"></i>
+            </div>
+          </div>
+          <mat-card-content>
+            <p>{{leader.description}}</p>
+            <div class="card-actions">
+              <span class="luxury-badge">
+                <i class="fa fa-trophy"></i>
+                Master Chef
+              </span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Restaurant Philosophy Section -->
+  <section class="philosophy-section" [@expand]>
+    <div class="section-header">
+      <h3 class="subsection-title">Our Philosophy</h3>
+      <p class="subsection-description">The three pillars that guide our culinary journey</p>
+    </div>
+    
+    <div fxLayout="row wrap" 
+         fxLayout.sm="column" 
+         fxLayoutGap="40px"
+         class="philosophy-grid">
+      
+      <div fxFlex="calc(33.33% - 27px)" class="philosophy-item" [@fadeInScale]>
+        <div class="philosophy-icon">
+          <i class="fa fa-leaf"></i>
+        </div>
+        <h4>Seasonal Excellence</h4>
+        <p>
+          We source only the finest seasonal ingredients from local artisans and sustainable farms, 
+          ensuring every dish reflects the bounty of nature and supports our community.
+        </p>
+      </div>
+      
+      <div fxFlex="calc(33.33% - 27px)" class="philosophy-item" [@fadeInScale]>
+        <div class="philosophy-icon">
+          <i class="fa fa-heart"></i>
+        </div>
+        <h4>Artisanal Craftsmanship</h4>
+        <p>
+          Every dish is handcrafted with meticulous attention to detail, combining traditional techniques 
+          with innovative culinary artistry to create unforgettable flavors.
+        </p>
+      </div>
+      
+      <div fxFlex="calc(33.33% - 27px)" class="philosophy-item" [@fadeInScale]>
+        <div class="philosophy-icon">
+          <i class="fa fa-glass"></i>
+        </div>
+        <h4>Curated Experience</h4>
+        <p>
+          From our carefully selected wine pairings to our elegant ambiance, every element is designed 
+          to create an unforgettable dining journey that transcends the ordinary.
+        </p>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="cta-section" [@expand]>
+    <div class="cta-content">
+      <h3 class="cta-title">Ready for an Unforgettable Experience?</h3>
+      <p class="cta-description">
+        Join us for an evening of culinary excellence and create memories that will last a lifetime.
+      </p>
+      <div class="cta-actions">
+        <button mat-raised-button color="accent" class="cta-button">
+          <i class="fa fa-calendar"></i>
+          Reserve Your Table
+        </button>
+        <button mat-stroked-button class="secondary-cta-button">
+          <i class="fa fa-phone"></i>
+          Call Us
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Loading Section -->
+  <section fxFlex *ngIf="!dish && !promotion && !leader && !dishErrMess && !promoErrMess && !leadErrMess" 
+           fxLayout="column" 
+           fxLayoutAlign="center center"
+           class="loading-section">
+    <div class="loading-content">
+      <mat-spinner></mat-spinner>
+      <h4>Preparing your culinary journey...</h4>
+      <p>Loading our finest offerings</p>
+    </div>
+  </section>
+
+  <!-- Error Display -->
+  <section fxFlex *ngIf="dishErrMess || promoErrMess || leadErrMess" 
+           fxLayout="column" 
+           fxLayoutAlign="center center"
+           class="error-section">
+    <div class="error-content">
+      <div class="error-icon">
+        <i class="fa fa-exclamation-triangle"></i>
+      </div>
+      <h2>Service Temporarily Unavailable</h2>
+      <p *ngIf="dishErrMess">{{dishErrMess}}</p>
+      <p *ngIf="promoErrMess">{{promoErrMess}}</p>
+      <p *ngIf="leadErrMess">{{leadErrMess}}</p>
+      <button mat-raised-button color="accent" class="retry-button">
+        <i class="fa fa-refresh"></i>
+        Try Again
+      </button>
+    </div>
+  </section>
 
 </div>
