@@ -5,7 +5,6 @@
 ![L'Artisan Culinaire](https://img.shields.io/badge/L'Artisan-Culinaire-gold?style=for-the-badge&logo=angular&logoColor=white)
 ![Angular](https://img.shields.io/badge/Angular-16.0.0-red?style=for-the-badge&logo=angular&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0.0-blue?style=for-the-badge&logo=typescript&logoColor=white)
-![Material Design](https://img.shields.io/badge/Material-Design-UI-green?style=for-the-badge&logo=material-design&logoColor=white)
 
 *A sophisticated, elegant website for an artisanal restaurant showcasing culinary excellence and luxury dining experiences.*
 
