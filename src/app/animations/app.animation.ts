@@ -36,7 +36,6 @@ export function flyInOut() {
 	]);
 }
 
-
 export function expand() {
 	return trigger('expand', [
 		state('*', style({
@@ -51,6 +50,36 @@ export function expand() {
 			animate('200ms ease-in', style({
 				opacity: 1,
 				transform: 'translateX(0)'
+			}))
+		])
+	]);
+}
+
+export function fadeInUp() {
+	return trigger('fadeInUp', [
+		transition(':enter', [
+			style({
+				opacity: 0,
+				transform: 'translateY(30px)'
+			}),
+			animate('600ms ease-out', style({
+				opacity: 1,
+				transform: 'translateY(0)'
+			}))
+		])
+	]);
+}
+
+export function fadeInScale() {
+	return trigger('fadeInScale', [
+		transition(':enter', [
+			style({
+				opacity: 0,
+				transform: 'scale(0.8) translateY(20px)'
+			}),
+			animate('700ms ease-out', style({
+				opacity: 1,
+				transform: 'scale(1) translateY(0)'
 			}))
 		])
 	]);

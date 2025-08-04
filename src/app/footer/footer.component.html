@@ -1,144 +1,80 @@
-<footer class="footer-container">
-  <div class="container footer-content">
+<footer class="footer-container" role="contentinfo">
+  <div class="container">
     
     <!-- Main Footer Content -->
     <div class="footer-main" 
          fxLayout="row wrap" 
          fxLayout.lt-md="column" 
-         fxLayoutGap="40px">
+         fxLayoutGap="30px">
       
       <!-- Restaurant Info -->
-      <div fxFlex="100" fxFlex.gt-sm="30" class="footer-section">
+      <div fxFlex="100" fxFlex.gt-sm="35" class="footer-section">
         <div class="footer-brand">
-          <div class="brand-logo">
-            <i class="fa fa-cutlery"></i>
-          </div>
           <h3 class="brand-name">L'Artisan Culinaire</h3>
           <p class="brand-tagline">Where culinary artistry meets timeless elegance</p>
         </div>
         <div class="footer-description">
-          <p>
-            Experience the pinnacle of gastronomic excellence with our master chefs who craft 
-            each dish with passion, using the finest seasonal ingredients to create unforgettable 
-            dining experiences.
-          </p>
+          <p>Experience the pinnacle of gastronomic excellence with our master chefs who craft each dish with passion.</p>
         </div>
+        <button mat-raised-button color="accent" class="reservation-btn" (click)="openReservation()">
+          <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+          Make a Reservation
+        </button>
       </div>
       
-      <!-- Quick Links -->
-      <div fxFlex="100" fxFlex.gt-sm="25" class="footer-section">
+      <!-- Quick Links (Center) -->
+      <div fxFlex="100" fxFlex.gt-sm="30" class="footer-section">
         <h4 class="footer-title">Quick Links</h4>
-        <nav class="footer-nav">
-          <a mat-button routerLink='/home' class="footer-link">
-            <i class="fa fa-home"></i>
+        <nav class="footer-nav" role="navigation" aria-label="Footer Navigation">
+          <a mat-button routerLink='/home' class="footer-link" routerLinkActive="active">
+            <i class="fa fa-home" aria-hidden="true"></i>
             <span>Home</span>
           </a>
-          <a mat-button routerLink='/about' class="footer-link">
-            <i class="fa fa-info-circle"></i>
+          <a mat-button routerLink='/about' class="footer-link" routerLinkActive="active">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
             <span>About Us</span>
           </a>
-          <a mat-button routerLink='/menu' class="footer-link">
-            <i class="fa fa-cutlery"></i>
+          <a mat-button routerLink='/menu' class="footer-link" routerLinkActive="active">
+            <i class="fa fa-cutlery" aria-hidden="true"></i>
             <span>Our Menu</span>
           </a>
-          <a mat-button routerLink='/contactus' class="footer-link">
-            <i class="fa fa-address-card"></i>
+          <a mat-button routerLink='/contactus' class="footer-link" routerLinkActive="active">
+            <i class="fa fa-address-card" aria-hidden="true"></i>
             <span>Contact</span>
           </a>
         </nav>
       </div>
       
-      <!-- Contact Information -->
-      <div fxFlex="100" fxFlex.gt-sm="25" class="footer-section">
-        <h4 class="footer-title">Contact Information</h4>
+      <!-- Contact & Hours -->
+      <div fxFlex="100" fxFlex.gt-sm="35" class="footer-section">
+        <h4 class="footer-title">Contact & Hours</h4>
         <div class="contact-info">
           <div class="contact-item">
-            <i class="fa fa-map-marker"></i>
-            <div class="contact-details">
-              <span class="contact-label">Address</span>
-              <span class="contact-value">121, Clear Water Bay Road<br>Clear Water Bay, Kowloon<br>HONG KONG</span>
-            </div>
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <span>121, Clear Water Bay Road, Kowloon, HONG KONG</span>
           </div>
           <div class="contact-item">
-            <i class="fa fa-phone"></i>
-            <div class="contact-details">
-              <span class="contact-label">Phone</span>
-              <span class="contact-value">+852 1234 5678</span>
-            </div>
+            <i class="fa fa-phone" aria-hidden="true"></i>
+            <span>Contact us for phone number</span>
           </div>
           <div class="contact-item">
-            <i class="fa fa-envelope"></i>
-            <div class="contact-details">
-              <span class="contact-label">Email</span>
-              <a href="mailto:info@lartisanculinaire.com" class="contact-value">info@lartisanculinaire.com</a>
-            </div>
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+            <a href="mailto:info@lartisanculinaire.com">info@lartisanculinaire.com</a>
           </div>
         </div>
-      </div>
-      
-      <!-- Opening Hours -->
-      <div fxFlex="100" fxFlex.gt-sm="20" class="footer-section">
-        <h4 class="footer-title">Opening Hours</h4>
         <div class="hours-info">
-          <div class="hours-item">
-            <span class="day">Monday - Friday</span>
+          <div class="hours-item" [class.today]="isToday('monday')">
+            <span class="day">Mon-Fri:</span>
             <span class="time">6:00 PM - 11:00 PM</span>
           </div>
-          <div class="hours-item">
-            <span class="day">Saturday</span>
+          <div class="hours-item" [class.today]="isToday('saturday')">
+            <span class="day">Sat:</span>
             <span class="time">5:30 PM - 11:30 PM</span>
           </div>
-          <div class="hours-item">
-            <span class="day">Sunday</span>
+          <div class="hours-item" [class.today]="isToday('sunday')">
+            <span class="day">Sun:</span>
             <span class="time">5:00 PM - 10:30 PM</span>
           </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Social Media & Newsletter -->
-    <div class="footer-secondary" 
-         fxLayout="row wrap" 
-         fxLayout.lt-md="column" 
-         fxLayoutAlign="space-between center"
-         fxLayoutGap="30px">
-      
-      <!-- Social Media -->
-      <div class="social-media">
-        <h5 class="social-title">Follow Us</h5>
-        <div class="social-links">
-          <a mat-icon-button class="social-link facebook" href="http://www.facebook.com/" aria-label="Facebook">
-            <i class="fa fa-facebook"></i>
-          </a>
-          <a mat-icon-button class="social-link instagram" href="http://www.instagram.com/" aria-label="Instagram">
-            <i class="fa fa-instagram"></i>
-          </a>
-          <a mat-icon-button class="social-link twitter" href="http://twitter.com/" aria-label="Twitter">
-            <i class="fa fa-twitter"></i>
-          </a>
-          <a mat-icon-button class="social-link linkedin" href="http://www.linkedin.com/" aria-label="LinkedIn">
-            <i class="fa fa-linkedin"></i>
-          </a>
-          <a mat-icon-button class="social-link youtube" href="http://youtube.com/" aria-label="YouTube">
-            <i class="fa fa-youtube"></i>
-          </a>
-        </div>
-      </div>
-      
-      <!-- Newsletter -->
-      <div class="newsletter">
-        <h5 class="newsletter-title">Stay Updated</h5>
-        <p class="newsletter-description">Subscribe to our newsletter for exclusive offers and updates</p>
-        <div class="newsletter-form">
-          <mat-form-field appearance="outline" class="newsletter-input">
-            <mat-label>Your Email</mat-label>
-            <input matInput type="email" placeholder="Enter your email">
-            <mat-icon matSuffix>email</mat-icon>
-          </mat-form-field>
-          <button mat-raised-button color="accent" class="subscribe-btn">
-            <i class="fa fa-paper-plane"></i>
-            Subscribe
-          </button>
         </div>
       </div>
     </div>
@@ -153,26 +89,25 @@
            fxLayoutGap="20px">
         
         <div class="copyright">
-          <p>&copy; 2024 L'Artisan Culinaire. All rights reserved.</p>
-        </div>
-        
-        <div class="footer-links">
-          <a href="#" class="footer-bottom-link">Privacy Policy</a>
-          <a href="#" class="footer-bottom-link">Terms of Service</a>
-          <a href="#" class="footer-bottom-link">Cookie Policy</a>
+          <p>&copy; {{ currentYear }} L'Artisan Culinaire. All rights reserved.</p>
         </div>
         
         <div class="footer-badges">
-          <span class="footer-badge">
-            <i class="fa fa-star"></i>
+          <span class="footer-badge" title="Michelin Starred Restaurant">
+            <i class="fa fa-star" aria-hidden="true"></i>
             Michelin Starred
           </span>
-          <span class="footer-badge">
-            <i class="fa fa-leaf"></i>
+          <span class="footer-badge" title="Farm to Table Ingredients">
+            <i class="fa fa-leaf" aria-hidden="true"></i>
             Farm to Table
           </span>
         </div>
       </div>
     </div>
   </div>
-</footer>
+  
+  <!-- Back to Top Button -->
+  <button class="back-to-top" (click)="scrollToTop()" aria-label="Back to top" *ngIf="showBackToTop">
+    <i class="fa fa-chevron-up" aria-hidden="true"></i>
+  </button>
+</footer> 

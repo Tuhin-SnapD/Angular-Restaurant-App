@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Leader } from '../shared/leader';
 import { LeaderService } from '../services/leader.service';
-import { flyInOut, expand } from '../animations/app.animation';
+import { expand } from '../animations/app.animation';
 
 
 @Component({
@@ -9,11 +9,9 @@ import { flyInOut, expand } from '../animations/app.animation';
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
   host: {
-	  '[@flyInOut]': 'true',
 	  'style': 'display: block;'
   },
   animations: [
-	  flyInOut(),
 	  expand()
   ]
 })
@@ -26,17 +24,27 @@ export class AboutComponent implements OnInit {
 			  @Inject('BaseURL') private BaseURL) { }
 
   	ngOnInit() {
-		console.log('About component initializing...');
+		console.log('About component initialized');
+		this.loadLeaders();
+	}
+
+	loadLeaders() {
+		console.log('Loading leaders...');
 		this.leaderService.getLeaders()
 			.subscribe(leaders => {
-				console.log('Leaders received in about:', leaders);
-				console.log('First leader image URL:', leaders[0] ? leaders[0].image : 'No leaders');
+				console.log('Leaders loaded:', leaders);
 				this.leaders = leaders;
 			},
 					  errmess => {
 				console.error('Error loading leaders:', errmess);
 				this.errMess = <any>errmess;
 			});
+	}
+
+	retryLoad() {
+		this.errMess = null;
+		this.leaders = null;
+		this.loadLeaders();
 	}
 
 }

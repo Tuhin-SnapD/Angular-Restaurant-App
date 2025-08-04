@@ -1,114 +1,272 @@
-<div class="container"
+<div class="dish-detail-container"
     fxLayout="row"
     fxLayout.sm="column"
     fxLayout.xs="column"
     fxLayoutAlign.gt-md="space-around center"
-    fxLayoutGap="10px" 
-    fxLayoutGap.xs="0">
+    fxLayoutGap="30px" 
+    fxLayoutGap.sm="20px"
+    fxLayoutGap.xs="15px">
 
-  <div fxFlex="40" *ngIf="dish" [@visibility]="visibility" [@expand]>
-		
-		<mat-card >
-		
-			<mat-card-header>
-				<mat-card-title>
-					<h3 *ngIf="dish">{{dish.name | uppercase}}</h3>
-				</mat-card-title>
-			</mat-card-header>
-			
-			<img mat-card-image src="{{dish.image}}" alt={{dish.name}}>
-			
-			<mat-card-content>
-				<p>{{dish.description}}</p>
-			</mat-card-content>
-			
-			<mat-card-actions>
-				<button mat-button [routerLink]="['/dishdetail',prev]">
-					<span class="fa fa-chevron-left fa-lg"></span>
-				</button>
-				<button mat-button (click)="goBack()">BACK</button>
-				<button mat-button>LIKE</button>
-				<button mat-button>SHARE</button>
-				<span class="flex-spacer"></span>
-				<button mat-button [routerLink]="['/dishdetail',next]">
-					<span class="fa fa-chevron-right fa-lg"></span>
-				</button>
-			</mat-card-actions>
-		
-		</mat-card>
-	  
+  <!-- Dish Information Card -->
+  <div fxFlex="45" *ngIf="dish" [@visibility]="visibility" [@expand] class="dish-card-wrapper">
+    
+    <mat-card class="dish-card">
+      
+      <!-- Dish Header with Category Badge -->
+      <div class="dish-header">
+        <div class="category-badge" [ngClass]="'category-' + dish.category.toLowerCase()">
+          {{dish.category | uppercase}}
+        </div>
+        <mat-card-title class="dish-title">
+          <h2>{{dish.name | uppercase}}</h2>
+          <div class="dish-meta">
+            <span class="price" *ngIf="dish.price">{{dish.price}}</span>
+            <span class="featured-badge" *ngIf="dish.featured">
+              <mat-icon>star</mat-icon>
+              Featured
+            </span>
+          </div>
+        </mat-card-title>
+      </div>
+      
+      <!-- Dish Image with Overlay -->
+      <div class="image-container">
+        <img mat-card-image [src]="dish.image" [alt]="dish.name" class="dish-image">
+        <div class="image-overlay">
+          <div class="overlay-content">
+            <mat-icon class="overlay-icon">restaurant</mat-icon>
+            <span class="overlay-text">View Details</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Dish Description -->
+      <mat-card-content class="dish-content">
+        <div class="description-section">
+          <h3 class="section-title">
+            <mat-icon>description</mat-icon>
+            About This Dish
+          </h3>
+          <p class="dish-description">{{dish.description}}</p>
+        </div>
+        
+        <!-- Dish Labels/Tags -->
+        <div class="labels-section" *ngIf="dish.label">
+          <h3 class="section-title">
+            <mat-icon>local_offer</mat-icon>
+            Special Features
+          </h3>
+          <div class="label-tags">
+            <span class="label-tag">{{dish.label}}</span>
+          </div>
+        </div>
+      </mat-card-content>
+      
+      <!-- Action Buttons -->
+      <mat-card-actions class="dish-actions">
+        <div class="action-buttons">
+          <button mat-mini-fab color="primary" [routerLink]="['/dishdetail',prev]" 
+                  class="nav-button prev-button" matTooltip="Previous Dish">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+          
+          <button mat-raised-button color="accent" (click)="goBack()" class="back-button">
+            <mat-icon>arrow_back</mat-icon>
+            Back to Menu
+          </button>
+          
+          <!-- Removed non-functional like and share buttons -->
+          
+          <button mat-mini-fab color="primary" [routerLink]="['/dishdetail',next]" 
+                  class="nav-button next-button" matTooltip="Next Dish">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+      </mat-card-actions>
+    
+    </mat-card>
+  
   </div>
-	
-	<div fxFlex [hidden]="dish || errMess">
-		
-		<mat-spinner></mat-spinner> <h4>Loading . . . Please Wait!</h4>
-		
-	</div>
-	
-	<div fxFlex *ngIf="errMess">
-	
-		<h2>Error</h2>
-		<h4>{{errMess}}</h4>
-	</div>
+  
+  <!-- Loading State -->
+  <div fxFlex [hidden]="dish || errMess" class="loading-container">
+    <div class="loading-content">
+      <mat-spinner diameter="60" color="accent"></mat-spinner>
+      <h3 class="loading-text">Loading delicious details...</h3>
+      <p class="loading-subtext">Please wait while we prepare your dish information</p>
+    </div>
+  </div>
+  
+  <!-- Error State -->
+  <div fxFlex *ngIf="errMess" class="error-container">
+    <div class="error-content">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <h2 class="error-title">Oops! Something went wrong</h2>
+      <p class="error-message">{{errMess}}</p>
+      <button mat-raised-button color="primary" (click)="goBack()" class="error-button">
+        <mat-icon>home</mat-icon>
+        Back to Menu
+      </button>
+    </div>
+  </div>
 
-  <div fxFlex="40" *ngIf="dish" [@visibility]="visibility" [@expand]>
-	  
-		<mat-list>
-			<h3>Comments</h3>
-			<mat-list-item *ngFor="let comment of dish.comments">
-				<p matLine>
-					<span>{{comment.comment}}</span>
-				</p>
-				<p matLine>
-					<span>{{comment.rating}} Stars</span>
-				</p>
-				<p matLine>
-					<span>-- {{comment.author}} {{ comment.date | date }}</span>
-				</p>
-			</mat-list-item>
-		</mat-list>
-	  
-	  <mat-list-item *ngIf="commentForm.valid">
-
-              <p matLine>{{commentForm.value.comment}}</p>
-              <p matLine>{{commentForm.value.rating}} Stars</p>
-              <p matLine>-- {{commentForm.value.author}} </p>
-
-         </mat-list-item>
-	  
-	   <form novalidate [formGroup]="commentForm"  #fform="ngForm"  (ngSubmit)="onSubmit()">
-          <p>
-            <mat-form-field class="half-width">
-              <input matInput formControlName="author" placeholder="Name" type="text" required>
-              <mat-error *ngIf="formErrors.author">{{formErrors.author}}</mat-error>
-            </mat-form-field>
-          </p>
-           <p>
-              <mat-slider formControlName="rating" min="1" max="5" step="1" thumbLabel tickInterval="1" value="5"></mat-slider>
-          </p>
-
-          <p>
-            <mat-form-field class="half-width">
-              <textarea matInput formControlName="comment" placeholder="Comment" type="text" rows="10" cols="40" required></textarea>
-              <mat-error *ngIf="formErrors.comment">{{formErrors.comment}}</mat-error>
-            </mat-form-field>
-          </p>
-          <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="commentForm.invalid">Submit</button>
+  <!-- Comments and Review Section -->
+  <div fxFlex="45" *ngIf="dish" [@visibility]="visibility" [@expand] class="comments-wrapper">
+    
+    <!-- Comments List -->
+    <mat-card class="comments-card">
+      <mat-card-header class="comments-header">
+        <mat-card-title class="comments-title">
+          <mat-icon>rate_review</mat-icon>
+          Customer Reviews
+          <span class="comment-count">({{dish.comments.length}})</span>
+        </mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content class="comments-content">
+        <div class="comments-list" *ngIf="dish.comments.length > 0">
+          <div class="comment-item" *ngFor="let comment of dish.comments; let i = index">
+            <div class="comment-header">
+              <div class="comment-author">
+                <mat-icon class="author-avatar">person</mat-icon>
+                <span class="author-name">{{comment.author}}</span>
+              </div>
+              <div class="comment-rating">
+                <div class="stars">
+                  <mat-icon *ngFor="let star of [1,2,3,4,5]" 
+                           [ngClass]="{'filled': star <= comment.rating, 'empty': star > comment.rating}">
+                    {{star <= comment.rating ? 'star' : 'star_border'}}
+                  </mat-icon>
+                </div>
+                <span class="rating-text">{{comment.rating}}/5</span>
+              </div>
+            </div>
+            <div class="comment-body">
+              <p class="comment-text">{{comment.comment}}</p>
+            </div>
+            <div class="comment-footer">
+              <span class="comment-date">{{comment.date | date:'mediumDate'}}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="no-comments" *ngIf="dish.comments.length === 0">
+          <mat-icon class="no-comments-icon">chat_bubble_outline</mat-icon>
+          <p class="no-comments-text">No reviews yet. Be the first to share your experience!</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <!-- Comment Preview -->
+    <mat-card class="preview-card" *ngIf="commentForm.valid && showPreview">
+      <mat-card-header class="preview-header">
+        <mat-card-title class="preview-title">
+          <mat-icon>preview</mat-icon>
+          Preview Your Review
+        </mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content class="preview-content">
+        <div class="preview-comment">
+          <div class="preview-header">
+            <div class="preview-author">
+              <mat-icon class="author-avatar">person</mat-icon>
+              <span class="author-name">{{commentForm.value.author}}</span>
+            </div>
+            <div class="preview-rating">
+              <div class="stars">
+                <mat-icon *ngFor="let star of [1,2,3,4,5]" 
+                         [ngClass]="{'filled': star <= commentForm.value.rating, 'empty': star > commentForm.value.rating}">
+                  {{star <= commentForm.value.rating ? 'star' : 'star_border'}}
+                </mat-icon>
+              </div>
+              <span class="rating-text">{{commentForm.value.rating}}/5</span>
+            </div>
+          </div>
+          <div class="preview-body">
+            <p class="preview-text">{{commentForm.value.comment}}</p>
+          </div>
+          <div class="preview-footer">
+            <span class="preview-date">Just now</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <!-- Add Review Form -->
+    <mat-card class="review-form-card">
+      <mat-card-header class="form-header">
+        <mat-card-title class="form-title">
+          <mat-icon>add_comment</mat-icon>
+          Share Your Experience
+        </mat-card-title>
+        <button mat-icon-button (click)="togglePreview()" matTooltip="Toggle Preview" 
+                class="preview-toggle" *ngIf="commentForm.valid">
+          <mat-icon>{{showPreview ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-card-header>
+      
+      <mat-card-content class="form-content">
+        <form novalidate [formGroup]="commentForm" #fform="ngForm" (ngSubmit)="onSubmit()" class="review-form">
+          
+          <!-- Author Name Field -->
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>
+              <mat-icon class="field-icon">person</mat-icon>
+              Your Name
+            </mat-label>
+            <input matInput formControlName="author" placeholder="Enter your name" type="text" required
+                   aria-label="Your name for the review">
+            <mat-error *ngIf="formErrors.author" class="error-message">
+              <mat-icon class="error-icon">error</mat-icon>
+              {{formErrors.author}}
+            </mat-error>
+          </mat-form-field>
+          
+          <!-- Rating Slider -->
+          <div class="rating-section">
+            <label class="rating-label">
+              <mat-icon class="field-icon">star</mat-icon>
+              Your Rating: {{commentForm.value.rating}}/5
+            </label>
+            <mat-slider formControlName="rating" min="1" max="5" step="1" 
+                       thumbLabel tickInterval="1" value="5" class="rating-slider">
+            </mat-slider>
+            <div class="rating-display">
+              <mat-icon *ngFor="let star of [1,2,3,4,5]" 
+                       [ngClass]="{'filled': star <= commentForm.value.rating, 'empty': star > commentForm.value.rating}">
+                {{star <= commentForm.value.rating ? 'star' : 'star_border'}}
+              </mat-icon>
+            </div>
+          </div>
+          
+          <!-- Comment Field -->
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>
+              <mat-icon class="field-icon">comment</mat-icon>
+              Your Review
+            </mat-label>
+            <textarea matInput formControlName="comment" 
+                      placeholder="Share your thoughts about this dish..." 
+                      rows="4" required aria-label="Your review comment"></textarea>
+            <mat-error *ngIf="formErrors.comment" class="error-message">
+              <mat-icon class="error-icon">error</mat-icon>
+              {{formErrors.comment}}
+            </mat-error>
+          </mat-form-field>
+          
+          <!-- Submit Button -->
+          <div class="form-actions">
+            <button type="submit" mat-raised-button color="accent" 
+                    [disabled]="commentForm.invalid" class="submit-button">
+              <mat-icon>send</mat-icon>
+              Submit Review
+            </button>
+          </div>
         </form>
-
-     
-			
-			
-	  
-<!--
-	  <div fxFlex [hidden]="dish">
-		
-		<mat-spinner></mat-spinner> <h4>Loading . . . Please Wait!</h4>
-		
-	</div>
--->
-
-	  
-</div>
+      </mat-card-content>
+    </mat-card>
+  
+  </div>
 
 </div>

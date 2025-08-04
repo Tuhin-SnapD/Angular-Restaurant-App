@@ -17,25 +17,24 @@ export class LeaderService {
 				private imageUrlService: ImageUrlService) { }
 	
 	getLeaders(): Observable<Leader[]> {
-		console.log('Fetching leaders from:', baseURL + 'leaders');
-		return this.http.get<any[]>(baseURL + 'leaders')
-      .pipe(map(leaders => {
-        console.log('Raw leaders from backend:', leaders);
-        return leaders.map(leader => {
-          const mappedLeader = {
-            id: leader._id,
-            name: leader.name,
-            image: this.imageUrlService.getImageUrl(leader.image),
-            designation: leader.designation,
-            abbr: leader.abbr,
-            featured: leader.featured,
-            description: leader.description
-          };
-          console.log('Mapped leader:', mappedLeader);
-          return mappedLeader;
-        });
-      }))
-      .pipe(catchError(this.processHTTPMsgService.handleError));
+		const url = baseURL + 'leaders';
+		return this.http.get<Leader[]>(url)
+			.pipe(
+				map(leaders => leaders.map(leader => this.mapLeader(leader))),
+				catchError(this.processHTTPMsgService.handleError)
+			);
+	}
+
+	private mapLeader(leader: any): Leader {
+		return {
+			id: leader._id,
+			name: leader.name,
+			image: this.imageUrlService.getImageUrl(leader.image),
+			designation: leader.designation,
+			abbr: leader.abbr,
+			featured: leader.featured,
+			description: leader.description
+		};
 	}
 	
 	getLeader(id: string): Observable<Leader> {

@@ -15,6 +15,30 @@
     </div>
   </section>
 
+  <!-- Category Filter Section -->
+  <section class="filter-section" [@expand]>
+    <div class="filter-container">
+      <div class="filter-header">
+        <h3 class="filter-title">Filter by Category</h3>
+        <button mat-button class="clear-filters-btn" (click)="clearFilters()" *ngIf="selectedCategory">
+          <i class="fa fa-times"></i>
+          Clear Filters
+        </button>
+      </div>
+      <div class="filter-chips" fxLayout="row wrap" fxLayoutGap="12px">
+        <button mat-chip 
+                *ngFor="let category of categories" 
+                [class.selected]="selectedCategory === category"
+                (click)="filterByCategory(category)"
+                class="category-chip"
+                [@fadeInUp]>
+          <i class="fa fa-tag"></i>
+          {{category}}
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- Menu Stats Section -->
   <section class="menu-stats-section" [@expand]>
     <div class="stats-content">
@@ -23,29 +47,29 @@
           <div class="stat-icon">
             <i class="fa fa-cutlery"></i>
           </div>
-          <div class="stat-number">{{dishes?.length || 0}}</div>
-          <div class="stat-label">Artisanal Creations</div>
+          <div class="stat-number">{{filteredDishes?.length || dishes?.length || 0}}</div>
+          <div class="stat-label">Available Dishes</div>
         </div>
         <div fxFlex="calc(25% - 22.5px)" class="stat-item" [@fadeInUp]>
           <div class="stat-icon">
             <i class="fa fa-star"></i>
           </div>
-          <div class="stat-number">5</div>
-          <div class="stat-label">Chef's Specials</div>
+          <div class="stat-number">{{categories?.length || 0}}</div>
+          <div class="stat-label">Categories</div>
         </div>
         <div fxFlex="calc(25% - 22.5px)" class="stat-item" [@fadeInUp]>
           <div class="stat-icon">
             <i class="fa fa-leaf"></i>
           </div>
-          <div class="stat-number">100%</div>
-          <div class="stat-label">Fresh Ingredients</div>
+          <div class="stat-number">{{getFeaturedDishesCount()}}</div>
+          <div class="stat-label">Featured Dishes</div>
         </div>
         <div fxFlex="calc(25% - 22.5px)" class="stat-item" [@fadeInUp]>
           <div class="stat-icon">
             <i class="fa fa-heart"></i>
           </div>
-          <div class="stat-number">∞</div>
-          <div class="stat-label">Love & Care</div>
+          <div class="stat-number">{{getFavoriteDishesCount()}}</div>
+          <div class="stat-label">Your Favorites</div>
         </div>
       </div>
     </div>
@@ -53,14 +77,14 @@
 
   <!-- Menu Content Section -->
   <section class="menu-content-section" [@expand]>
-    <div fxFlex *ngIf="dishes" class="menu-content">
+    <div fxFlex *ngIf="filteredDishes && filteredDishes.length > 0" class="menu-content">
       <div class="menu-grid" 
            fxLayout="row wrap" 
            fxLayoutGap="40px" 
            fxLayoutAlign="start start">
         
         <div fxFlex="calc(50% - 20px)" 
-             *ngFor="let dish of dishes; let i = index" 
+             *ngFor="let dish of filteredDishes; let i = index" 
              class="menu-item"
              [routerLink]="['/dishdetail',dish.id]" 
              [@fadeInScale]
@@ -70,7 +94,10 @@
             <div class="image-container">
               <img mat-card-image src="{{ dish.image }}" alt={{dish.name}}>
               <div class="image-overlay">
-                <i class="fa fa-cutlery"></i>
+                <div class="overlay-content">
+                  <i class="fa fa-cutlery"></i>
+                  <span class="overlay-text">View Details</span>
+                </div>
               </div>
               <div class="dish-badge">
                 <span class="luxury-badge small">
@@ -78,10 +105,19 @@
                   Chef's Selection
                 </span>
               </div>
+              <div class="price-badge">
+                <span class="price-tag">${{dish.price}}</span>
+              </div>
             </div>
             
             <mat-card-content class="menu-card-content">
-              <h3 class="dish-name">{{dish.name | uppercase}}</h3>
+              <div class="dish-header">
+                <h3 class="dish-name">{{dish.name | uppercase}}</h3>
+                <div class="dish-rating">
+                  <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+                </div>
+              </div>
+              
               <p class="dish-description">{{dish.description}}</p>
               
               <div class="dish-meta">
@@ -89,9 +125,15 @@
                   <i class="fa fa-tag"></i>
                   <span>{{dish.category}}</span>
                 </div>
-                <div class="dish-price">
-                  <i class="fa fa-dollar"></i>
-                  <span>{{dish.price}}</span>
+                <div class="dish-features">
+                  <span class="feature-tag" *ngIf="dish.featured">
+                    <i class="fa fa-fire"></i>
+                    Featured
+                  </span>
+                  <span class="feature-tag" *ngIf="dish.spicy">
+                    <i class="fa fa-pepper-hot"></i>
+                    Spicy
+                  </span>
                 </div>
               </div>
               
@@ -100,21 +142,46 @@
                   <i class="fa fa-eye"></i>
                   View Details
                 </button>
+                <button mat-icon-button class="favorite-btn" (click)="toggleFavorite(dish, $event)">
+                  <i class="fa" [class.fa-heart]="dish.favorite" [class.fa-heart-o]="!dish.favorite"></i>
+                </button>
               </div>
             </mat-card-content>
           </mat-card>
         </div>
       </div>
     </div>
+
+    <!-- No Results Section -->
+    <div fxFlex *ngIf="filteredDishes && filteredDishes.length === 0" 
+         fxLayout="column" 
+         fxLayoutAlign="center center" 
+         class="no-results-section">
+      <div class="no-results-content">
+        <div class="no-results-icon">
+          <i class="fa fa-search"></i>
+        </div>
+        <h3>No dishes found</h3>
+        <p>Try selecting a different category or clearing your filters</p>
+        <button mat-raised-button color="accent" (click)="clearFilters()">
+          <i class="fa fa-refresh"></i>
+          Clear Filters
+        </button>
+      </div>
+    </div>
   </section>
 
-  <!-- Loading Section -->
+  <!-- Enhanced Loading Section -->
   <section fxFlex *ngIf="!dishes && !errMess" 
            fxLayout="column" 
            fxLayoutAlign="center center" 
            class="loading-section">
     <div class="loading-content">
-      <mat-spinner></mat-spinner>
+      <div class="loading-spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+      </div>
       <h4>Crafting your dining experience...</h4>
       <p>Loading our finest culinary creations</p>
     </div>
@@ -131,7 +198,7 @@
       </div>
       <h2>Menu Temporarily Unavailable</h2>
       <h4>{{errMess}}</h4>
-      <button mat-raised-button color="accent" class="retry-button">
+      <button mat-raised-button color="accent" class="retry-button" (click)="retryLoad()">
         <i class="fa fa-refresh"></i>
         Try Again
       </button>
@@ -143,16 +210,12 @@
     <div class="cta-content">
       <h3 class="cta-title">Ready to Experience Our Menu?</h3>
       <p class="cta-description">
-        Book your table today and embark on a culinary journey that will delight your senses.
+        Explore our culinary creations and discover your next favorite dish.
       </p>
       <div class="cta-actions">
-        <button mat-raised-button color="accent" class="cta-button">
-          <i class="fa fa-calendar"></i>
-          Make Reservation
-        </button>
-        <button mat-stroked-button class="secondary-cta-button">
-          <i class="fa fa-phone"></i>
-          Call for Special Requests
+        <button mat-raised-button color="accent" class="cta-button" routerLink="/contactus">
+          <i class="fa fa-envelope"></i>
+          Contact Us
         </button>
       </div>
     </div>

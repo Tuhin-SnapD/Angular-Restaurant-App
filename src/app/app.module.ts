@@ -15,6 +15,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -78,7 +80,9 @@ import { ImageUrlService } from './services/image-url.service';
 	MatSlideToggleModule,
 	MatProgressSpinnerModule,
 	MatSliderModule,
-	MatIconModule
+	MatIconModule,
+	MatTooltipModule,
+	MatSnackBarModule
   ],
   providers: [
 	  DishService,

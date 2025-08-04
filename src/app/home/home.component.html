@@ -1,37 +1,63 @@
-<div class="container home-container"
-     fxLayout="column"
-     fxLayoutGap="60px">
+<div class="container home-container">
 
-  <!-- Welcome Section -->
-  <section class="welcome-section" [@expand]>
-    <div class="section-header">
-      <div class="luxury-divider"></div>
-      <h2 class="section-title">Welcome to Culinary Excellence</h2>
-      <p class="section-description">
+  <!-- Hero Section with Background Video/Image -->
+  <section class="hero-section" [@expand]>
+    <div class="hero-background">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa fa-star"></i>
+        <span>Michelin Star Experience</span>
+      </div>
+      <h1 class="hero-title">Welcome to Culinary Excellence</h1>
+      <p class="hero-description">
         Experience the pinnacle of gastronomic artistry where every dish tells a story of passion, 
         tradition, and innovation. Our master chefs create unforgettable moments through the art of fine dining.
       </p>
-      <div class="luxury-divider"></div>
+      <div class="hero-actions">
+        <button mat-raised-button color="accent" class="hero-button primary" routerLink="/menu">
+          <i class="fa fa-cutlery"></i>
+          Explore Our Menu
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">25+</span>
+          <span class="stat-label">Years of Excellence</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">3</span>
+          <span class="stat-label">Michelin Stars</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">1000+</span>
+          <span class="stat-label">Happy Guests</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Featured Content Grid -->
   <section class="featured-section" [@expand]>
     <div class="section-header">
-      <h3 class="subsection-title">Featured Highlights</h3>
-      <p class="subsection-description">Discover our signature offerings and culinary masterpieces</p>
+      <div class="section-badge">
+        <i class="fa fa-diamond"></i>
+        <span>Signature Offerings</span>
+      </div>
+      <h2 class="section-title">Featured Highlights</h2>
+      <p class="section-description">Discover our signature offerings and culinary masterpieces that define our legacy</p>
     </div>
     
-    <div fxLayout="row wrap"
-         fxLayout.sm="column"
-         fxLayout.xs="column"
-         fxLayoutAlign.gt-md="space-around center"
-         fxLayoutGap="40px"
-         class="featured-grid">
+    <div class="featured-grid">
 
       <!-- Featured Dish -->
-      <div fxFlex="calc(33.33% - 27px)" class="featured-item" [@fadeInUp]>
-        <mat-card *ngIf="dish" class="featured-card">
+      <div class="featured-item" [@fadeInUp]>
+        <mat-card *ngIf="dish" class="featured-card" (click)="navigateToDish(dish)">
+          <div class="card-badge">
+            <i class="fa fa-fire"></i>
+            <span>{{dish.label || 'Chef\'s Special'}}</span>
+          </div>
           <mat-card-header>
             <div mat-card-avatar class="featured-avatar">
               <i class="fa fa-star"></i>
@@ -39,29 +65,53 @@
             <mat-card-title>
               <h4>{{dish.name | uppercase}}</h4>
             </mat-card-title>
-            <mat-card-subtitle class="luxury-subtitle">Chef's Signature Dish</mat-card-subtitle>
+            <mat-card-subtitle class="luxury-subtitle">{{dish.category | uppercase}}</mat-card-subtitle>
           </mat-card-header>
           <div class="image-container">
             <img mat-card-image src="{{dish.image}}" alt={{dish.name}}>
             <div class="image-overlay">
-              <i class="fa fa-heart"></i>
+              <div class="overlay-content">
+                <i class="fa fa-heart"></i>
+                <span>View Details</span>
+              </div>
+            </div>
+            <div class="price-badge">
+              <span class="price">${{dish.price}}</span>
             </div>
           </div>
           <mat-card-content>
             <p>{{dish.description}}</p>
             <div class="card-actions">
-              <span class="luxury-badge">
-                <i class="fa fa-leaf"></i>
-                Seasonal Special
-              </span>
+              <div class="rating">
+                <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+                <span class="rating-text">5.0</span>
+              </div>
+              <div class="dish-details">
+                <span class="luxury-badge">
+                  <i class="fa fa-leaf"></i>
+                  {{dish.category}}
+                </span>
+                <span class="luxury-badge" *ngIf="dish.favorite">
+                  <i class="fa fa-heart"></i>
+                  Favorite
+                </span>
+                <span class="luxury-badge" *ngIf="dish.comments && dish.comments.length > 0">
+                  <i class="fa fa-comment"></i>
+                  {{dish.comments.length}} Reviews
+                </span>
+              </div>
             </div>
           </mat-card-content>
         </mat-card>
       </div>
 
       <!-- Featured Promotion -->
-      <div fxFlex="calc(33.33% - 27px)" class="featured-item" [@fadeInUp]>
-        <mat-card *ngIf="promotion" class="featured-card">
+      <div class="featured-item" [@fadeInUp]>
+        <mat-card *ngIf="promotion" class="featured-card promotion-card">
+          <div class="card-badge promotion-badge">
+            <i class="fa fa-gift"></i>
+            <span>{{promotion.label || 'Limited Time'}}</span>
+          </div>
           <mat-card-header>
             <div mat-card-avatar class="featured-avatar">
               <i class="fa fa-gift"></i>
@@ -69,29 +119,49 @@
             <mat-card-title>
               <h4>{{promotion.name | uppercase}}</h4>
             </mat-card-title>
-            <mat-card-subtitle class="luxury-subtitle">Exclusive Experience</mat-card-subtitle>
+            <mat-card-subtitle class="luxury-subtitle">Special Promotion</mat-card-subtitle>
           </mat-card-header>
           <div class="image-container">
             <img mat-card-image src="{{promotion.image}}" alt={{promotion.name}}>
             <div class="image-overlay">
-              <i class="fa fa-star"></i>
+              <div class="overlay-content">
+                <i class="fa fa-star"></i>
+                <span>Book Now</span>
+              </div>
+            </div>
+            <div class="discount-badge">
+              <span class="discount">${{promotion.price}}</span>
             </div>
           </div>
           <mat-card-content>
             <p>{{promotion.description}}</p>
             <div class="card-actions">
-              <span class="luxury-badge">
+              <div class="countdown">
                 <i class="fa fa-clock-o"></i>
-                Limited Time
-              </span>
+                <span>Limited Time Offer</span>
+              </div>
+              <div class="promotion-details">
+                <span class="luxury-badge">
+                  <i class="fa fa-star"></i>
+                  Featured
+                </span>
+                <span class="luxury-badge">
+                  <i class="fa fa-gift"></i>
+                  Special Deal
+                </span>
+              </div>
             </div>
           </mat-card-content>
         </mat-card>
       </div>
       
       <!-- Featured Leader -->
-      <div fxFlex="calc(33.33% - 27px)" class="featured-item" [@fadeInUp]>
-        <mat-card *ngIf="leader" class="featured-card">
+      <div class="featured-item" [@fadeInUp]>
+        <mat-card *ngIf="leader" class="featured-card leader-card">
+          <div class="card-badge leader-badge">
+            <i class="fa fa-crown"></i>
+            <span>{{leader.designation || 'Master Chef'}}</span>
+          </div>
           <mat-card-header>
             <div mat-card-avatar class="featured-avatar">
               <i class="fa fa-user"></i>
@@ -99,21 +169,37 @@
             <mat-card-title>
               <h4>{{leader.name | uppercase}}</h4>
             </mat-card-title>
-            <mat-card-subtitle class="luxury-subtitle">Executive Chef</mat-card-subtitle>
+            <mat-card-subtitle class="luxury-subtitle">{{leader.designation | uppercase}}</mat-card-subtitle>
           </mat-card-header>
           <div class="image-container">
             <img mat-card-image src="{{leader.image}}" alt={{leader.name}}>
             <div class="image-overlay">
-              <i class="fa fa-award"></i>
+              <div class="overlay-content">
+                <i class="fa fa-award"></i>
+                <span>Meet Chef</span>
+              </div>
+            </div>
+            <div class="experience-badge">
+              <span class="experience">{{leader.abbr}}</span>
             </div>
           </div>
           <mat-card-content>
             <p>{{leader.description}}</p>
             <div class="card-actions">
-              <span class="luxury-badge">
+              <div class="awards">
                 <i class="fa fa-trophy"></i>
-                Master Chef
-              </span>
+                <span>Featured Chef</span>
+              </div>
+              <div class="leader-details">
+                <span class="luxury-badge">
+                  <i class="fa fa-star"></i>
+                  {{leader.designation}}
+                </span>
+                <span class="luxury-badge" *ngIf="leader.featured">
+                  <i class="fa fa-crown"></i>
+                  Featured
+                </span>
+              </div>
             </div>
           </mat-card-content>
         </mat-card>
@@ -125,16 +211,17 @@
   <!-- Restaurant Philosophy Section -->
   <section class="philosophy-section" [@expand]>
     <div class="section-header">
-      <h3 class="subsection-title">Our Philosophy</h3>
-      <p class="subsection-description">The three pillars that guide our culinary journey</p>
+      <div class="section-badge">
+        <i class="fa fa-heart"></i>
+        <span>Our Values</span>
+      </div>
+      <h2 class="section-title">Our Philosophy</h2>
+      <p class="section-description">The three pillars that guide our culinary journey and define our commitment to excellence</p>
     </div>
     
-    <div fxLayout="row wrap" 
-         fxLayout.sm="column" 
-         fxLayoutGap="40px"
-         class="philosophy-grid">
+    <div class="philosophy-grid">
       
-      <div fxFlex="calc(33.33% - 27px)" class="philosophy-item" [@fadeInScale]>
+      <div class="philosophy-item" [@fadeInScale]>
         <div class="philosophy-icon">
           <i class="fa fa-leaf"></i>
         </div>
@@ -143,9 +230,14 @@
           We source only the finest seasonal ingredients from local artisans and sustainable farms, 
           ensuring every dish reflects the bounty of nature and supports our community.
         </p>
+        <div class="philosophy-features">
+          <span class="feature-tag">Local Sourcing</span>
+          <span class="feature-tag">Sustainable</span>
+          <span class="feature-tag">Fresh Daily</span>
+        </div>
       </div>
       
-      <div fxFlex="calc(33.33% - 27px)" class="philosophy-item" [@fadeInScale]>
+      <div class="philosophy-item" [@fadeInScale]>
         <div class="philosophy-icon">
           <i class="fa fa-heart"></i>
         </div>
@@ -154,9 +246,14 @@
           Every dish is handcrafted with meticulous attention to detail, combining traditional techniques 
           with innovative culinary artistry to create unforgettable flavors.
         </p>
+        <div class="philosophy-features">
+          <span class="feature-tag">Handcrafted</span>
+          <span class="feature-tag">Traditional</span>
+          <span class="feature-tag">Innovative</span>
+        </div>
       </div>
       
-      <div fxFlex="calc(33.33% - 27px)" class="philosophy-item" [@fadeInScale]>
+      <div class="philosophy-item" [@fadeInScale]>
         <div class="philosophy-icon">
           <i class="fa fa-glass"></i>
         </div>
@@ -165,47 +262,221 @@
           From our carefully selected wine pairings to our elegant ambiance, every element is designed 
           to create an unforgettable dining journey that transcends the ordinary.
         </p>
+        <div class="philosophy-features">
+          <span class="feature-tag">Wine Pairing</span>
+          <span class="feature-tag">Elegant</span>
+          <span class="feature-tag">Memorable</span>
+        </div>
       </div>
       
     </div>
   </section>
 
+  <!-- Testimonials Section -->
+  <section class="testimonials-section" [@expand]>
+    <div class="section-header">
+      <div class="section-badge">
+        <i class="fa fa-quote-left"></i>
+        <span>Guest Reviews</span>
+      </div>
+      <h2 class="section-title">What Our Guests Say</h2>
+      <p class="section-description">Real experiences from our valued guests who have experienced culinary excellence</p>
+    </div>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card" [@fadeInUp]>
+        <div class="testimonial-content">
+          <div class="stars">
+            <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+          </div>
+          <p>"An absolutely extraordinary dining experience. Every dish was a masterpiece, and the service was impeccable. This is what fine dining should be."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <i class="fa fa-user"></i>
+            </div>
+            <div class="author-info">
+              <h5>Sarah Johnson</h5>
+              <span>Food Critic</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card" [@fadeInUp]>
+        <div class="testimonial-content">
+          <div class="stars">
+            <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+          </div>
+          <p>"The attention to detail is remarkable. From the ambiance to the wine pairings, everything was perfectly orchestrated. A truly memorable evening."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <i class="fa fa-user"></i>
+            </div>
+            <div class="author-info">
+              <h5>Michael Chen</h5>
+              <span>Wine Enthusiast</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card" [@fadeInUp]>
+        <div class="testimonial-content">
+          <div class="stars">
+            <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+          </div>
+          <p>"The seasonal menu exceeded all expectations. Fresh, innovative, and absolutely delicious. This restaurant sets the standard for culinary excellence."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <i class="fa fa-user"></i>
+            </div>
+            <div class="author-info">
+              <h5>Emily Rodriguez</h5>
+              <span>Food Blogger</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Excellence in Numbers Section -->
+  <section class="excellence-section" [@expand]>
+    <div class="section-header">
+      <div class="section-badge">
+        <i class="fa fa-trophy"></i>
+        <span>Our Achievements</span>
+      </div>
+      <h2 class="section-title">Excellence in Numbers</h2>
+      <p class="section-description">Our achievements speak for themselves</p>
+    </div>
+    
+    <div class="excellence-stats">
+      <div class="excellence-stat-item" [@fadeInScale]>
+        <div class="stat-icon">
+          <i class="fa fa-calendar"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-number">25+</span>
+          <span class="stat-label">Years of Excellence</span>
+          <p class="stat-description">Decades of culinary mastery and innovation</p>
+        </div>
+      </div>
+      
+      <div class="excellence-stat-item" [@fadeInScale]>
+        <div class="stat-icon">
+          <i class="fa fa-star"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-number">3</span>
+          <span class="stat-label">Michelin Stars</span>
+          <p class="stat-description">Highest recognition in culinary excellence</p>
+        </div>
+      </div>
+      
+      <div class="excellence-stat-item" [@fadeInScale]>
+        <div class="stat-icon">
+          <i class="fa fa-users"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-number">50,000+</span>
+          <span class="stat-label">Happy Guests</span>
+          <p class="stat-description">Memorable experiences created</p>
+        </div>
+      </div>
+      
+      <div class="excellence-stat-item" [@fadeInScale]>
+        <div class="stat-icon">
+          <i class="fa fa-award"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-number">15+</span>
+          <span class="stat-label">Culinary Awards</span>
+          <p class="stat-description">Industry recognition and honors</p>
+        </div>
+      </div>
+      
+      <div class="excellence-stat-item" [@fadeInScale]>
+        <div class="stat-icon">
+          <i class="fa fa-leaf"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Fresh Ingredients</span>
+          <p class="stat-description">Sourced daily from local farms</p>
+        </div>
+      </div>
+      
+      <div class="excellence-stat-item" [@fadeInScale]>
+        <div class="stat-icon">
+          <i class="fa fa-heart"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-number">98%</span>
+          <span class="stat-label">Guest Satisfaction</span>
+          <p class="stat-description">Exceeding expectations consistently</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Call to Action Section -->
   <section class="cta-section" [@expand]>
+    <div class="cta-background">
+      <div class="cta-overlay"></div>
+    </div>
     <div class="cta-content">
-      <h3 class="cta-title">Ready for an Unforgettable Experience?</h3>
+      <div class="cta-badge">
+        <i class="fa fa-calendar"></i>
+        <span>Reserve Your Table</span>
+      </div>
+      <h2 class="cta-title">Ready for an Unforgettable Experience?</h2>
       <p class="cta-description">
-        Join us for an evening of culinary excellence and create memories that will last a lifetime.
+        Join us for an evening of culinary excellence and create memories that will last a lifetime. 
+        Our team is ready to craft your perfect dining experience.
       </p>
       <div class="cta-actions">
-        <button mat-raised-button color="accent" class="cta-button">
+        <button mat-raised-button color="accent" class="cta-button primary" routerLink="/menu">
           <i class="fa fa-calendar"></i>
-          Reserve Your Table
+          View Menu
         </button>
-        <button mat-stroked-button class="secondary-cta-button">
-          <i class="fa fa-phone"></i>
-          Call Us
-        </button>
+      </div>
+      <div class="cta-features">
+        <div class="feature">
+          <i class="fa fa-clock-o"></i>
+          <span>Open 7 Days</span>
+        </div>
+        <div class="feature">
+          <i class="fa fa-users"></i>
+          <span>Groups Welcome</span>
+        </div>
+        <div class="feature">
+          <i class="fa fa-wheelchair"></i>
+          <span>Accessible</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Loading Section -->
-  <section fxFlex *ngIf="!dish && !promotion && !leader && !dishErrMess && !promoErrMess && !leadErrMess" 
-           fxLayout="column" 
-           fxLayoutAlign="center center"
+  <section *ngIf="!dish && !promotion && !leader && !dishErrMess && !promoErrMess && !leadErrMess" 
            class="loading-section">
     <div class="loading-content">
-      <mat-spinner></mat-spinner>
+      <div class="loading-spinner">
+        <mat-spinner></mat-spinner>
+      </div>
       <h4>Preparing your culinary journey...</h4>
       <p>Loading our finest offerings</p>
+      <div class="loading-progress">
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Error Display -->
-  <section fxFlex *ngIf="dishErrMess || promoErrMess || leadErrMess" 
-           fxLayout="column" 
-           fxLayoutAlign="center center"
+  <section *ngIf="dishErrMess || promoErrMess || leadErrMess" 
            class="error-section">
     <div class="error-content">
       <div class="error-icon">
@@ -215,10 +486,16 @@
       <p *ngIf="dishErrMess">{{dishErrMess}}</p>
       <p *ngIf="promoErrMess">{{promoErrMess}}</p>
       <p *ngIf="leadErrMess">{{leadErrMess}}</p>
-      <button mat-raised-button color="accent" class="retry-button">
-        <i class="fa fa-refresh"></i>
-        Try Again
-      </button>
+      <div class="error-actions">
+        <button mat-raised-button color="accent" class="retry-button">
+          <i class="fa fa-refresh"></i>
+          Try Again
+        </button>
+        <button mat-stroked-button class="contact-button">
+          <i class="fa fa-phone"></i>
+          Contact Support
+        </button>
+      </div>
     </div>
   </section>
 

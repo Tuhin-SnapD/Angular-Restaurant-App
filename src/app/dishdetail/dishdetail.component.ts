@@ -34,6 +34,9 @@ export class DishdetailComponent implements OnInit {
 	dishcopy: Dish;
 	visibility = 'shown';
 	
+	// Additional properties for enhanced UI
+	showPreview = false;
+	
 	@ViewChild('fform') commentFormDirective;
 	
 	formErrors = {
@@ -139,6 +142,11 @@ export class DishdetailComponent implements OnInit {
 		rating: 5,
 		comment: ''
 	});
+  }
+  
+  // Enhanced UI methods
+  togglePreview() {
+    this.showPreview = !this.showPreview;
   }
 
 }

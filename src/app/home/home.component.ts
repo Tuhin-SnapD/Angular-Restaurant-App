@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
 import { Promotion } from '../shared/promotion';
 import { PromotionService } from '../services/promotion.service';
 import { Leader } from '../shared/leader';
 import { LeaderService } from '../services/leader.service';
-import { flyInOut, expand } from '../animations/app.animation';
+import { flyInOut, expand, fadeInUp, fadeInScale } from '../animations/app.animation';
 
 
 @Component({
@@ -18,7 +19,9 @@ import { flyInOut, expand } from '../animations/app.animation';
   },
   animations: [
 	  flyInOut(),
-	  expand()
+	  expand(),
+	  fadeInUp(),
+	  fadeInScale()
   ]
 })
 export class HomeComponent implements OnInit {
@@ -33,6 +36,7 @@ export class HomeComponent implements OnInit {
   constructor(private dishService: DishService,
 			  private promotionService: PromotionService,
 			  private leaderService: LeaderService,
+			  private router: Router,
 			  @Inject('BaseURL') private BaseURL) { }
 
   ngOnInit() {
@@ -48,6 +52,10 @@ export class HomeComponent implements OnInit {
 	  	.subscribe(leader => this.leader = leader,
 				   errmess => this.leadErrMess = <any>errmess );
 	  
+  }
+
+  navigateToDish(dish: Dish) {
+    this.router.navigate(['/dishdetail', dish.id]);
   }
 
 }

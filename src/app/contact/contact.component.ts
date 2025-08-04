@@ -78,7 +78,7 @@ export class ContactComponent implements OnInit {
       email: ['', [Validators.required,Validators.email]],
       agree: false,
       contacttype: 'None',
-      message: ''
+      message: ['', [Validators.maxLength(500)]]
     });
 	  this.feedbackForm.valueChanges
 	  	.subscribe(data => this.onValueChanged(data));
@@ -115,11 +115,9 @@ export class ContactComponent implements OnInit {
   onSubmit() {
 	this.isLoading = true;
     this.feedback = this.feedbackForm.value;
-    console.log(this.feedback);
     this.feedbackService.putFeedback(this.feedback)
       .subscribe(feedback => {
           this.feedback = feedback;
-          console.log(this.feedback);
         } ,
         errmess => {
           this.feedback = null;
@@ -145,6 +143,49 @@ export class ContactComponent implements OnInit {
 		message: ''
 	});
 	this.feedbackFormDirective.resetForm();
+  }
+
+  // New methods for enhanced user experience
+  openMap() {
+    const address = '121, Clear Water Bay Road, Clear Water Bay, Kowloon, HONG KONG';
+    const encodedAddress = encodeURIComponent(address);
+    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+    window.open(mapUrl, '_blank');
+  }
+
+  callPhone() {
+    const phoneNumber = '+85212345678';
+    window.open(`tel:${phoneNumber}`, '_self');
+  }
+
+  sendEmail() {
+    const email = 'info@restaurant.com';
+    const subject = 'Restaurant Inquiry';
+    const body = 'Hello, I would like to inquire about...';
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(mailtoUrl, '_self');
+  }
+
+  resetForm() {
+    this.isLoading = false;
+    this.isShowingResponse = false;
+    this.feedback = null;
+    this.feedbackcopy = null;
+    this.errMess = null;
+    
+    this.feedbackForm.reset({
+      firstname: '',
+      lastname: '',
+      telnum: 0,
+      email: '',
+      agree: false,
+      contacttype: 'None',
+      message: ''
+    });
+    
+    if (this.feedbackFormDirective) {
+      this.feedbackFormDirective.resetForm();
+    }
   }
 
 }

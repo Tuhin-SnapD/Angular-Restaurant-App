@@ -1,138 +1,381 @@
-<div class="container"
-  fxLayout="column"
-  fxLayoutGap="10px">
-
-  <div fxFlex>
-    <div>
-        <h3>Contact Us</h3>
-        <hr>
+<div class="contact-container">
+  <!-- Enhanced Hero Section -->
+  <div class="contact-hero">
+    <div class="hero-background">
+      <div class="hero-overlay"></div>
+      <div class="hero-pattern"></div>
     </div>
-  </div>
-
-  <div fxFlex>
-    <h3>Location Information</h3> 
-    <div fxLayout="column" fxLayout.gt-sm="row">
-      <div fxFlex="50" fxFlexOffset="20px">
-        <h4>Our Address</h4>
-        <address>
-          121, Clear Water Bay Road<br>
-          Clear Water Bay, Kowloon<br>
-          HONG KONG<br>
-          <i class="fa fa-phone"></i>: +852 1234 5678<br>
-          <i class="fa fa-fax"></i>: +852 8765 4321<br>
-          <i class="fa fa-envelope"></i>: 
-                <a href="mailto:confusion@food.net">confusion@food.net</a>
-        </address>
-        <p></p>
-        <div>
-          <a mat-raised-button href="tel:+85212345678"><i class="fa fa-phone"></i> Call</a>
-          <a mat-raised-button><i class="fa fa-skype"></i> Skype</a>
-          <a mat-raised-button href="mailto:confusion@food.net"><i class="fa fa-envelope-o"></i> Email</a>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa fa-envelope"></i>
+        <span>Contact Us</span>
+      </div>
+      <h1 class="hero-title">Let's Start a Conversation</h1>
+      <p class="hero-subtitle">We're here to help and answer any questions you might have. We look forward to hearing from you.</p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">24/7</span>
+          <span class="stat-label">Support</span>
         </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">< 2h</span>
+          <span class="stat-label">Response</span>
         </div>
-      <div fxFlex="40">
-        <h4>Map of our Location</h4>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Satisfaction</span>
+        </div>
       </div>
     </div>
   </div>
-	
-  	<div fxFlex fxFlexOffset="20px" class="form-size">
-		<h3>Send us your Feedback</h3>
-		
-		<p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
-		
-		
-		 <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()"  *ngIf="!isLoading" [@expand]>
-		
-			<p>
-				<mat-form-field class="half-width">
-					<input matInput formControlName="firstname" placeholder="First Name" type="text" required>
-					<mat-error *ngIf="formErrors.firstname">
-						{{ formErrors.firstname }}
-					</mat-error>
-				</mat-form-field>
-				
-				<mat-form-field class="half-width">
-					<input matInput formControlName="lastname" placeholder="Last Name" type="text" required>
-					<mat-error *ngIf="formErrors.lastname">
-						{{ formErrors.lastname }}
-					</mat-error>
-				</mat-form-field>
-				
-			</p>
-			
-			<p>
-				<mat-form-field class="half-width">
-					<input matInput formControlName="telnum" placeholder="Tel. Number" type="tel" pattern="[0-9]*" required>
-					<mat-error *ngIf="formErrors.telnum">
-						{{ formErrors.telnum }}
-					</mat-error>
-				</mat-form-field>
-				
-				<mat-form-field class="half-width">
-					<input matInput formControlName="email" placeholder="Email" type="email" email required>
-					<mat-error *ngIf="formErrors.email">
-						{{ formErrors.email}}
-					</mat-error>
-				</mat-form-field>
-				
-			</p>
-			
-			<table class="form-size">
-			
-				<td>
-					<mat-slide-toggle formControlName="agree">May we contact you?</mat-slide-toggle>
-				</td>
-				
-				<td>
-					<mat-select placeholder="How?" formControlName="contacttype">
-					
-						<mat-option *ngFor="let ctype of contactType" [value]="ctype">
-							{{ ctype }}
-						</mat-option>
-					
-					</mat-select>
-				</td>
-			
-			</table>
-			
-			<p>
-				<mat-form-field class="full-width">
-					
-					<textarea matInput formControlName="message" placeholder="Your Feedback" rows=12>
-					
-					</textarea>
-				
-				</mat-form-field>
-			
-			</p>
-			
-			<button type="submit" mat-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
-		
-		</form>
-		
-		<mat-list *ngIf="isLoading && !isShowingResponse" [@expand]>
-      <mat-progress-spinner
-        color="primary"
-        mode="indeterminate">
-      </mat-progress-spinner>
-    </mat-list>
-    <div *ngIf="isLoading && isShowingResponse" [@expand]>
-    <h4>Your Submission</h4>
-    <p>
-		  First Name: {{ feedback.firstname }} <br/><br/>
 
-		  Last Name: {{ feedback.lastname }} <br/><br/>
+  <!-- Main Contact Content -->
+  <div class="contact-content">
+    <!-- Contact Information Section -->
+    <div class="contact-info-section">
+      <div class="section-header">
+        <div class="section-badge">
+          <i class="fa fa-info-circle"></i>
+          <span>Get In Touch</span>
+        </div>
+        <h2 class="section-title">Multiple Ways to Reach Us</h2>
+        <p class="section-description">Choose the method that works best for you. We're here to help with reservations, feedback, or any questions.</p>
+      </div>
 
-		  Tel. Number: {{ feedback.telnum }} <br/><br/>
+      <div class="contact-grid">
+        <!-- Address Card -->
+        <div class="contact-card address-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fa fa-map-marker"></i>
+            </div>
+            <div class="card-badge">Visit Us</div>
+          </div>
+          <div class="card-content">
+            <h3>Our Location</h3>
+            <address>
+              <div class="address-line">
+                <i class="fa fa-building"></i>
+                <span>121, Clear Water Bay Road</span>
+              </div>
+              <div class="address-line">
+                <i class="fa fa-map"></i>
+                <span>Clear Water Bay, Kowloon</span>
+              </div>
+              <div class="address-line">
+                <i class="fa fa-flag"></i>
+                <span>HONG KONG</span>
+              </div>
+            </address>
+            <div class="card-actions">
+              <button class="action-btn secondary-btn" (click)="openMap()">
+                <i class="fa fa-external-link"></i>
+                <span>View on Map</span>
+              </button>
+            </div>
+          </div>
+        </div>
 
-		  Email: {{ feedback.email }} <br/><br/>
+        <!-- Contact Methods Card -->
+        <div class="contact-card contact-methods-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fa fa-phone"></i>
+            </div>
+            <div class="card-badge">Call Us</div>
+          </div>
+          <div class="card-content">
+            <h3>Phone & Email</h3>
+            <div class="contact-methods">
+              <div class="contact-method">
+                <div class="method-icon">
+                  <i class="fa fa-phone"></i>
+                </div>
+                <div class="method-details">
+                  <span class="method-label">Phone</span>
+                  <span class="method-value">+852 1234 5678</span>
+                </div>
+                <button class="method-action" (click)="callPhone()">
+                  <i class="fa fa-phone"></i>
+                </button>
+              </div>
+              <div class="contact-method">
+                <div class="method-icon">
+                  <i class="fa fa-envelope"></i>
+                </div>
+                <div class="method-details">
+                  <span class="method-label">Email</span>
+                  <span class="method-value">info@restaurant.com</span>
+                </div>
+                <button class="method-action" (click)="sendEmail()">
+                  <i class="fa fa-envelope"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-		  Contact You?: {{ feedback.agree }} <br/><br/>
+        <!-- Business Hours Card -->
+        <div class="contact-card hours-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fa fa-clock-o"></i>
+            </div>
+            <div class="card-badge">Hours</div>
+          </div>
+          <div class="card-content">
+            <h3>Business Hours</h3>
+            <div class="hours-list">
+              <div class="hours-item">
+                <span class="day">Monday - Friday</span>
+                <span class="time">11:00 AM - 10:00 PM</span>
+              </div>
+              <div class="hours-item">
+                <span class="day">Saturday</span>
+                <span class="time">10:00 AM - 11:00 PM</span>
+              </div>
+              <div class="hours-item">
+                <span class="day">Sunday</span>
+                <span class="time">10:00 AM - 9:00 PM</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="action-btn secondary-btn" routerLink="/menu">
+                <i class="fa fa-utensils"></i>
+                <span>View Menu</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		  How?: {{ feedback.contacttype }} <br/><br/>
-		  Feedback: {{ feedback.message }} <br/><br/>
-    </p>
+    <!-- Enhanced Feedback Form Section -->
+    <div class="feedback-section">
+      <div class="section-header">
+        <div class="section-badge">
+          <i class="fa fa-comments"></i>
+          <span>Share Feedback</span>
+        </div>
+        <h2 class="section-title">We Value Your Opinion</h2>
+        <p class="section-description">Help us improve by sharing your dining experience. Your feedback is invaluable to us.</p>
+      </div>
+
+      <!-- Progress Indicator -->
+      <div class="form-progress" *ngIf="!isLoading && !isShowingResponse">
+        <div class="progress-step active" [class.completed]="feedbackForm.get('firstname')?.valid && feedbackForm.get('lastname')?.valid">
+          <div class="step-number">1</div>
+          <span class="step-label">Personal Info</span>
+        </div>
+        <div class="progress-step" [class.active]="feedbackForm.get('email')?.valid && feedbackForm.get('telnum')?.valid" [class.completed]="feedbackForm.get('email')?.valid && feedbackForm.get('telnum')?.valid">
+          <div class="step-number">2</div>
+          <span class="step-label">Contact Details</span>
+        </div>
+        <div class="progress-step" [class.active]="feedbackForm.get('message')?.value?.length > 0" [class.completed]="feedbackForm.get('message')?.value?.length > 10">
+          <div class="step-number">3</div>
+          <span class="step-label">Your Message</span>
+        </div>
+      </div>
+
+      <!-- Feedback Form -->
+      <div class="form-container" *ngIf="!isLoading && !isShowingResponse">
+        <form [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" class="feedback-form">
+          <!-- Personal Information -->
+          <div class="form-section">
+            <div class="section-header">
+              <h3 class="form-section-title">
+                <i class="fa fa-user"></i>
+                Personal Information
+              </h3>
+              <p class="section-hint">Tell us who you are</p>
+            </div>
+            
+            <div class="form-row">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstname" type="text" required>
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="formErrors.firstname">
+                  {{ formErrors.firstname }}
+                </mat-error>
+              </mat-form-field>
+              
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastname" type="text" required>
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="formErrors.lastname">
+                  {{ formErrors.lastname }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="form-section">
+            <div class="section-header">
+              <h3 class="form-section-title">
+                <i class="fa fa-address-book"></i>
+                Contact Information
+              </h3>
+              <p class="section-hint">How can we reach you?</p>
+            </div>
+            
+            <div class="form-row">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="telnum" type="tel" pattern="[0-9]*" required>
+                <mat-icon matSuffix>phone</mat-icon>
+                <mat-error *ngIf="formErrors.telnum">
+                  {{ formErrors.telnum }}
+                </mat-error>
+              </mat-form-field>
+              
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" type="email" email required>
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error *ngIf="formErrors.email">
+                  {{ formErrors.email}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Contact Preferences -->
+          <div class="form-section">
+            <div class="section-header">
+              <h3 class="form-section-title">
+                <i class="fa fa-comments"></i>
+                Contact Preferences
+              </h3>
+              <p class="section-hint">Would you like us to follow up?</p>
+            </div>
+            
+            <div class="contact-preferences">
+              <div class="preference-toggle">
+                <mat-slide-toggle formControlName="agree" class="contact-toggle">
+                  <span class="toggle-label">May we contact you for follow-up?</span>
+                </mat-slide-toggle>
+                <p class="toggle-hint">We'll only contact you if you give us permission</p>
+              </div>
+              
+              <div class="contact-type-container" *ngIf="feedbackForm.get('agree')?.value">
+                <mat-form-field class="contact-type-field" appearance="outline">
+                  <mat-label>Preferred Contact Method</mat-label>
+                  <mat-select formControlName="contacttype">
+                    <mat-option *ngFor="let ctype of contactType" [value]="ctype">
+                      {{ ctype }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-icon matSuffix>contact_support</mat-icon>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feedback Message -->
+          <div class="form-section">
+            <div class="section-header">
+              <h3 class="form-section-title">
+                <i class="fa fa-edit"></i>
+                Your Feedback
+              </h3>
+              <p class="section-hint">Share your experience with us</p>
+            </div>
+            
+            <mat-form-field class="message-field" appearance="outline">
+              <mat-label>Tell us about your experience</mat-label>
+              <textarea matInput formControlName="message" rows="6" 
+                        placeholder="We'd love to hear about your dining experience, suggestions for improvement, or any other feedback you'd like to share..."></textarea>
+              <mat-icon matSuffix>rate_review</mat-icon>
+              <mat-hint align="end">{{ feedbackForm.get('message')?.value?.length || 0 }}/500 characters</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-actions">
+            <button type="submit" mat-raised-button class="submit-btn" [disabled]="feedbackForm.invalid">
+              <i class="fa fa-paper-plane"></i>
+              <span>Send Feedback</span>
+            </button>
+            <p class="submit-hint">We'll review your feedback and get back to you within 24 hours</p>
+          </div>
+        </form>
+      </div>
+
+      <!-- Enhanced Loading State -->
+      <div class="loading-container" *ngIf="isLoading && !isShowingResponse">
+        <div class="loading-content">
+          <div class="loading-animation">
+            <div class="loading-spinner"></div>
+            <div class="loading-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <h3>Sending your feedback...</h3>
+          <p>Please wait while we process your submission. This usually takes just a few seconds.</p>
+        </div>
+      </div>
+
+      <!-- Enhanced Response Display -->
+      <div class="response-container" *ngIf="isLoading && isShowingResponse">
+        <div class="response-content">
+          <div class="response-header">
+            <div class="success-icon">
+              <i class="fa fa-check-circle"></i>
+            </div>
+            <h3>Thank You!</h3>
+            <p>Your feedback has been successfully submitted. We appreciate you taking the time to share your experience with us.</p>
+          </div>
+          
+          <div class="response-details">
+            <h4>Submission Summary</h4>
+            <div class="response-grid">
+              <div class="response-item">
+                <span class="label">Name</span>
+                <span class="value">{{ feedback.firstname }} {{ feedback.lastname }}</span>
+              </div>
+              <div class="response-item">
+                <span class="label">Phone</span>
+                <span class="value">{{ feedback.telnum }}</span>
+              </div>
+              <div class="response-item">
+                <span class="label">Email</span>
+                <span class="value">{{ feedback.email }}</span>
+              </div>
+              <div class="response-item">
+                <span class="label">Contact Permission</span>
+                <span class="value">{{ feedback.agree ? 'Yes' : 'No' }}</span>
+              </div>
+              <div class="response-item" *ngIf="feedback.agree">
+                <span class="label">Contact Method</span>
+                <span class="value">{{ feedback.contacttype }}</span>
+              </div>
+              <div class="response-item full-width">
+                <span class="label">Feedback</span>
+                <span class="value">{{ feedback.message }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="response-actions">
+            <button class="action-btn primary-btn" (click)="resetForm()">
+              <i class="fa fa-plus"></i>
+              <span>Send Another Feedback</span>
+            </button>
+            <button class="action-btn secondary-btn" routerLink="/menu">
+              <i class="fa fa-utensils"></i>
+              <span>View Our Menu</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

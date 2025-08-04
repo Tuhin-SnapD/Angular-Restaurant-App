@@ -1,13 +1,14 @@
 <mat-toolbar color="primary" class="main-toolbar">
   <div class="toolbar-content">
     <div class="brand-section">
-      <span class="restaurant-name">
+      <span class="restaurant-name" routerLink="/home">
         <i class="fa fa-cutlery brand-icon"></i>
         <strong>L'Artisan Culinaire</strong>
       </span>
     </div>
     
-    <nav class="navigation-section">
+    <!-- Desktop Navigation -->
+    <nav class="navigation-section desktop-nav">
       <a mat-button routerLink='/home' routerLinkActive='active' class="nav-link">
         <i class="fa fa-home"></i>
         <span class="nav-text">Home</span>
@@ -27,71 +28,80 @@
     </nav>
     
     <div class="toolbar-actions">
-      <button mat-icon-button class="action-button" aria-label="Reservations">
-        <i class="fa fa-calendar"></i>
+      <!-- Search Button -->
+      <button mat-icon-button class="action-button" aria-label="Search" (click)="toggleSearch()">
+        <i class="fa fa-search"></i>
       </button>
-      <button mat-icon-button class="action-button" aria-label="Phone">
+      
+      <!-- Reservations Button -->
+      <button mat-icon-button class="action-button" aria-label="Reservations" (click)="openReservations()">
+        <i class="fa fa-calendar"></i>
+        <span class="notification-badge" *ngIf="hasNewNotifications">!</span>
+      </button>
+      
+      <!-- Phone Button -->
+      <button mat-icon-button class="action-button" aria-label="Phone" (click)="callPhone()">
         <i class="fa fa-phone"></i>
+      </button>
+      
+      <!-- Mobile Menu Toggle -->
+      <button mat-icon-button class="mobile-menu-toggle" aria-label="Menu" (click)="toggleMobileMenu()">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Search Bar -->
+  <div class="search-container" [class.active]="searchActive">
+    <div class="search-content">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search our menu...</mat-label>
+        <input matInput placeholder="Try 'pasta', 'steak', or 'dessert'" [(ngModel)]="searchQuery" (keyup.enter)="performSearch()">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <button mat-icon-button class="close-search" (click)="toggleSearch()">
+        <i class="fa fa-times"></i>
       </button>
     </div>
   </div>
 </mat-toolbar>
 
-<div class="hero-section">
-  <div class="container hero-content"
-       fxLayout="row"
-       fxLayout.sm="column" 
-       fxLayout.xs="column" 
-       fxLayoutAlign.xs="start center"
-       fxLayoutAlign.sm="start center" 
-       fxLayoutAlign.gt-sm="center center" 
-       fxLayoutGap="40px">
-
-    <div fxFlex fxFlex.gt-sm="50%" class="hero-text">
-      <h1 class="hero-title">L'Artisan Culinaire</h1>
-      <p class="hero-description">
-        Where culinary artistry meets timeless elegance. Our master chefs craft each dish with passion, 
-        using the finest seasonal ingredients to create an unforgettable dining experience that transcends the ordinary.
-      </p>
-      <div class="hero-badges">
-        <span class="luxury-badge large">
-          <i class="fa fa-star"></i>
-          Michelin Starred
-        </span>
-        <span class="luxury-badge large">
-          <i class="fa fa-leaf"></i>
-          Farm to Table
-        </span>
-        <span class="luxury-badge large">
-          <i class="fa fa-heart"></i>
-          Artisanal
-        </span>
-      </div>
-      <div class="hero-actions">
-        <button mat-raised-button color="accent" class="cta-button">
-          <i class="fa fa-calendar"></i>
-          Make Reservation
-        </button>
-        <button mat-stroked-button class="secondary-button">
-          <i class="fa fa-book"></i>
-          View Menu
-        </button>
-      </div>
+<!-- Mobile Navigation Menu -->
+<div class="mobile-menu" [class.active]="mobileMenuActive" (click)="onMobileMenuClick($event)">
+  <div class="mobile-menu-content">
+    <div class="mobile-menu-header">
+      <h3>Menu</h3>
+      <button mat-icon-button (click)="toggleMobileMenu()">
+        <i class="fa fa-times"></i>
+      </button>
     </div>
-    
-    <div fxFlex fxFlex.gt-sm="30%" class="hero-visual">
-      <div class="logo-container">
-        <div class="logo-placeholder">
-          <i class="fa fa-cutlery fa-3x"></i>
-        </div>
-        <div class="logo-decoration">
-          <div class="decoration-line"></div>
-          <div class="decoration-dot"></div>
-          <div class="decoration-line"></div>
-        </div>
-      </div>
+    <nav class="mobile-nav">
+      <a mat-button routerLink='/home' routerLinkActive='active' class="mobile-nav-link" (click)="toggleMobileMenu()">
+        <i class="fa fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a mat-button routerLink='/about' routerLinkActive='active' class="mobile-nav-link" (click)="toggleMobileMenu()">
+        <i class="fa fa-info-circle"></i>
+        <span>About</span>
+      </a>
+      <a mat-button routerLink='/menu' routerLinkActive='active' class="mobile-nav-link" (click)="toggleMobileMenu()">
+        <i class="fa fa-cutlery"></i>
+        <span>Menu</span>
+      </a>
+      <a mat-button routerLink='/contactus' routerLinkActive='active' class="mobile-nav-link" (click)="toggleMobileMenu()">
+        <i class="fa fa-address-card"></i>
+        <span>Contact</span>
+      </a>
+    </nav>
+    <div class="mobile-actions">
+      <button mat-raised-button color="accent" class="mobile-cta" (click)="openReservations()">
+        <i class="fa fa-calendar"></i>
+        Make Reservation
+      </button>
+      <button mat-stroked-button class="mobile-secondary" (click)="callPhone()">
+        <i class="fa fa-phone"></i>
+        Call Us
+      </button>
     </div>
-    
-    <div fxFlex fxFlex.gt-sm="20%"></div>
   </div>
 </div>
