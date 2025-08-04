@@ -50,7 +50,7 @@ The website embodies the essence of artisanal cuisine through:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/angular-restaurant-app.git
+   git clone https://github.com/tuhin-snapd/angular-restaurant-app.git
    cd angular-restaurant-app
    ```
 
