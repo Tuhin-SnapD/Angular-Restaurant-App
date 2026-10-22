@@ -336,11 +336,18 @@
               
               .dish-rating {
                 display: flex;
+                align-items: center;
                 gap: 2px;
                 
                 i {
                   color: $gold;
                   font-size: 0.9rem;
+                }
+                
+                .review-count {
+                  margin-left: 4px;
+                  font-size: 0.8rem;
+                  color: $charcoal-light;
                 }
               }
             }
@@ -805,4 +812,10 @@
       }
     }
   }
+}
+
+.filter-search-note {
+  margin: 0.25rem 0 1rem;
+  color: $charcoal-light;
+  font-style: italic;
 }

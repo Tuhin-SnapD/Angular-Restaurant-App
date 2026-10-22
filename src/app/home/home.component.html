@@ -427,8 +427,8 @@
     </div>
     <div class="cta-content">
       <div class="cta-badge">
-        <i class="fa fa-calendar"></i>
-        <span>Reserve Your Table</span>
+        <i class="fa fa-cutlery"></i>
+        <span>Explore Our Menu</span>
       </div>
       <h2 class="cta-title">Ready for an Unforgettable Experience?</h2>
       <p class="cta-description">
@@ -437,8 +437,12 @@
       </p>
       <div class="cta-actions">
         <button mat-raised-button color="accent" class="cta-button primary" routerLink="/menu">
-          <i class="fa fa-calendar"></i>
+          <i class="fa fa-cutlery"></i>
           View Menu
+        </button>
+        <button mat-stroked-button class="cta-button secondary" routerLink="/contactus">
+          <i class="fa fa-envelope"></i>
+          Contact Us to Reserve
         </button>
       </div>
       <div class="cta-features">
@@ -487,11 +491,11 @@
       <p *ngIf="promoErrMess">{{promoErrMess}}</p>
       <p *ngIf="leadErrMess">{{leadErrMess}}</p>
       <div class="error-actions">
-        <button mat-raised-button color="accent" class="retry-button">
+        <button mat-raised-button color="accent" class="retry-button" (click)="retryLoad()">
           <i class="fa fa-refresh"></i>
           Try Again
         </button>
-        <button mat-stroked-button class="contact-button">
+        <button mat-stroked-button class="contact-button" routerLink="/contactus">
           <i class="fa fa-phone"></i>
           Contact Support
         </button>

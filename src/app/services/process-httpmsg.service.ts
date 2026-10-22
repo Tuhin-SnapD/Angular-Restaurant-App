@@ -16,8 +16,14 @@ export class ProcessHTTPMsgService {
 		if (error.error instanceof ErrorEvent) {
 			errMsg = error.error.message;
 		}
+		else if (error.error && typeof error.error === 'object' && error.error.error) {
+			errMsg = error.error.error;
+		}
+		else if (typeof error.error === 'string' && error.error) {
+			errMsg = error.error;
+		}
 		else {
-			errMsg = `${error.status} - ${error.statusText || ''} ${error.error}`;
+			errMsg = `${error.status} - ${error.statusText || 'Request failed'}`;
 		}
 		
 		return throwError(errMsg);

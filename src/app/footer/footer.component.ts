@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -10,9 +10,7 @@ export class FooterComponent implements OnInit {
   showBackToTop = false;
   currentYear = new Date().getFullYear();
 
-  constructor(
-    private snackBar: MatSnackBar
-  ) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.checkScrollPosition();
@@ -32,25 +30,11 @@ export class FooterComponent implements OnInit {
   }
 
   openReservation() {
-    // Navigate to reservation page or open modal
-    this.snackBar.open('Please contact us directly for reservations.', 'Close', {
-      duration: 3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'bottom'
-    });
+    this.router.navigate(['/contactus']);
   }
 
   isToday(day: string): boolean {
     const today = new Date().getDay();
-    const dayMap: { [key: string]: number } = {
-      'sunday': 0,
-      'monday': 1,
-      'tuesday': 2,
-      'wednesday': 3,
-      'thursday': 4,
-      'friday': 5,
-      'saturday': 6
-    };
     
     if (day === 'monday' || day === 'tuesday' || day === 'wednesday' || day === 'thursday' || day === 'friday') {
       return today >= 1 && today <= 5;

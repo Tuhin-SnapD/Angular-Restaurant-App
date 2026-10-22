@@ -20,11 +20,14 @@
     <div class="filter-container">
       <div class="filter-header">
         <h3 class="filter-title">Filter by Category</h3>
-        <button mat-button class="clear-filters-btn" (click)="clearFilters()" *ngIf="selectedCategory">
+        <button mat-button class="clear-filters-btn" (click)="clearFilters()" *ngIf="selectedCategory || searchQuery">
           <i class="fa fa-times"></i>
           Clear Filters
         </button>
       </div>
+      <p class="filter-search-note" *ngIf="searchQuery">
+        Showing results for "{{ searchQuery }}"
+      </p>
       <div class="filter-chips" fxLayout="row wrap" fxLayoutGap="12px">
         <button mat-chip 
                 *ngFor="let category of categories" 
@@ -113,8 +116,12 @@
             <mat-card-content class="menu-card-content">
               <div class="dish-header">
                 <h3 class="dish-name">{{dish.name | uppercase}}</h3>
-                <div class="dish-rating">
-                  <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+                <div class="dish-rating" [title]="(dish.comments?.length || 0) + ' reviews'">
+                  <i class="fa"
+                     *ngFor="let star of [1,2,3,4,5]"
+                     [class.fa-star]="star <= getAverageRating(dish)"
+                     [class.fa-star-o]="star > getAverageRating(dish)"></i>
+                  <span class="review-count">({{ dish.comments?.length || 0 }})</span>
                 </div>
               </div>
               
@@ -162,7 +169,7 @@
           <i class="fa fa-search"></i>
         </div>
         <h3>No dishes found</h3>
-        <p>Try selecting a different category or clearing your filters</p>
+        <p>Try a different search or category, or clear your filters.</p>
         <button mat-raised-button color="accent" (click)="clearFilters()">
           <i class="fa fa-refresh"></i>
           Clear Filters

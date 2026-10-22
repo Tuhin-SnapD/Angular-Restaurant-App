@@ -32,7 +32,8 @@ export class ContactComponent implements OnInit {
 	  'firstname': '',
 	  'lastname' : '',
 	  'telnum' : '',
-	  'email': ''
+	  'email': '',
+	  'message': ''
   };
 	
   validationMessages = {
@@ -50,12 +51,17 @@ export class ContactComponent implements OnInit {
 	  
 	  'telnum':{
 		  'required':'Tel. number is Required.',
-		  'pattern': 'Tel. number must contain only numbers.'
+		  'pattern': 'Tel. number must be 7-15 digits.'
 	  },
 	  
 	  'email':{
 		  'required':'Email is Required.',
 		  'email': 'Email not in valid format.'
+	  },
+	  
+	  'message':{
+		  'required':'Message is Required.',
+		  'minlength': 'Message must be at least 10 characters long.'
 	  }
 	  
   };
@@ -74,11 +80,11 @@ export class ContactComponent implements OnInit {
     this.feedbackForm = this.fb.group({
       firstname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
       lastname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
-      telnum: [0, [Validators.required,Validators.pattern]],
-      email: ['', [Validators.required,Validators.email]],
+      telnum: ['', [Validators.required, Validators.pattern(/^\d{7,15}$/)]],
+      email: ['', [Validators.required, Validators.email]],
       agree: false,
-      contacttype: 'None',
-      message: ['', [Validators.maxLength(500)]]
+      contactType: 'Tel.',
+      message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]]
     });
 	  this.feedbackForm.valueChanges
 	  	.subscribe(data => this.onValueChanged(data));
@@ -113,36 +119,49 @@ export class ContactComponent implements OnInit {
   }
 	
   onSubmit() {
-	this.isLoading = true;
+    if (this.feedbackForm.invalid) {
+      return;
+    }
+
+    this.isLoading = true;
+    this.isShowingResponse = false;
+    this.errMess = null;
     this.feedback = this.feedbackForm.value;
+
     this.feedbackService.putFeedback(this.feedback)
       .subscribe(feedback => {
           this.feedback = feedback;
-        } ,
+          this.resetFeedbackForm();
+        },
         errmess => {
-          this.feedback = null;
-          this.feedbackcopy = null;
+          this.isLoading = false;
+          this.isShowingResponse = false;
           this.errMess = <any>errmess;
-        } ,
+        },
         () => {
           this.isShowingResponse = true;
           setTimeout(() => {
               this.isShowingResponse = false;
               this.isLoading = false;
-            } , 5000
+            }, 5000
           );
         });
-	  
+  }
+
+  resetFeedbackForm() {
     this.feedbackForm.reset({
-		firstname: '',
-		lastname: '',
-		telnum: 0,
-		email: '',
-		agree: false,
-		contacttype: 'None',
-		message: ''
-	});
-	this.feedbackFormDirective.resetForm();
+      firstname: '',
+      lastname: '',
+      telnum: '',
+      email: '',
+      agree: false,
+      contactType: 'Tel.',
+      message: ''
+    });
+
+    if (this.feedbackFormDirective) {
+      this.feedbackFormDirective.resetForm();
+    }
   }
 
   // New methods for enhanced user experience
@@ -154,16 +173,15 @@ export class ContactComponent implements OnInit {
   }
 
   callPhone() {
-    const phoneNumber = '+85212345678';
-    window.open(`tel:${phoneNumber}`, '_self');
+    window.location.href = 'tel:+85212345678';
   }
 
   sendEmail() {
-    const email = 'info@restaurant.com';
+    const email = 'info@lartisanculinaire.com';
     const subject = 'Restaurant Inquiry';
     const body = 'Hello, I would like to inquire about...';
     const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.open(mailtoUrl, '_self');
+    window.location.href = mailtoUrl;
   }
 
   resetForm() {
@@ -172,20 +190,7 @@ export class ContactComponent implements OnInit {
     this.feedback = null;
     this.feedbackcopy = null;
     this.errMess = null;
-    
-    this.feedbackForm.reset({
-      firstname: '',
-      lastname: '',
-      telnum: 0,
-      email: '',
-      agree: false,
-      contacttype: 'None',
-      message: ''
-    });
-    
-    if (this.feedbackFormDirective) {
-      this.feedbackFormDirective.resetForm();
-    }
+    this.resetFeedbackForm();
   }
 
 }

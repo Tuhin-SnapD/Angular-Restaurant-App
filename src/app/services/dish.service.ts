@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Dish } from '../shared/dish';
+import { Comment } from '../shared/comment';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../shared/baseurl';
@@ -19,10 +20,8 @@ export class DishService {
 	
   getDishes(): Observable<Dish[]> {
     const url = baseURL + 'dishes';
-    console.log('Fetching dishes from:', url);
     return this.http.get<any[]>(url)
       .pipe(map(dishes => {
-        console.log('Raw dishes from backend:', dishes);
         return dishes.map(dish => {
           const mappedDish = {
             id: dish._id,
@@ -40,7 +39,6 @@ export class DishService {
               date: comment.createdAt || comment.date
             })) : []
           };
-          console.log('Mapped dish:', mappedDish);
           return mappedDish;
         });
       }))
@@ -103,6 +101,21 @@ export class DishService {
       })
     };
     return this.http.put<Dish>(baseURL + 'dishes/' + dish.id, dish, httpOptions)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
+  }
+
+  postComment(dishId: string, comment: Comment): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    const payload = {
+      rating: comment.rating,
+      author: comment.author,
+      comment: comment.comment
+    };
+    return this.http.post<any>(baseURL + 'dishes/' + dishId + '/comments', payload, httpOptions)
       .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 	

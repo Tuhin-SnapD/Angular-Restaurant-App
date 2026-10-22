@@ -107,7 +107,7 @@
                 </div>
                 <div class="method-details">
                   <span class="method-label">Email</span>
-                  <span class="method-value">info@restaurant.com</span>
+                  <span class="method-value">info@lartisanculinaire.com</span>
                 </div>
                 <button class="method-action" (click)="sendEmail()">
                   <i class="fa fa-envelope"></i>
@@ -265,7 +265,7 @@
               <div class="contact-type-container" *ngIf="feedbackForm.get('agree')?.value">
                 <mat-form-field class="contact-type-field" appearance="outline">
                   <mat-label>Preferred Contact Method</mat-label>
-                  <mat-select formControlName="contacttype">
+                  <mat-select formControlName="contactType">
                     <mat-option *ngFor="let ctype of contactType" [value]="ctype">
                       {{ ctype }}
                     </mat-option>
@@ -291,6 +291,7 @@
               <textarea matInput formControlName="message" rows="6" 
                         placeholder="We'd love to hear about your dining experience, suggestions for improvement, or any other feedback you'd like to share..."></textarea>
               <mat-icon matSuffix>rate_review</mat-icon>
+              <mat-error *ngIf="formErrors.message">{{ formErrors.message }}</mat-error>
               <mat-hint align="end">{{ feedbackForm.get('message')?.value?.length || 0 }}/500 characters</mat-hint>
             </mat-form-field>
           </div>
@@ -354,7 +355,7 @@
               </div>
               <div class="response-item" *ngIf="feedback.agree">
                 <span class="label">Contact Method</span>
-                <span class="value">{{ feedback.contacttype }}</span>
+                <span class="value">{{ feedback.contactType }}</span>
               </div>
               <div class="response-item full-width">
                 <span class="label">Feedback</span>
@@ -371,6 +372,25 @@
             <button class="action-btn secondary-btn" routerLink="/menu">
               <i class="fa fa-utensils"></i>
               <span>View Our Menu</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submission Error -->
+      <div class="response-container" *ngIf="errMess">
+        <div class="response-content">
+          <div class="response-header">
+            <div class="success-icon">
+              <i class="fa fa-exclamation-triangle" style="color: #b02a37;"></i>
+            </div>
+            <h3>We couldn't send your feedback</h3>
+            <p>{{ errMess }}</p>
+          </div>
+          <div class="response-actions">
+            <button class="action-btn primary-btn" (click)="errMess = null">
+              <i class="fa fa-refresh"></i>
+              <span>Try Again</span>
             </button>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,6 @@ export class HeaderComponent implements OnInit {
   searchActive = false;
   mobileMenuActive = false;
   searchQuery = '';
-  hasNewNotifications = true; // You can make this dynamic based on your business logic
 
   constructor(private router: Router) { }
 
@@ -19,17 +18,12 @@ export class HeaderComponent implements OnInit {
     this.handleScroll();
   }
 
+  @HostListener('window:scroll')
   handleScroll(): void {
-    window.addEventListener('scroll', () => {
-      const toolbar = document.querySelector('.main-toolbar') as HTMLElement;
-      if (toolbar) {
-        if (window.scrollY > 50) {
-          toolbar.classList.add('scrolled');
-        } else {
-          toolbar.classList.remove('scrolled');
-        }
-      }
-    });
+    const toolbar = document.querySelector('.main-toolbar') as HTMLElement;
+    if (toolbar) {
+      toolbar.classList.toggle('scrolled', window.scrollY > 50);
+    }
   }
 
   toggleSearch(): void {
@@ -58,23 +52,22 @@ export class HeaderComponent implements OnInit {
   }
 
   performSearch(): void {
-    if (this.searchQuery.trim()) {
-      // Navigate to menu page with search query
-      this.router.navigate(['/menu'], { queryParams: { search: this.searchQuery } });
+    const query = this.searchQuery.trim();
+    if (query) {
+      this.router.navigate(['/menu'], { queryParams: { search: query } });
       this.searchActive = false;
       this.searchQuery = '';
     }
   }
 
   openReservations(): void {
-    // You can implement reservation logic here
-    // For now, we'll just show a message
-    alert('Please contact us directly to make a reservation.');
+    this.mobileMenuActive = false;
+    document.body.style.overflow = '';
+    this.router.navigate(['/contactus']);
   }
 
   callPhone(): void {
-    // Open phone dialer - replace with actual phone number
-    alert('Please contact us for our phone number.');
+    window.location.href = 'tel:+85212345678';
   }
 
   // Close mobile menu when clicking outside

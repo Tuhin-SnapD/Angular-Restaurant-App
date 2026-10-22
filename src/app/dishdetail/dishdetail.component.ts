@@ -36,6 +36,9 @@ export class DishdetailComponent implements OnInit {
 	
 	// Additional properties for enhanced UI
 	showPreview = false;
+	isSubmitting = false;
+	commentSuccess = '';
+	commentError = '';
 	
 	@ViewChild('fform') commentFormDirective;
 	
@@ -126,22 +129,40 @@ export class DishdetailComponent implements OnInit {
   }
 	
   onSubmit() {
+    if (this.commentForm.invalid || this.isSubmitting || !this.dish) {
+      return;
+    }
+
     this.comment = this.commentForm.value;
     this.comment.date = new Date().toISOString();
-	this.dishcopy.comments.push(this.comment);
-	this.dishService.putDish(this.dishcopy)
-	  .subscribe(dish => {
-		this.dish = dish;
-		this.dishcopy=dish;
-	},
-	errmess => { this.dish = null; this.dishcopy = null; this.errMess = <any>errmess; });
-	
-	this.commentFormDirective.resetForm();
-    this.commentForm.reset({
-		author: '',
-		rating: 5,
-		comment: ''
-	});
+    this.isSubmitting = true;
+    this.commentSuccess = '';
+    this.commentError = '';
+
+    this.dishService.postComment(this.dish.id, this.comment)
+      .subscribe(createdComment => {
+        const newComment = {
+          rating: createdComment.rating,
+          comment: createdComment.comment,
+          author: createdComment.author,
+          date: createdComment.createdAt || new Date().toISOString()
+        };
+        this.dish.comments = [...(this.dish.comments || []), newComment];
+        this.dishcopy = this.dish;
+        this.isSubmitting = false;
+        this.commentSuccess = 'Thank you! Your review has been published.';
+
+        this.commentFormDirective.resetForm();
+        this.commentForm.reset({
+          author: '',
+          rating: 5,
+          comment: ''
+        });
+      },
+      errmess => {
+        this.isSubmitting = false;
+        this.commentError = <any>errmess;
+      });
   }
   
   // Enhanced UI methods

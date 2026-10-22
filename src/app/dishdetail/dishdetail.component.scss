@@ -940,6 +940,36 @@ button:focus, input:focus, textarea:focus {
     outline-offset: 2px;
 }
 
+.submit-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+    padding: $spacing-sm $spacing-md;
+    margin-bottom: $spacing-md;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+
+    &.success {
+        color: #146c43;
+        background: rgba(25, 135, 84, 0.1);
+        border: 1px solid rgba(25, 135, 84, 0.3);
+    }
+
+    &.error {
+        color: $burgundy;
+        background: rgba($burgundy, 0.08);
+        border: 1px solid rgba($burgundy, 0.3);
+    }
+
+    mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+    }
+}
+
 // Print styles
 @media print {
     .dish-actions, .review-form-card {

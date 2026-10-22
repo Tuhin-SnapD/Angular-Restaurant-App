@@ -255,12 +255,22 @@
             </mat-error>
           </mat-form-field>
           
+          <!-- Submission Status -->
+          <div class="submit-status success" *ngIf="commentSuccess">
+            <mat-icon>check_circle</mat-icon>
+            <span>{{ commentSuccess }}</span>
+          </div>
+          <div class="submit-status error" *ngIf="commentError">
+            <mat-icon>error</mat-icon>
+            <span>{{ commentError }}</span>
+          </div>
+
           <!-- Submit Button -->
           <div class="form-actions">
             <button type="submit" mat-raised-button color="accent" 
-                    [disabled]="commentForm.invalid" class="submit-button">
+                    [disabled]="commentForm.invalid || isSubmitting" class="submit-button">
               <mat-icon>send</mat-icon>
-              Submit Review
+              {{ isSubmitting ? 'Submitting...' : 'Submit Review' }}
             </button>
           </div>
         </form>

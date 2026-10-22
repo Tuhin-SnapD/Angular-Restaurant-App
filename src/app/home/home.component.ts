@@ -58,4 +58,14 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/dishdetail', dish.id]);
   }
 
+  retryLoad() {
+    this.dish = null;
+    this.promotion = null;
+    this.leader = null;
+    this.dishErrMess = null;
+    this.promoErrMess = null;
+    this.leadErrMess = null;
+    this.ngOnInit();
+  }
+
 }
