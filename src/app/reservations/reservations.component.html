@@ -1,0 +1,45 @@
+<main class="ng-page ng-reservation-page">
+  <section class="ng-reservation-heading">
+    <span class="ng-section-index">A SEAT AT THE TABLE</span>
+    <h1>Make an <em>evening</em> of it.</h1>
+    <p>Choose a date, find a seating with room for your party, and send a reservation request to our team.</p>
+    <div class="ng-reservation-promise"><mat-icon>event_available</mat-icon><span>Live availability · Requests are confirmed by the restaurant</span></div>
+  </section>
+
+  <div class="ng-reservation-layout">
+    <aside class="ng-reservation-availability">
+      <div class="ng-section-index">01 / LIVE AVAILABILITY</div>
+      <h2>Find your<br><em>seating.</em></h2>
+      <p class="ng-reservation-capacity" *ngIf="availability">{{availability.seatCapacity}} guest seats per seating · {{reservationForm.value.date | date:'fullDate'}}</p>
+      <div class="ng-reservation-state" *ngIf="loadingAvailability"><mat-spinner diameter="24"></mat-spinner><span>Checking the table plan…</span></div>
+      <div class="ng-reservation-error" *ngIf="!loadingAvailability && availabilityError"><mat-icon>error_outline</mat-icon>{{availabilityError}}</div>
+      <div class="ng-reservation-slots" *ngIf="!loadingAvailability && availability">
+        <button type="button" *ngFor="let slot of availability.slots" [disabled]="!slot.available" [class.ng-slot-selected]="reservationForm.value.time === slot.time" (click)="selectTime(slot.time)">
+          <strong>{{slot.time}}</strong><span>{{slot.past ? 'Service started' : (slot.available ? (slot.remainingGuests + ' seats left') : 'Fully booked')}}</span>
+        </button>
+      </div>
+      <p class="ng-reservation-full" *ngIf="availability && !loadingAvailability && noAvailableTimes()">No seating times have enough room for this party.</p>
+    </aside>
+
+    <section class="ng-reservation-form-card mat-elevation-z1">
+      <div class="ng-section-index">02 / RESERVATION REQUEST</div>
+      <h2>Tell us who’s joining.</h2>
+      <div class="ng-reservation-success" *ngIf="confirmation" role="status">
+        <mat-icon>check_circle</mat-icon><div><strong>Request received</strong><span>{{confirmation.message}}</span><b>Reference {{confirmation.reservation.confirmationCode}}</b></div>
+      </div>
+      <div class="ng-reservation-submit-error" *ngIf="submitError" role="alert"><mat-icon>error_outline</mat-icon>{{submitError}}</div>
+      <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="ng-reservation-fields">
+          <mat-form-field appearance="outline"><mat-label>Full name</mat-label><input matInput formControlName="guestName" autocomplete="name" placeholder="Name for the table"><mat-error *ngIf="reservationForm.get('guestName').invalid && reservationForm.get('guestName').touched">Enter a name between 2 and 80 characters.</mat-error></mat-form-field>
+          <mat-form-field appearance="outline"><mat-label>Email address</mat-label><input matInput type="email" formControlName="email" autocomplete="email" placeholder="you@example.com"><mat-error *ngIf="reservationForm.get('email').invalid && reservationForm.get('email').touched">Enter a valid email address.</mat-error></mat-form-field>
+          <mat-form-field appearance="outline"><mat-label>Phone number</mat-label><input matInput type="tel" formControlName="phone" autocomplete="tel" placeholder="For reservation updates"><mat-error *ngIf="reservationForm.get('phone').invalid && reservationForm.get('phone').touched">Enter a phone number between 7 and 24 characters.</mat-error></mat-form-field>
+          <mat-form-field appearance="outline"><mat-label>Date</mat-label><input matInput type="date" [min]="minDate" formControlName="date"></mat-form-field>
+          <mat-form-field appearance="outline"><mat-label>Party size</mat-label><mat-select formControlName="partySize"><mat-option *ngFor="let size of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="size">{{size}} {{size === 1 ? 'guest' : 'guests'}}</mat-option></mat-select></mat-form-field>
+          <mat-form-field appearance="outline"><mat-label>Occasion</mat-label><mat-select formControlName="occasion"><mat-option value="dinner">Dinner</mat-option><mat-option value="birthday">Birthday</mat-option><mat-option value="anniversary">Anniversary</mat-option><mat-option value="business">Business</mat-option><mat-option value="other">Other</mat-option></mat-select></mat-form-field>
+          <mat-form-field appearance="outline" class="ng-reservation-note"><mat-label>A note for our team</mat-label><textarea matInput formControlName="note" rows="3" maxlength="500" placeholder="Seating preferences or anything we should know"></textarea><mat-hint align="end">{{reservationForm.value.note.length || 0}} / 500</mat-hint></mat-form-field>
+        </div>
+        <div class="ng-reservation-submit"><span>Up to 12 guests · Changes are subject to availability.</span><button mat-flat-button color="primary" type="submit" [disabled]="submitting || loadingAvailability || !reservationForm.value.time || reservationForm.invalid"><mat-spinner *ngIf="submitting" diameter="17"></mat-spinner><span>{{submitting ? 'Sending request…' : 'Request this table'}}</span><mat-icon *ngIf="!submitting">arrow_outward</mat-icon></button></div>
+      </form>
+    </section>
+  </div>
+</main>

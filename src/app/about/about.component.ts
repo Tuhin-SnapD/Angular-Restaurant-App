@@ -1,50 +1,32 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Leader } from '../shared/leader';
 import { LeaderService } from '../services/leader.service';
-import { expand } from '../animations/app.animation';
-
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
-  host: {
-	  'style': 'display: block;'
-  },
-  animations: [
-	  expand()
-  ]
+  host: { 'style': 'display: block;' }
 })
 export class AboutComponent implements OnInit {
-	
-	leaders: Leader[];
-	errMess: string;
-	
-  	  constructor(private leaderService: LeaderService,
-			  @Inject('BaseURL') private BaseURL) { }
+  leaders: Leader[] = [];
+  errMess: string;
+  loading = true;
 
-  	ngOnInit() {
-		console.log('About component initialized');
-		this.loadLeaders();
-	}
+  constructor(private leaderService: LeaderService,
+              @Inject('BaseURL') private BaseURL) { }
 
-	loadLeaders() {
-		console.log('Loading leaders...');
-		this.leaderService.getLeaders()
-			.subscribe(leaders => {
-				console.log('Leaders loaded:', leaders);
-				this.leaders = leaders;
-			},
-					  errmess => {
-				console.error('Error loading leaders:', errmess);
-				this.errMess = <any>errmess;
-			});
-	}
+  ngOnInit() { this.loadLeaders(); }
 
-	retryLoad() {
-		this.errMess = null;
-		this.leaders = null;
-		this.loadLeaders();
-	}
-
+  loadLeaders() {
+    this.loading = true;
+    this.errMess = null;
+    this.leaderService.getLeaders().subscribe(leaders => {
+      this.leaders = leaders || [];
+      this.loading = false;
+    }, errmess => {
+      this.errMess = <any>errmess;
+      this.loading = false;
+    });
+  }
 }

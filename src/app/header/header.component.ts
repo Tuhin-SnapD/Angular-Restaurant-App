@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('window:scroll')
   handleScroll(): void {
-    const toolbar = document.querySelector('.main-toolbar') as HTMLElement;
+    const toolbar = document.querySelector('.ng-toolbar') as HTMLElement;
     if (toolbar) {
       toolbar.classList.toggle('scrolled', window.scrollY > 50);
     }
@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
     if (this.searchActive) {
       // Focus on search input after a short delay
       setTimeout(() => {
-        const searchInput = document.querySelector('.search-field input') as HTMLInputElement;
+        const searchInput = document.querySelector('.ng-search-panel input') as HTMLInputElement;
         if (searchInput) {
           searchInput.focus();
         }
@@ -49,6 +49,11 @@ export class HeaderComponent implements OnInit {
     } else {
       document.body.style.overflow = '';
     }
+  }
+
+  closeMobileMenu(): void {
+    this.mobileMenuActive = false;
+    document.body.style.overflow = '';
   }
 
   performSearch(): void {

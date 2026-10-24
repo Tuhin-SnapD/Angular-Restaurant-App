@@ -1,231 +1,33 @@
-<div class="container menu-container" 
-     fxLayout="column"
-     fxLayoutGap="60px">
-
-  <!-- Menu Header Section -->
-  <section class="menu-header-section" [@expand]>
-    <div class="section-header">
-      <div class="luxury-divider"></div>
-      <h2 class="section-title">Our Culinary Masterpieces</h2>
-      <p class="section-description">
-        Each dish is a testament to our commitment to culinary excellence, crafted with passion 
-        and the finest ingredients to create unforgettable dining experiences.
-      </p>
-      <div class="luxury-divider"></div>
-    </div>
+<main class="ng-page ng-menu-page">
+  <section class="ng-menu-heading">
+    <div><span class="ng-section-index">L'ÉTOILE / MENU</span><h1>The menu,<br><em>as it stands.</em></h1><p>Browse the current kitchen list. Every name, price, label, and review here comes from the restaurant API.</p></div>
+    <div class="ng-menu-count"><strong>{{dishes.length}}</strong><span>live dishes<br>across {{categories.length}} categories</span></div>
   </section>
 
-  <!-- Category Filter Section -->
-  <section class="filter-section" [@expand]>
-    <div class="filter-container">
-      <div class="filter-header">
-        <h3 class="filter-title">Filter by Category</h3>
-        <button mat-button class="clear-filters-btn" (click)="clearFilters()" *ngIf="selectedCategory || searchQuery">
-          <i class="fa fa-times"></i>
-          Clear Filters
-        </button>
-      </div>
-      <p class="filter-search-note" *ngIf="searchQuery">
-        Showing results for "{{ searchQuery }}"
-      </p>
-      <div class="filter-chips" fxLayout="row wrap" fxLayoutGap="12px">
-        <button mat-chip 
-                *ngFor="let category of categories" 
-                [class.selected]="selectedCategory === category"
-                (click)="filterByCategory(category)"
-                class="category-chip"
-                [@fadeInUp]>
-          <i class="fa fa-tag"></i>
-          {{category}}
-        </button>
-      </div>
+  <section class="ng-filter-panel" aria-label="Menu search and filters">
+    <div class="ng-filter-fields">
+      <mat-form-field appearance="outline" class="ng-search-field"><mat-label>Search dishes</mat-label><mat-icon matPrefix>search</mat-icon><input matInput [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()" placeholder="Name, description, category"></mat-form-field>
+      <mat-form-field appearance="outline" class="ng-sort-field"><mat-label>Sort menu</mat-label><mat-select [(ngModel)]="sortOrder" (ngModelChange)="applyFilters()"><mat-option value="featured">Featured first</mat-option><mat-option value="rating">Top rated</mat-option><mat-option value="price-low">Price: low to high</mat-option><mat-option value="price-high">Price: high to low</mat-option></mat-select></mat-form-field>
     </div>
+    <div class="ng-category-tools"><div class="ng-category-buttons" role="group" aria-label="Filter by category"><button mat-stroked-button type="button" [class.ng-selected]="!selectedCategory" [attr.aria-pressed]="!selectedCategory" (click)="filterByCategory('all')">All dishes</button><button mat-stroked-button type="button" *ngFor="let category of categories" [class.ng-selected]="selectedCategory === category" [attr.aria-pressed]="selectedCategory === category" (click)="filterByCategory(category)">{{categoryLabel(category)}}</button></div><button mat-button class="ng-clear-button" type="button" *ngIf="selectedCategory || searchQuery" (click)="clearFilters()"><mat-icon>close</mat-icon> Reset</button></div>
+    <div class="ng-filter-status"><span><strong>{{filteredDishes.length}}</strong> results</span><span *ngIf="searchQuery">Matching “{{searchQuery}}”</span><span>Updated from live menu data</span></div>
   </section>
 
-  <!-- Menu Stats Section -->
-  <section class="menu-stats-section" [@expand]>
-    <div class="stats-content">
-      <div class="stats-grid" fxLayout="row wrap" fxLayoutGap="30px">
-        <div fxFlex="calc(25% - 22.5px)" class="stat-item" [@fadeInUp]>
-          <div class="stat-icon">
-            <i class="fa fa-cutlery"></i>
-          </div>
-          <div class="stat-number">{{filteredDishes?.length || dishes?.length || 0}}</div>
-          <div class="stat-label">Available Dishes</div>
-        </div>
-        <div fxFlex="calc(25% - 22.5px)" class="stat-item" [@fadeInUp]>
-          <div class="stat-icon">
-            <i class="fa fa-star"></i>
-          </div>
-          <div class="stat-number">{{categories?.length || 0}}</div>
-          <div class="stat-label">Categories</div>
-        </div>
-        <div fxFlex="calc(25% - 22.5px)" class="stat-item" [@fadeInUp]>
-          <div class="stat-icon">
-            <i class="fa fa-leaf"></i>
-          </div>
-          <div class="stat-number">{{getFeaturedDishesCount()}}</div>
-          <div class="stat-label">Featured Dishes</div>
-        </div>
-        <div fxFlex="calc(25% - 22.5px)" class="stat-item" [@fadeInUp]>
-          <div class="stat-icon">
-            <i class="fa fa-heart"></i>
-          </div>
-          <div class="stat-number">{{getFavoriteDishesCount()}}</div>
-          <div class="stat-label">Your Favorites</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Menu Content Section -->
-  <section class="menu-content-section" [@expand]>
-    <div fxFlex *ngIf="filteredDishes && filteredDishes.length > 0" class="menu-content">
-      <div class="menu-grid" 
-           fxLayout="row wrap" 
-           fxLayoutGap="40px" 
-           fxLayoutAlign="start start">
-        
-        <div fxFlex="calc(50% - 20px)" 
-             *ngFor="let dish of filteredDishes; let i = index" 
-             class="menu-item"
-             [routerLink]="['/dishdetail',dish.id]" 
-             [@fadeInScale]
-             [style.animation-delay]="(i * 0.1) + 's'">
-          
-          <mat-card class="menu-card">
-            <div class="image-container">
-              <img mat-card-image src="{{ dish.image }}" alt={{dish.name}}>
-              <div class="image-overlay">
-                <div class="overlay-content">
-                  <i class="fa fa-cutlery"></i>
-                  <span class="overlay-text">View Details</span>
-                </div>
-              </div>
-              <div class="dish-badge">
-                <span class="luxury-badge small">
-                  <i class="fa fa-star"></i>
-                  Chef's Selection
-                </span>
-              </div>
-              <div class="price-badge">
-                <span class="price-tag">${{dish.price}}</span>
-              </div>
-            </div>
-            
-            <mat-card-content class="menu-card-content">
-              <div class="dish-header">
-                <h3 class="dish-name">{{dish.name | uppercase}}</h3>
-                <div class="dish-rating" [title]="(dish.comments?.length || 0) + ' reviews'">
-                  <i class="fa"
-                     *ngFor="let star of [1,2,3,4,5]"
-                     [class.fa-star]="star <= getAverageRating(dish)"
-                     [class.fa-star-o]="star > getAverageRating(dish)"></i>
-                  <span class="review-count">({{ dish.comments?.length || 0 }})</span>
-                </div>
-              </div>
-              
-              <p class="dish-description">{{dish.description}}</p>
-              
-              <div class="dish-meta">
-                <div class="dish-category">
-                  <i class="fa fa-tag"></i>
-                  <span>{{dish.category}}</span>
-                </div>
-                <div class="dish-features">
-                  <span class="feature-tag" *ngIf="dish.featured">
-                    <i class="fa fa-fire"></i>
-                    Featured
-                  </span>
-                  <span class="feature-tag" *ngIf="dish.spicy">
-                    <i class="fa fa-pepper-hot"></i>
-                    Spicy
-                  </span>
-                </div>
-              </div>
-              
-              <div class="dish-actions">
-                <button mat-stroked-button class="view-details-btn">
-                  <i class="fa fa-eye"></i>
-                  View Details
-                </button>
-                <button mat-icon-button class="favorite-btn" (click)="toggleFavorite(dish, $event)">
-                  <i class="fa" [class.fa-heart]="dish.favorite" [class.fa-heart-o]="!dish.favorite"></i>
-                </button>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-    </div>
-
-    <!-- No Results Section -->
-    <div fxFlex *ngIf="filteredDishes && filteredDishes.length === 0" 
-         fxLayout="column" 
-         fxLayoutAlign="center center" 
-         class="no-results-section">
-      <div class="no-results-content">
-        <div class="no-results-icon">
-          <i class="fa fa-search"></i>
-        </div>
-        <h3>No dishes found</h3>
-        <p>Try a different search or category, or clear your filters.</p>
-        <button mat-raised-button color="accent" (click)="clearFilters()">
-          <i class="fa fa-refresh"></i>
-          Clear Filters
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Enhanced Loading Section -->
-  <section fxFlex *ngIf="!dishes && !errMess" 
-           fxLayout="column" 
-           fxLayoutAlign="center center" 
-           class="loading-section">
-    <div class="loading-content">
-      <div class="loading-spinner">
-        <div class="spinner-ring"></div>
-        <div class="spinner-ring"></div>
-        <div class="spinner-ring"></div>
-      </div>
-      <h4>Crafting your dining experience...</h4>
-      <p>Loading our finest culinary creations</p>
-    </div>
-  </section>
-
-  <!-- Error Section -->
-  <section fxFlex *ngIf="errMess" 
-           fxLayout="column" 
-           fxLayoutAlign="center center" 
-           class="error-section">
-    <div class="error-content">
-      <div class="error-icon">
-        <i class="fa fa-exclamation-triangle"></i>
-      </div>
-      <h2>Menu Temporarily Unavailable</h2>
-      <h4>{{errMess}}</h4>
-      <button mat-raised-button color="accent" class="retry-button" (click)="retryLoad()">
-        <i class="fa fa-refresh"></i>
-        Try Again
-      </button>
-    </div>
-  </section>
-
-  <!-- Call to Action Section -->
-  <section class="menu-cta-section" [@expand]>
-    <div class="cta-content">
-      <h3 class="cta-title">Ready to Experience Our Menu?</h3>
-      <p class="cta-description">
-        Explore our culinary creations and discover your next favorite dish.
-      </p>
-      <div class="cta-actions">
-        <button mat-raised-button color="accent" class="cta-button" routerLink="/contactus">
-          <i class="fa fa-envelope"></i>
-          Contact Us
-        </button>
-      </div>
-    </div>
-  </section>
-
-</div>
+  <div class="ng-loading-state" *ngIf="loading"><mat-spinner diameter="34"></mat-spinner><span>Loading the current menu</span></div>
+  <section class="ng-menu-error" *ngIf="!loading && errMess"><mat-icon>cloud_off</mat-icon><h2>The menu could not load.</h2><p>{{errMess}}</p><button mat-flat-button color="primary" (click)="loadDishes()">Retry</button></section>
+  <ng-container *ngIf="!loading && !errMess">
+    <section class="ng-dish-grid" aria-label="Dishes" *ngIf="filteredDishes.length; else noDishes">
+      <mat-card class="ng-dish-card" *ngFor="let dish of filteredDishes" [routerLink]="['/dishdetail', dish.id]">
+        <div class="ng-dish-image"><img [src]="dish.image" [alt]="dish.name" loading="lazy"><span class="ng-dish-label" *ngIf="dish.label">{{dish.label}}</span><span class="ng-featured-label" *ngIf="dish.featured"><mat-icon>star</mat-icon> Featured</span></div>
+        <mat-card-content>
+          <div class="ng-dish-kicker"><span>{{categoryLabel(dish.category)}}</span><strong>${{dish.price}}</strong></div>
+          <h2>{{dish.name}}</h2><p class="ng-dish-description">{{dish.description}}</p>
+          <div class="ng-dish-divider"></div>
+          <div class="ng-dish-meta"><span *ngIf="dish.comments && dish.comments.length; else unrated"><mat-icon>star</mat-icon>{{getAverageRating(dish) | number:'1.1-1'}}<small>· {{dish.comments.length}} {{dish.comments.length === 1 ? 'review' : 'reviews'}}</small></span><ng-template #unrated><span class="ng-unrated">No reviews yet</span></ng-template><span class="ng-view-link">View details <mat-icon>arrow_outward</mat-icon></span></div>
+        </mat-card-content>
+      </mat-card>
+    </section>
+    <ng-template #noDishes><section class="ng-no-results"><mat-icon>search_off</mat-icon><span class="ng-section-index">NO MATCHES</span><h2>Nothing on this plate.</h2><p>Try a different search, or reset the filters to see the full menu.</p><button mat-stroked-button type="button" (click)="clearFilters()">Reset menu</button></section></ng-template>
+    <section class="ng-menu-summary"><div><span class="ng-section-index">MENU SNAPSHOT</span></div><div><strong>{{getFeaturedDishesCount()}}</strong><span>featured</span></div><div><strong>{{getMenuAverageRating()}}</strong><span>average rating</span></div><div><strong>{{getReviewCount()}}</strong><span>guest reviews</span></div></section>
+  </ng-container>
+</main>

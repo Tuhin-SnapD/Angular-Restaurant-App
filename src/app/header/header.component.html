@@ -1,106 +1,29 @@
-<mat-toolbar color="primary" class="main-toolbar">
-  <div class="toolbar-content">
-    <div class="brand-section">
-      <span class="restaurant-name" routerLink="/home">
-        <i class="fa fa-cutlery brand-icon"></i>
-        <strong>L'Artisan Culinaire</strong>
-      </span>
-    </div>
-    
-    <!-- Desktop Navigation -->
-    <nav class="navigation-section desktop-nav">
-      <a mat-button routerLink='/home' routerLinkActive='active' class="nav-link">
-        <i class="fa fa-home"></i>
-        <span class="nav-text">Home</span>
-      </a>
-      <a mat-button routerLink='/about' routerLinkActive='active' class="nav-link">
-        <i class="fa fa-info-circle"></i>
-        <span class="nav-text">About</span>
-      </a>
-      <a mat-button routerLink='/menu' routerLinkActive='active' class="nav-link">
-        <i class="fa fa-cutlery"></i>
-        <span class="nav-text">Menu</span>
-      </a>
-      <a mat-button routerLink='/contactus' routerLinkActive='active' class="nav-link">
-        <i class="fa fa-address-card"></i>
-        <span class="nav-text">Contact</span>
-      </a>
+<header class="ng-toolbar-wrap">
+  <mat-toolbar class="ng-toolbar">
+    <a class="ng-brand" routerLink="/home" aria-label="L'Étoile kitchen home">
+      <span class="ng-brand-symbol"><mat-icon>restaurant</mat-icon></span>
+      <span class="ng-brand-copy"><strong>L'ÉTOILE</strong><small>KITCHEN · DINING · SERVICE</small></span>
+    </a>
+    <span class="ng-toolbar-spacer"></span>
+    <nav class="ng-desktop-nav" aria-label="Main navigation">
+      <a mat-button routerLink="/home" routerLinkActive="ng-active" [routerLinkActiveOptions]="{exact: true}"><mat-icon>dashboard</mat-icon>Home</a>
+      <a mat-button routerLink="/menu" routerLinkActive="ng-active"><mat-icon>restaurant_menu</mat-icon>Menu</a>
+      <a mat-button routerLink="/about" routerLinkActive="ng-active"><mat-icon>groups</mat-icon>Our team</a>
+      <a mat-button routerLink="/contactus" routerLinkActive="ng-active"><mat-icon>event</mat-icon>Visit us</a>
     </nav>
-    
-    <div class="toolbar-actions">
-      <!-- Search Button -->
-      <button mat-icon-button class="action-button" aria-label="Search" (click)="toggleSearch()">
-        <i class="fa fa-search"></i>
-      </button>
-      
-      <!-- Reservations Button -->
-      <button mat-icon-button class="action-button" aria-label="Reservations" (click)="openReservations()">
-        <i class="fa fa-calendar"></i>
-      </button>
-      
-      <!-- Phone Button -->
-      <button mat-icon-button class="action-button" aria-label="Phone" (click)="callPhone()">
-        <i class="fa fa-phone"></i>
-      </button>
-      
-      <!-- Mobile Menu Toggle -->
-      <button mat-icon-button class="mobile-menu-toggle" aria-label="Menu" (click)="toggleMobileMenu()">
-        <i class="fa fa-bars"></i>
-      </button>
-    </div>
-  </div>
-  
-  <!-- Search Bar -->
-  <div class="search-container" [class.active]="searchActive">
-    <div class="search-content">
-      <mat-form-field appearance="outline" class="search-field">
-        <mat-label>Search our menu...</mat-label>
-        <input matInput placeholder="Try 'pasta', 'steak', or 'dessert'" [(ngModel)]="searchQuery" (keyup.enter)="performSearch()">
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-      <button mat-icon-button class="close-search" (click)="toggleSearch()">
-        <i class="fa fa-times"></i>
-      </button>
-    </div>
-  </div>
-</mat-toolbar>
-
-<!-- Mobile Navigation Menu -->
-<div class="mobile-menu" [class.active]="mobileMenuActive" (click)="onMobileMenuClick($event)">
-  <div class="mobile-menu-content">
-    <div class="mobile-menu-header">
-      <h3>Menu</h3>
-      <button mat-icon-button (click)="toggleMobileMenu()">
-        <i class="fa fa-times"></i>
-      </button>
-    </div>
-    <nav class="mobile-nav">
-      <a mat-button routerLink='/home' routerLinkActive='active' class="mobile-nav-link" (click)="toggleMobileMenu()">
-        <i class="fa fa-home"></i>
-        <span>Home</span>
-      </a>
-      <a mat-button routerLink='/about' routerLinkActive='active' class="mobile-nav-link" (click)="toggleMobileMenu()">
-        <i class="fa fa-info-circle"></i>
-        <span>About</span>
-      </a>
-      <a mat-button routerLink='/menu' routerLinkActive='active' class="mobile-nav-link" (click)="toggleMobileMenu()">
-        <i class="fa fa-cutlery"></i>
-        <span>Menu</span>
-      </a>
-      <a mat-button routerLink='/contactus' routerLinkActive='active' class="mobile-nav-link" (click)="toggleMobileMenu()">
-        <i class="fa fa-address-card"></i>
-        <span>Contact</span>
-      </a>
-    </nav>
-    <div class="mobile-actions">
-      <button mat-raised-button color="accent" class="mobile-cta" (click)="openReservations()">
-        <i class="fa fa-calendar"></i>
-        Make Reservation
-      </button>
-      <button mat-stroked-button class="mobile-secondary" (click)="callPhone()">
-        <i class="fa fa-phone"></i>
-        Call Us
-      </button>
-    </div>
-  </div>
-</div>
+    <button mat-icon-button class="ng-search-trigger" type="button" aria-label="Search menu" [attr.aria-expanded]="searchActive" (click)="toggleSearch()"><mat-icon>search</mat-icon></button>
+    <a mat-flat-button color="primary" class="ng-reservation-link" routerLink="/reservations">Reserve a table <mat-icon>arrow_outward</mat-icon></a>
+    <button mat-icon-button class="ng-mobile-toggle" type="button" [attr.aria-expanded]="mobileMenuActive" aria-label="Toggle navigation" (click)="toggleMobileMenu()"><mat-icon>{{mobileMenuActive ? 'close' : 'menu'}}</mat-icon></button>
+  </mat-toolbar>
+  <nav class="ng-mobile-nav" [class.ng-mobile-nav-open]="mobileMenuActive" aria-label="Mobile navigation">
+    <a mat-button routerLink="/home" (click)="closeMobileMenu()">Home</a>
+    <a mat-button routerLink="/menu" (click)="closeMobileMenu()">Menu</a>
+    <a mat-button routerLink="/about" (click)="closeMobileMenu()">Our team</a>
+    <a mat-button routerLink="/contactus" (click)="closeMobileMenu()">Visit us</a>
+    <a mat-button routerLink="/reservations" (click)="closeMobileMenu()"><mat-icon>event</mat-icon> Reserve a table</a>
+  </nav>
+  <form class="ng-search-panel" *ngIf="searchActive" (ngSubmit)="performSearch()">
+    <mat-form-field appearance="outline"><mat-label>Search the menu</mat-label><mat-icon matPrefix>search</mat-icon><input matInput name="searchQuery" [(ngModel)]="searchQuery" placeholder="Try truffle, mains, dessert"></mat-form-field>
+    <button mat-flat-button color="primary" type="submit">Search <mat-icon>arrow_forward</mat-icon></button>
+  </form>
+</header>

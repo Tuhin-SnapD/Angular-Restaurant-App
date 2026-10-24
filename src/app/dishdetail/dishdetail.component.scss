@@ -976,3 +976,125 @@ button:focus, input:focus, textarea:focus {
         display: none;
     }
 }
+// Detail view keeps Angular's Material language: cool surfaces, compact labels,
+// and structured review controls that match the rest of the Angular dashboard.
+.dish-detail-container {
+  display: grid !important;
+  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  align-items: start !important;
+  gap: 16px !important;
+  width: min(1240px, calc(100% - 48px));
+  min-height: auto;
+  margin: 28px auto 56px;
+  padding: 0;
+  background: transparent;
+}
+
+.dish-detail-container > .dish-card-wrapper,
+.dish-detail-container > .comments-wrapper {
+  width: auto !important;
+  max-width: none !important;
+  margin: 0;
+}
+
+.dish-detail-container .mat-card {
+  overflow: hidden;
+  border: 1px solid #dce6e3;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 5px 18px rgba(25, 48, 54, .05);
+}
+
+.dish-detail-container .dish-card { position: sticky; top: 102px; }
+.dish-detail-container .dish-header { padding: 22px 22px 18px; background: #182d35; color: #f5faf8; }
+.dish-detail-container .dish-title h2 { margin: 12px 0 10px; color: #fff; font: 600 clamp(24px, 3vw, 36px)/1.12 'Space Grotesk', sans-serif; letter-spacing: -.8px; }
+.dish-detail-container .category-badge { position: static; display: inline-flex; padding: 6px 9px; border: 1px solid rgba(116, 224, 197, .34); border-radius: 4px; background: rgba(116, 224, 197, .1); color: #83e1c5; font: 500 9px 'DM Mono', monospace; letter-spacing: .12em; }
+.dish-detail-container .dish-meta { gap: 10px; }
+.dish-detail-container .price { color: #82dfc2; font: 600 16px 'DM Mono', monospace; }
+.dish-detail-container .featured-badge { border-radius: 4px; background: #d9ef69; color: #182d35; font-size: 9px; }
+.dish-detail-container .image-container { height: 260px; }
+.dish-detail-container .dish-image { display: block; width: 100%; height: 100%; object-fit: cover; }
+.dish-detail-container .dish-content { padding: 20px 22px; }
+.dish-detail-container .description-section, .dish-detail-container .labels-section { margin-bottom: 15px; }
+.dish-detail-container .section-title { margin: 0 0 9px; padding-bottom: 8px; border-bottom: 1px solid #e7eeec; color: #304950; font: 600 13px 'Space Grotesk', sans-serif; }
+.dish-detail-container .section-title mat-icon { color: #159982; }
+.dish-detail-container .dish-description { color: #697d82; font-size: 11px; line-height: 1.8; }
+.dish-detail-container .label-tag { padding: 6px 9px; border: 1px solid #cce8e0; border-radius: 4px; background: #eaf7f2; color: #24806f; font: 500 9px 'DM Mono', monospace; }
+.dish-detail-container .dish-actions { padding: 12px 18px; border-top: 1px solid #e7eeec; background: #f7faf9; }
+.dish-detail-container .action-buttons { gap: 8px; }
+.dish-detail-container .nav-button { width: 35px; height: 35px; box-shadow: none; }
+.dish-detail-container .back-button { min-height: 35px; border-radius: 5px; background: #203941; color: #fff; font: 500 9px 'Space Grotesk', sans-serif; letter-spacing: .02em; }
+.dish-detail-container .back-button mat-icon { margin-right: 5px; }
+.dish-detail-container .comments-wrapper { display: grid; align-content: start; gap: 12px; }
+.dish-detail-container .comments-card, .dish-detail-container .preview-card, .dish-detail-container .review-form-card { padding: 0; }
+.dish-detail-container .comments-header, .dish-detail-container .form-header, .dish-detail-container .preview-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px 12px; border-bottom: 1px solid #e8efed; }
+.dish-detail-container .comments-title, .dish-detail-container .form-title, .dish-detail-container .preview-title { display: flex; align-items: center; gap: 8px; margin: 0; color: #243d44; font: 600 16px 'Space Grotesk', sans-serif; }
+.dish-detail-container .comments-title mat-icon, .dish-detail-container .form-title mat-icon, .dish-detail-container .preview-title mat-icon { color: #139681; }
+.dish-detail-container .comment-count { color: #7b8e90; font: 9px 'DM Mono', monospace; }
+.dish-detail-container .comments-content, .dish-detail-container .form-content, .dish-detail-container .preview-content { padding: 12px 18px 17px; }
+.dish-detail-container .comments-list { display: grid; gap: 8px; }
+.dish-detail-container .comment-item, .dish-detail-container .preview-comment { padding: 12px; border: 1px solid #e4ece9; border-left: 2px solid #38a994; border-radius: 5px; background: #fbfdfc; }
+.dish-detail-container .comment-header, .dish-detail-container .preview-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0; border: 0; }
+.dish-detail-container .comment-author, .dish-detail-container .author-name { color: #314a50; font: 600 10px 'Space Grotesk', sans-serif; }
+.dish-detail-container .comment-date, .dish-detail-container .preview-date { color: #91a09f; font: 8px 'DM Mono', monospace; }
+.dish-detail-container .stars mat-icon, .dish-detail-container .rating-display mat-icon { color: #d9a940; }
+.dish-detail-container .comment-text, .dish-detail-container .preview-text { margin: 8px 0 0; color: #64787d; font-size: 10px; line-height: 1.7; }
+.dish-detail-container .review-form { display: grid; gap: 4px; }
+.dish-detail-container .form-field { width: 100%; font-size: 11px; }
+.dish-detail-container .rating-section { padding: 4px 0 8px; }
+.dish-detail-container .rating-label { color: #50676d; font-size: 10px; }
+.dish-detail-container .rating-slider { width: 100%; }
+.dish-detail-container .submit-button { border-radius: 5px; background: #183b40; color: #fff; font-size: 10px; }
+.dish-detail-container .no-comments { padding: 24px; border: 1px dashed #ccdbd7; border-radius: 6px; color: #738688; text-align: center; }
+.dish-detail-container .loading-container, .dish-detail-container .error-container { grid-column: 1 / -1; }
+
+@media (max-width: 760px) {
+  .dish-detail-container { grid-template-columns: 1fr; width: calc(100% - 30px); margin: 18px auto 35px; }
+  .dish-detail-container .dish-card { position: static; }
+  .dish-detail-container .image-container { height: 230px; }
+}
+
+// The original component rules are intentionally specific; these scoped
+// overrides keep the revamped Material treatment in control on this route.
+.dish-detail-container [hidden] { display: none !important; }
+.dish-detail-container > .dish-card-wrapper,
+.dish-detail-container > .comments-wrapper { flex: 1 1 auto !important; width: 100% !important; min-width: 0; }
+.dish-detail-container .dish-card-wrapper .dish-card { position: sticky; top: 102px; border: 1px solid #dce6e3; border-radius: 10px; background: #fff; box-shadow: 0 5px 18px rgba(25,48,54,.05); }
+.dish-detail-container .dish-card-wrapper .dish-card .dish-header { padding: 22px 22px 18px !important; background: #182d35 !important; color: #f5faf8 !important; }
+.dish-detail-container .dish-card-wrapper .dish-card .dish-header .dish-title h2 { margin: 12px 0 10px; color: #fff !important; font: 600 clamp(24px,3vw,36px)/1.12 'Space Grotesk',sans-serif !important; letter-spacing: -.8px; }
+.dish-detail-container .dish-card-wrapper .dish-card .dish-header .category-badge { position: static; display: inline-flex; padding: 6px 9px; border: 1px solid rgba(116,224,197,.34); border-radius: 4px; background: rgba(116,224,197,.1) !important; color: #83e1c5 !important; font: 500 9px 'DM Mono',monospace; letter-spacing: .12em; }
+.dish-detail-container .dish-card-wrapper .dish-card .dish-header .dish-meta .price { color: #82dfc2 !important; font: 600 16px 'DM Mono',monospace; }
+.dish-detail-container .dish-card-wrapper .dish-card .dish-header .featured-badge { border-radius: 4px; background: #d9ef69 !important; color: #182d35 !important; font-size: 9px; }
+.dish-detail-container .dish-card-wrapper .dish-card .image-container { height: 260px; }
+.dish-detail-container .dish-card-wrapper .dish-card .image-container .dish-image { width: 100%; height: 100%; object-fit: cover; }
+.dish-detail-container .dish-card-wrapper .dish-card .dish-content { padding: 20px 22px; }
+.dish-detail-container .dish-card-wrapper .dish-card .dish-content .section-title { margin: 0 0 9px; padding-bottom: 8px; border-bottom: 1px solid #e7eeec; color: #304950; font: 600 13px 'Space Grotesk',sans-serif; }
+.dish-detail-container .dish-card-wrapper .dish-card .dish-content .section-title mat-icon { color: #159982; }
+.dish-detail-container .dish-card-wrapper .dish-card .dish-content .dish-description { color: #697d82; font-size: 11px; line-height: 1.8; }
+.dish-detail-container .dish-card-wrapper .dish-card .dish-actions { padding: 12px 18px; border-top: 1px solid #e7eeec; background: #f7faf9; }
+.dish-detail-container .comments-wrapper .comments-card,
+.dish-detail-container .comments-wrapper .preview-card,
+.dish-detail-container .comments-wrapper .review-form-card { border: 1px solid #dce6e3; border-radius: 10px; background: #fff; box-shadow: 0 5px 18px rgba(25,48,54,.05); }
+.dish-detail-container .comments-wrapper .comments-title,
+.dish-detail-container .comments-wrapper .form-title,
+.dish-detail-container .comments-wrapper .preview-title { color: #243d44; font: 600 16px 'Space Grotesk',sans-serif; }
+.dish-detail-container .comments-wrapper .comments-title mat-icon,
+.dish-detail-container .comments-wrapper .form-title mat-icon,
+.dish-detail-container .comments-wrapper .preview-title mat-icon { color: #139681; }
+.dish-detail-container .comments-wrapper .comments-card .comments-header { padding: 15px 18px; border-bottom: 1px solid #e5eeeb; background: #f4f9f7 !important; color: #243d44 !important; }
+.dish-detail-container .comments-wrapper .comments-card .comments-header .comments-title { color: #243d44 !important; }
+.dish-detail-container .comments-wrapper .comments-card .comments-header .comments-title mat-icon { color: #139681 !important; }
+.dish-detail-container .comments-wrapper .comments-card .comments-content { padding: 12px 16px 16px !important; }
+.dish-detail-container .comments-wrapper .comments-card .comments-content .comments-list { display: grid; gap: 8px; }
+.dish-detail-container .comments-wrapper .comments-card .comments-content .comments-list .comment-item { margin: 0 !important; padding: 12px !important; border: 1px solid #e4ece9 !important; border-left: 2px solid #38a994 !important; border-radius: 5px !important; background: #fbfdfc !important; }
+.dish-detail-container .comments-wrapper .comments-card .comments-content .comments-list .comment-item .comment-author { color: #314a50 !important; font: 600 10px 'Space Grotesk',sans-serif !important; }
+.dish-detail-container .comments-wrapper .comments-card .comments-content .comments-list .comment-item .comment-text { margin: 8px 0 0; color: #64787d !important; font: 400 10px/1.7 'Space Grotesk',sans-serif !important; }
+.dish-detail-container .comments-wrapper .comments-card .comments-content .comments-list .comment-item .comment-date { color: #91a09f !important; font: 8px 'DM Mono',monospace !important; }
+.dish-detail-container .comments-wrapper .review-form-card .form-header { padding: 15px 18px !important; background: #f4f9f7 !important; color: #243d44 !important; }
+.dish-detail-container .comments-wrapper .review-form-card .form-content { padding: 14px 18px 18px !important; }
+.dish-detail-container .comments-wrapper .review-form-card .form-content .form-field { width: 100%; font-size: 11px; }
+.dish-detail-container .comments-wrapper .review-form-card .form-content .submit-button { border-radius: 5px; background: #183b40 !important; color: #fff !important; }
+@media (max-width: 760px) {
+  .dish-detail-container .dish-card-wrapper .dish-card { position: static; }
+  .dish-detail-container .dish-card-wrapper .dish-card .image-container { height: 230px; }
+}

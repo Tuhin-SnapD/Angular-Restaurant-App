@@ -84,6 +84,7 @@ export class ContactComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       agree: false,
       contactType: 'Tel.',
+      feedbackType: 'general',
       message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]]
     });
 	  this.feedbackForm.valueChanges
@@ -156,6 +157,7 @@ export class ContactComponent implements OnInit {
       email: '',
       agree: false,
       contactType: 'Tel.',
+      feedbackType: 'general',
       message: ''
     });
 
